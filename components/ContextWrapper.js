@@ -3,5 +3,5 @@ import { useState } from "react";
 
 export default function ContextWrapper({ children, navigation }) {
   const [menuItems] = useState(navigation);
-  return <HeaderContext.Provider>{children}</HeaderContext.Provider>;
+  return <HeaderContext.Provider value={{menuItems}}>{children}</HeaderContext.Provider>;
 }

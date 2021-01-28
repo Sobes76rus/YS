@@ -1,5 +1,3 @@
-const url = `http://localhost:1337`;
-
 const Movie = ({ album }) => {
   return (
     <>
@@ -13,8 +11,10 @@ const Movie = ({ album }) => {
 export default Movie;
 
 export async function getServerSideProps(ctx) {
+  const { API_URL } = process.env;
   const { slug } = ctx.query;
-  const res = await fetch(`${url}/albums?slug=${slug}`);
+
+  const res = await fetch(`${API_URL}/albums?slug=${slug}`);
   const data = await res.json();
   return {
     props: { album: data[0] },

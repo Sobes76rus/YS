@@ -1,6 +1,5 @@
 import fetch from "isomorphic-unfetch";
 import Card from "../components/Card";
-const API_URL = "http://localhost:1337";
 
 const Index = ({ albums }) => {
   return (
@@ -17,6 +16,7 @@ const Index = ({ albums }) => {
 };
 
 export async function getServerSideProps() {
+  const { API_URL } = process.env;
   const res = await fetch(`${API_URL}/albums`);
   const data = await res.json();
 

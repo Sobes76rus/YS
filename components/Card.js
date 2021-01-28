@@ -1,7 +1,6 @@
 import Link from "next/link";
 
 export default function Card({ item }) {
-  const url = "http://localhost:1337";
   return (
     <>
       <div className="card-body">
@@ -9,10 +8,13 @@ export default function Card({ item }) {
           {item.artist + " " + "-" + " " + item.album_name}
         </h4>
       </div>
-      <Link href="../pages/albums/[slug].js" as={`/albums/${item.slug}`}>
+      <Link
+        href="/albums/[genre]/[slug]"
+        as={`/albums/${item.genre.slug}/${item.slug}`}
+      >
         <a>
           <img
-            src={url + item.cover.url}
+            src={item.album_cover.url}
             className="card-img-bottom"
             alt="..."
           ></img>
