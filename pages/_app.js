@@ -9,8 +9,9 @@ export default function myApp({ Component, pageProps }) {
   return (
     <>
       <DefaultSeo {...SEO} />
-      <Header />
-
+      <ContextWrapper>
+        <Header />
+      </ContextWrapper>
       <Component {...pageProps} />
     </>
   );
