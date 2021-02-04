@@ -1,13 +1,11 @@
 import Link from "next/link";
 import { useContext, useEffect } from "react";
 import { useRouter } from "next/router";
-
 import HeaderContext from "../contexts/HeaderContext";
 
-export default function Header() {
+const Header = ({ navigation }) => {
   const { loggedIn, isBlack, setIsBlack } = useContext(HeaderContext);
   const router = useRouter();
-
   const onChangeBlack = () => {
     if (
       router.pathname === "/first-post" ||
@@ -40,21 +38,18 @@ export default function Header() {
             </a>
           </Link>
           <ul className="list-group flex-row list-unstyled flex justify-content-end">
-            <li className="nav-item">
-              <Link href="/first-post">
-                <a className="nav-link">To the first post</a>
-              </Link>
-            </li>
-            {loggedIn && (
-              <li className="nav-item">
-                <Link href="/second-post">
-                  <a className="nav-link">To the second post</a>
+            {navigation.map((item) => (
+              <li className="nav-item" key={item.id}>
+                <Link href={`${item.Slug}`}>
+                  <a className="nav-link">{item.Title}</a>
                 </Link>
               </li>
-            )}
+            ))}
           </ul>
         </div>
       </nav>
     </header>
   );
-}
+};
+
+export default Header;

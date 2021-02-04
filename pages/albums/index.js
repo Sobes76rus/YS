@@ -1,4 +1,3 @@
-const API_URL = "http://localhost:1337";
 import fetch from "isomorphic-unfetch";
 import { useRouter } from "next/router";
 
@@ -35,6 +34,7 @@ function MoviesPage({ albums, page, numberOfAlbums }) {
 }
 
 export async function getServerSideProps({ query: { page = 1 } }) {
+  const { API_URL } = process.env;
   const start = +page === 1 ? 0 : (+page - 1) * 3;
   const numberOfAlbumsRes = await fetch(`${API_URL}/albums/count`);
   const numberOfAlbums = await numberOfAlbumsRes.json();
