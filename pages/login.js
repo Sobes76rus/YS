@@ -1,5 +1,3 @@
-const { API_URL } = process.env;
-
 function Login() {
   return (
     <form className="form-signin">
@@ -32,9 +30,10 @@ function Login() {
         placeholder="Password"
         required=""
       />
-      <div className="checkbox mb-3">
-        <label>
-          <input type="checkbox" value="remember-me"></input>
+      <div className="checkbox my-2">
+        <label className="d-flex align-items-center justify-content-center">
+          <div className="mx-1">Remember me</div>
+          <input type="checkbox" value="remember-me" />
         </label>
       </div>
       <button className="btn btn-lg btn-primary btn-block" type="submit">
