@@ -3,47 +3,40 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import Header from "../components/header";
 import { DefaultSeo } from "next-seo";
 import SEO from "../next-seo.config";
-import ContextWrapper from "../components/ContextWrapper";
-import Router from "next/router";
+import ContextWrapper from "../contexts/ContextWrapper";
+import { useRouter } from "next/router";
+import getConfig from "next/config";
 
-function myApp({ Component, pageProps, navigation }) {
+const { publicRuntimeConfig } = getConfig();
+
+function MyApp({ Component, pageProps, navigation }) {
   return (
     <>
       <DefaultSeo {...SEO} />
       <ContextWrapper>
         <Header navigation={navigation} />
+        <Component {...pageProps} />
       </ContextWrapper>
-      <Component {...pageProps} />
     </>
   );
 }
 
-function redirectUser(ctx, location) {
-  if (ctx.req && !token) {
-    ctx.res.writeHead(302, { Location: location });
-    ctx.res.end();
-    return; // should be added IMO.
-  }
-
-  // We already checked for server. This should only happen on client.
-  if (!token) {
-    Router.push(location);
-  }
-
-  return token;
-}
-
-myApp.getInitialProps = async (ctx) => {
+MyApp.getInitialProps = async ({ Component, ctx }) => {
   const jwt = false;
-  const { API_URL } = process.env;
-  const res = await fetch(`${API_URL}/navigations`);
+  let pageProps = {};
+
+  const res = await fetch(`${publicRuntimeConfig.API_URL}/navigations`);
   const navigation = await res.json();
 
-  if (ctx.pathname === "/payed-articles") {
-    redirectUser(ctx, "/login");
+  if (Component.getInitialProps) {
+    pageProps = await Component.getInitialProps(ctx);
   }
 
-  return { navigation };
+  return {
+    pageProps,
+    navigation,
+    jwt,
+  };
 };
 
-export default myApp;
+export default MyApp;
