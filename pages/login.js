@@ -42,6 +42,6 @@ const Login = () => {
       <p className="mt-5 mb-3 text-muted">© 2017-2018</p>
     </form>
   );
-}
+};
 
 export default Login;
