@@ -1,4 +1,4 @@
-function Login() {
+const Login = () => {
   return (
     <form className="form-signin">
       <img
