@@ -1,15 +1,16 @@
 import AuthContext from "../contexts/AuthContext";
 import { useContext } from "react";
-import login from "./api/login";
-import { NextApiResponse } from "next";
+import jwt from "jsonwebtoken";
 
 const Login = () => {
   const { userName, setUserName, password, setPassword } = useContext(
     AuthContext
   );
-
-  async function handleLogin() {
-    console.log(NextApiResponse);
+  async function submitForm() {
+    const res = await fetch("./api/login", {
+      method: "POST",
+      body: JSON.stringify({ userName, password }),
+    });
   }
 
   return (
@@ -26,7 +27,8 @@ const Login = () => {
         Email address
       </label>
       <input
-        type="email"
+        type="text"
+        name="email"
         id="inputEmail"
         className="form-control"
         placeholder="Email address"
@@ -40,6 +42,7 @@ const Login = () => {
       </label>
       <input
         type="password"
+        name="password"
         id="inputPassword"
         className="form-control"
         placeholder="Password"
@@ -53,13 +56,12 @@ const Login = () => {
           <input type="checkbox" value="remember-me" />
         </label>
       </div>
-      <button
+      <input
         className="btn btn-lg btn-primary btn-block"
-        type="submit"
-        onClick={() => handleLogin()}
-      >
-        Sign in
-      </button>
+        type="button"
+        value="Sign in"
+        onClick={submitForm}
+      ></input>
       <p className="mt-5 mb-3 text-muted">© 2017-2018</p>
     </form>
   );
