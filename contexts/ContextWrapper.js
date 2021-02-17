@@ -1,16 +1,20 @@
 import { useState } from "react";
-import AuthContextProvider from "./AuthContext";
+import AuthContext from "./AuthContext";
 import AlbumsContext from "./AlbumsContext";
 import HeaderContext from "./HeaderContext";
 
 export default function ContextWrapper({ children }) {
+  const [userName, setUserName] = useState("");
+  const [password, setPassword] = useState("");
   const [isBlack, setIsBlack] = useState(false);
   const [albumTitle, setAlbumTitle] = useState();
   const [albumSlug, setAlbumSlug] = useState();
   const [albumImage, setAlbumImage] = useState();
 
   return (
-    <AuthContextProvider>
+    <AuthContext.Provider
+      value={{ userName, setUserName, password, setPassword }}
+    >
       <HeaderContext.Provider value={{ isBlack, setIsBlack }}>
         <AlbumsContext.Provider
           value={{
@@ -25,6 +29,6 @@ export default function ContextWrapper({ children }) {
           {children}
         </AlbumsContext.Provider>
       </HeaderContext.Provider>
-    </AuthContextProvider>
+    </AuthContext.Provider>
   );
 }

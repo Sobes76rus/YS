@@ -1,14 +1,20 @@
 import { useRouter } from "next/router";
+import AuthContext from "../contexts/AuthContext";
+import { useContext } from "react";
 import { useUser } from "../contexts/AuthContext";
 import { parseCookies } from "nookies";
 
 const PayedArticles = () => {
-  const user = useUser();
+  // const user = useUser();
+
+  const { userName, setUserName, password, setPassword } = useContext(
+    AuthContext
+  );
 
   const router = useRouter();
-  if (!user) {
-    router.push("/login");
-  }
+  // if (!user) {
+  //   router.push("/login");
+  // }
   return (
     <div className="container">
       <p>Payed Articles</p>

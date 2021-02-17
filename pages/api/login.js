@@ -16,10 +16,11 @@ export default async function login(req, res) {
     });
     const loginResponse = await login.json();
     setCookies(res, "jwt", loginResponse.jwt);
+    console.log(req);
     return res.status(200);
   }
-  if (req.method === "GET") {
-    return res.status(200).json({ Hello: "World" });
-  }
-  return res.status(405);
+  // if (req.method === "GET") {
+  //   return res.status(200).json({ Hello: "World" });
+  // }
+  // return res.status(405);
 }
