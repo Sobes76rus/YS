@@ -3,28 +3,36 @@ import AuthContext from "../contexts/AuthContext";
 import { useContext } from "react";
 import { useUser } from "../contexts/AuthContext";
 import { parseCookies } from "nookies";
+import getConfig from "next/config";
 
-const PayedArticles = () => {
+const PayedArticles = ({ articles }) => {
   // const user = useUser();
 
   const { userName, setUserName, password, setPassword } = useContext(
     AuthContext
   );
-
   const router = useRouter();
   // if (!user) {
   //   router.push("/login");
   // }
   return (
     <div className="container">
-      <p>Payed Articles</p>
+      <ul className="list-group">
+        {articles.map((item) => (
+          <li className="list-group-item" key={item.id}>
+            <h1>{item.Title}</h1>
+            <p>{item.Body}</p>
+          </li>
+        ))}
+      </ul>
     </div>
   );
 };
 
 export async function getServerSideProps(ctx) {
   const jwt = ctx.req.cookies.jwt;
-  console.log(jwt);
+  const { publicRuntimeConfig } = getConfig();
+
   if (!jwt) {
     return {
       redirect: {
@@ -33,7 +41,7 @@ export async function getServerSideProps(ctx) {
       },
     };
   }
-  const res = await fetch(`${API_URL}/payed-articles`, {
+  const res = await fetch(`${publicRuntimeConfig.API_URL}/payed-articles`, {
     headers: {
       Authorization: `Bearer ${jwt}`,
     },

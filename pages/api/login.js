@@ -5,13 +5,11 @@ import jwt from "jsonwebtoken";
 const KEY = "sdfhgsuoyh";
 
 export default async function login(req, res) {
-  // if (!req.body) {
-  //   res.status = 404;
-  //   res.end("Error");
-  //   return;
-  // }
-
-  const { email, password } = req.body;
+  if (!req.body) {
+    res.status = 404;
+    res.end("Error");
+    return;
+  }
 
   // res.json({
   //   token: jwt.sign(
@@ -24,18 +22,21 @@ export default async function login(req, res) {
   // });
 
   const { publicRuntimeConfig } = getConfig();
+
   if (req.method === "POST") {
-    const loginInfo = {
-      identifier: email,
-      password: password,
-    };
+    // const loginInfo = {
+    //   identifier: JSON.stringify().email,
+    //   password: JSON.stringify(req.body).password,
+    // };
+    const reqBody = req.body.toString();
+
     const login = await fetch(`${publicRuntimeConfig.API_URL}/auth/local`, {
       method: "POST",
       headers: {
         Accept: "application/json",
         "Content-Type": "application/json",
       },
-      body: JSON.stringify(loginInfo),
+      body: reqBody,
     });
     const loginResponse = await login.json();
     console.log(loginResponse);

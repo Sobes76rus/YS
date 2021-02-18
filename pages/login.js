@@ -1,16 +1,35 @@
 import AuthContext from "../contexts/AuthContext";
 import { useContext } from "react";
-import jwt from "jsonwebtoken";
+import getConfig from "next/config";
+import { setCookie } from "nookies";
+import Router from "next/router";
 
 const Login = () => {
   const { userName, setUserName, password, setPassword } = useContext(
     AuthContext
   );
+  const { publicRuntimeConfig } = getConfig();
   async function submitForm() {
-    const res = await fetch("./api/login", {
+    const loginInfo = {
+      identifier: userName,
+      password: password,
+    };
+    const login = await fetch(`${publicRuntimeConfig.API_URL}/auth/local`, {
       method: "POST",
-      body: JSON.stringify({ userName, password }),
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(loginInfo),
     });
+
+    const loginResponse = await login.json();
+
+    setCookie(null, "jwt", loginResponse.jwt, {
+      maxAge: 30 * 24 * 60 * 60,
+      path: "/",
+    });
+    Router.push("/payed-articles");
   }
 
   return (

@@ -20,19 +20,27 @@ function addAlbum() {
       Album_name: albumTitle,
       Slug: albumSlug,
     };
-
     const add = await fetch(`${publicRuntimeConfig.API_URL}/albums`, {
       method: "POST",
       headers: {
-        Authorization: "Bearer",
         Accept: "application/json",
         "Content-Type": "application/json",
       },
       body: JSON.stringify(albumsInfo),
     });
-
     const addResponse = await add.json();
     console.log(addResponse);
+
+    // const add = await fetch(`${publicRuntimeConfig.API_URL}/albums`, {
+    //   method: "POST",
+    //   headers: {
+    //     Accept: "application/json",
+    //     "Content-Type": "application/json",
+    //   },
+    //   body: JSON.stringify(albumsInfo),
+    // });
+
+    // const addResponse = await add.json();
   }
 
   return (
@@ -59,8 +67,8 @@ function addAlbum() {
           value={albumImage || ""}
           onChange={(e) => setAlbumImage(e.target.value)}
         />
-        <button type="button" onClick={() => addAlbum()}>
-          Add Movie
+        <button type="button" onClick={addAlbum}>
+          Add Album
         </button>
       </form>
     </div>
