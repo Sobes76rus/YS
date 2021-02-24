@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 
 export default function Card({ item }) {
   return (
@@ -13,11 +14,13 @@ export default function Card({ item }) {
         as={`/albums/${item.genre.slug}/${item.slug}`}
       >
         <a>
-          <img
+          <Image
             src={item.album_cover.url}
             className="card-img-bottom"
             alt="..."
-          ></img>
+            width={500}
+            height={500}
+          ></Image>
         </a>
       </Link>
     </>

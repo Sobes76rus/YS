@@ -1,4 +1,3 @@
-import fetch from "isomorphic-unfetch";
 import { useRouter } from "next/router";
 
 function MoviesPage({ albums, page, numberOfAlbums }) {

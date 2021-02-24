@@ -1,48 +1,39 @@
-import { setCookies } from "nookies";
+import { setCookie } from "nookies";
 import getConfig from "next/config";
-import { NextApiResponse, NextApiRequest } from "next";
-import jwt from "jsonwebtoken";
-const KEY = "sdfhgsuoyh";
+
+const { publicRuntimeConfig } = getConfig();
 
 export default async function login(req, res) {
-  if (!req.body) {
-    res.status = 404;
-    res.end("Error");
-    return;
-  }
-
-  // res.json({
-  //   token: jwt.sign(
-  //     {
-  //       identifier: email,
-  //       password: password,
-  //     },
-  //     KEY
-  //   ),
-  // });
-
-  const { publicRuntimeConfig } = getConfig();
-
   if (req.method === "POST") {
-    // const loginInfo = {
-    //   identifier: JSON.stringify().email,
-    //   password: JSON.stringify(req.body).password,
-    // };
-    const reqBody = req.body.toString();
-
+    console.log(req.body);
+    const loginInfo = {
+      identifier: req.body.userName,
+      password: req.body.password,
+    };
     const login = await fetch(`${publicRuntimeConfig.API_URL}/auth/local`, {
       method: "POST",
       headers: {
         Accept: "application/json",
         "Content-Type": "application/json",
       },
-      body: reqBody,
+      body: JSON.stringify(loginInfo),
     });
+    console.log("request done");
+    if (!login.ok) {
+      return res.status(login.status).end();
+    }
     const loginResponse = await login.json();
     console.log(loginResponse);
-    // setCookies(res, "jwt", loginResponse.jwt);
-    return res.status(200);
+
+    setCookie({ res }, "jwt", loginResponse.jwt, {
+      maxAge: 30 * 24 * 60 * 60,
+      path: "/",
+      httpOnly: true,
+    });
+
+    return res.status(200).json({ userName: loginResponse.user.username });
   }
+
   if (req.method === "GET") {
     return res.status(200).json({ Hello: "World" });
   }

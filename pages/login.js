@@ -1,39 +1,30 @@
 import AuthContext from "../contexts/AuthContext";
 import { useContext } from "react";
-import getConfig from "next/config";
-import { setCookie } from "nookies";
 import Router from "next/router";
 
 const Login = () => {
-  const { userName, setUserName, password, setPassword } = useContext(
-    AuthContext
-  );
-  const { publicRuntimeConfig } = getConfig();
-  async function submitForm() {
-    const loginInfo = {
-      identifier: userName,
-      password: password,
-    };
-    const login = await fetch(`${publicRuntimeConfig.API_URL}/auth/local`, {
+  const { setUser } = useContext(AuthContext);
+  const [userName, setUserName] = useState();
+  const [password, setPassword] = useState();
+
+  async function submitForm(e) {
+    e.preventDefault();
+    const req = await fetch(`/api/login`, {
       method: "POST",
       headers: {
         Accept: "application/json",
         "Content-Type": "application/json",
       },
-      body: JSON.stringify(loginInfo),
+      body: JSON.stringify({ userName, password }),
     });
+    const user = await req.json();
+    setUser(user);
 
-    const loginResponse = await login.json();
-
-    setCookie(null, "jwt", loginResponse.jwt, {
-      maxAge: 30 * 24 * 60 * 60,
-      path: "/",
-    });
     Router.push("/payed-articles");
   }
 
   return (
-    <form className="form-signin">
+    <form className="form-signin" onSubmit={submitForm}>
       <img
         className="mb-4"
         src="https://cdn.worldvectorlogo.com/logos/next-js.svg"
@@ -75,12 +66,9 @@ const Login = () => {
           <input type="checkbox" value="remember-me" />
         </label>
       </div>
-      <input
-        className="btn btn-lg btn-primary btn-block"
-        type="button"
-        value="Sign in"
-        onClick={submitForm}
-      ></input>
+      <button className="btn btn-lg btn-primary btn-block" type="submit">
+        Sign in
+      </button>
       <p className="mt-5 mb-3 text-muted">© 2017-2018</p>
     </form>
   );

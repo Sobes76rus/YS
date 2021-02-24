@@ -1,9 +1,10 @@
 import Card from "../components/Card";
+import Image from "next/image";
 
 const Index = ({ albums }) => {
   return (
     <div className="container">
-      <ul className="row row-cols-2 list-unstyled">
+      <ul className="row row-cols-1 list-unstyled">
         {albums.map((item) => (
           <li className="col" key={item.id}>
             <Card item={item} />
