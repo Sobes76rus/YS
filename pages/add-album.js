@@ -1,22 +1,17 @@
-import { useContext } from "react";
+import { useState } from "react";
 import AuthContextProvider from "../contexts/AlbumsContext";
 import getConfig from "next/config";
 const { publicRuntimeConfig } = getConfig();
 
 function addAlbum() {
-  const {
-    albumTitle,
-    setAlbumTitle,
-    albumSlug,
-    setAlbumSlug,
-    albumImage,
-    setAlbumImage,
-  } = useContext(AuthContextProvider);
+  const [albumTitle, setAlbumTitle] = useState("");
+  const [albumSlug, setAlbumSlug] = useState("");
+  const [albumImage, setAlbumImage] = useState("");
 
-  async function addAlbum() {
+  async function postAlbum() {
     const albumsInfo = {
-      Album_name: albumTitle,
-      Slug: albumSlug,
+      album_name: albumTitle,
+      slug: albumSlug,
     };
     const add = await fetch(`${publicRuntimeConfig.API_URL}/albums`, {
       method: "POST",
@@ -28,17 +23,6 @@ function addAlbum() {
     });
     const addResponse = await add.json();
     console.log(addResponse);
-
-    // const add = await fetch(`${publicRuntimeConfig.API_URL}/albums`, {
-    //   method: "POST",
-    //   headers: {
-    //     Accept: "application/json",
-    //     "Content-Type": "application/json",
-    //   },
-    //   body: JSON.stringify(albumsInfo),
-    // });
-
-    // const addResponse = await add.json();
   }
 
   return (
@@ -65,7 +49,7 @@ function addAlbum() {
           value={albumImage || ""}
           onChange={(e) => setAlbumImage(e.target.value)}
         />
-        <button type="button" onClick={addAlbum}>
+        <button type="button" onClick={postAlbum}>
           Add Album
         </button>
       </form>
