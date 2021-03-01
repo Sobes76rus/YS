@@ -4,9 +4,10 @@ import Header from "../components/header";
 import { DefaultSeo } from "next-seo";
 import SEO from "../next-seo.config";
 import ContextWrapper from "../contexts/ContextWrapper";
-import { useRouter } from "next/router";
 import getConfig from "next/config";
+import { QueryClient, QueryClientProvider } from "react-query";
 
+const queryClient = new QueryClient();
 const { publicRuntimeConfig } = getConfig();
 
 function MyApp({ Component, pageProps, navigation }) {
@@ -15,7 +16,9 @@ function MyApp({ Component, pageProps, navigation }) {
       <DefaultSeo {...SEO} />
       <ContextWrapper>
         <Header navigation={navigation} />
-        <Component {...pageProps} />
+        <QueryClientProvider client={queryClient}>
+          <Component {...pageProps} />
+        </QueryClientProvider>
       </ContextWrapper>
     </>
   );
