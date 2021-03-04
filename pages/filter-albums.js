@@ -6,6 +6,9 @@ const { publicRuntimeConfig } = getConfig();
 
 const getAlbums = async (key) => {
   const genreId = key.queryKey[1].genre;
+  const artistsIds = key.queryKey[2].artists.map((id) => `artists.id=${id}`);
+
+  const artistsQueryString = artistsIds.join("&");
 
   if (genreId) {
     const res = await fetch(
@@ -13,20 +16,34 @@ const getAlbums = async (key) => {
     );
     return res.json();
   }
+  if (artistsQueryString) {
+    const res = await fetch(
+      `${publicRuntimeConfig.API_URL}/albums?${artistsQueryString}`
+    );
+    return res.json();
+  }
+
+  if (genreId && artistsQueryString) {
+    const res = await fetch(
+      `${publicRuntimeConfig.API_URL}/albums?genre.id=${genreId}&${artistsQueryString}`
+    );
+    return res.json();
+  }
+
   const res = await fetch(`${publicRuntimeConfig.API_URL}/albums`);
   return res.json();
 };
 
 const FilterAlbums = ({ albums, artists, genres }) => {
-  const queryClient = useQueryClient();
   const [genreId, setGenreId] = useState(null);
-  const { data, status } = useQuery(["albums", { genre: genreId }], getAlbums, {
-    initialData: albums,
-  });
-
-  const handleArtists = (values) => {
-    console.log(values);
-  };
+  const [artistsIds, setArtistsIds] = useState([]);
+  const { data, status } = useQuery(
+    ["albums", { genre: genreId }, { artists: artistsIds }],
+    getAlbums,
+    {
+      initialData: albums,
+    }
+  );
 
   return (
     <div className="container">
@@ -42,7 +59,7 @@ const FilterAlbums = ({ albums, artists, genres }) => {
             isMulti
             placeholder="Filter by artists"
             onChange={(values) =>
-              handleArtists(values.map((artist) => artist.id))
+              setArtistsIds(values.map((artists) => artists.id))
             }
           />
           <br />
@@ -52,9 +69,18 @@ const FilterAlbums = ({ albums, artists, genres }) => {
             options={genres}
             instanceId="genres"
             placeholder="Filter by genres"
-            onChange={(value) => setGenreId(value.id)}
+            isClearable
+            onChange={(value) => setGenreId(value ? value.id : null)}
           />
+          <input
+            type="range"
+            className="form-range mt-5"
+            min="0"
+            max="5"
+            id="customRange2"
+          ></input>
         </div>
+
         <ul className="row row-cols-1 list-unstyled">
           {status === "loading" && <div>Loading The albums</div>}
           {status === "error" && <div>Something went wrong</div>}
