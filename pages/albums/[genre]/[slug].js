@@ -12,7 +12,7 @@ export default Movie;
 
 export async function getServerSideProps(ctx) {
   const { API_URL } = process.env;
-  const { slug } = ctx.query;
+  const { slug } = ctx.params;
 
   const res = await fetch(`${API_URL}/albums?slug=${slug}`);
   const data = await res.json();
@@ -20,3 +20,4 @@ export async function getServerSideProps(ctx) {
     props: { album: data[0] },
   };
 }
+""
