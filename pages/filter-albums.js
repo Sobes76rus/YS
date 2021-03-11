@@ -1,55 +1,16 @@
 import Select from "react-select";
 import { useState, useEffect } from "react";
-import { useQuery, useQueryClient } from "react-query";
 import getConfig from "next/config";
 import { useRouter } from "next/router";
 const { publicRuntimeConfig } = getConfig();
 
-const getAlbums = async (key) => {
-  console.log(key);
-  const genreId = key.queryKey[1].genre;
-  const artistsIds = key.queryKey[2].artists.map((id) => `artists.id=${id}`);
-
-  const artistsQueryString = artistsIds.join("&");
-
-  if (genreId) {
-    const res = await fetch(
-      `${publicRuntimeConfig.API_URL}/albums?genre.id=${genreId}`
-    );
-    return res.json();
-  }
-  if (artistsQueryString) {
-    const res = await fetch(
-      `${publicRuntimeConfig.API_URL}/albums?${artistsQueryString}`
-    );
-    return res.json();
-  }
-
-  if (genreId && artistsQueryString) {
-    const res = await fetch(
-      `${publicRuntimeConfig.API_URL}/albums?genre.id=${genreId}&${artistsQueryString}`
-    );
-    return res.json();
-  }
-
-  const res = await fetch(`${publicRuntimeConfig.API_URL}/albums`);
-  return res.json();
-};
-
-// const { data, status } = useQuery(
-//   ["albums", { genre: query["genre.id"] }, { artists: query["artist.id"] }],
-//   getAlbums,
-//   {
-//     initialData: albums,
-//   }
-// );
-
 function getAlbumsUrl(query) {
   const url = new URL(`${publicRuntimeConfig.API_URL}/albums`);
-  const artistId = query["artists.id"];
+
+  const artistId = query["artists.artist_name"];
 
   if (artistId) {
-    url.searchParams.append("artists.id", artistId);
+    url.searchParams.append("artists.artist_name", artistId);
   }
 
   return url.toString();
@@ -57,20 +18,25 @@ function getAlbumsUrl(query) {
 
 const FilterAlbums = ({ albums: a, artists, genres }) => {
   const { query, push, pathname } = useRouter();
+
   const [albums, setAlbums] = useState(a);
   const [loading, setLoading] = useState(false);
+  const [artist, setArtist] = useState(artists);
+  const filteredArtists = query["artists.artist_name"];
 
   useEffect(() => {
     const url = getAlbumsUrl(query);
 
     setLoading(true);
+    setArtist(filteredArtists);
     fetch(url)
       .then((r) => r.json())
       .then((a) => {
         setAlbums(a);
         setLoading(false);
       });
-  }, [query["artists.id"]]);
+  }, [filteredArtists]);
+  const cCC = Array.isArray(artist) ? artist : "123";
 
   return (
     <div className="container">
@@ -79,6 +45,7 @@ const FilterAlbums = ({ albums: a, artists, genres }) => {
         <div className="d-flex flex-column w-50 text-sm-left">
           <h3>Filter go here</h3>
           <Select
+            defaultValue={Array.isArray(cCC) ? cCC.map((value) => value) : null}
             getOptionLabel={(option) => `${option.artist_name}`}
             getOptionValue={(option) => option.id}
             options={artists}
@@ -88,7 +55,12 @@ const FilterAlbums = ({ albums: a, artists, genres }) => {
             onChange={(values) => {
               const nextUrl = {
                 pathname,
-                query: { ...query, "artists.id": values.map(({ _id }) => _id) },
+                query: {
+                  ...query,
+                  "artists.artist_name": values.map(
+                    ({ artist_name }) => artist_name
+                  ),
+                },
               };
 
               push(nextUrl, nextUrl, { shallow: true });
@@ -133,7 +105,6 @@ export async function getServerSideProps(ctx) {
 
   const albumsUrl = getAlbumsUrl(ctx.query);
 
-  console.log(albumsUrl);
   const resAlbums = await fetch(albumsUrl);
   const albumsData = await resAlbums.json();
 
