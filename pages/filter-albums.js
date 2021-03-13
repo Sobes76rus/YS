@@ -18,25 +18,26 @@ function getAlbumsUrl(query) {
 
 const FilterAlbums = ({ albums: a, artists, genres }) => {
   const { query, push, pathname } = useRouter();
-
+  const filteredArtists = query["artists.artist_name"];
   const [albums, setAlbums] = useState(a);
   const [loading, setLoading] = useState(false);
-  const [artist, setArtist] = useState(artists);
-  const filteredArtists = query["artists.artist_name"];
+  const [parsedArtist, setParsedArtist] = useState([]);
 
   useEffect(() => {
     const url = getAlbumsUrl(query);
-
     setLoading(true);
-    setArtist(filteredArtists);
+
     fetch(url)
       .then((r) => r.json())
       .then((a) => {
         setAlbums(a);
         setLoading(false);
       });
+    const artist = localStorage.getItem("artist");
+
+    setParsedArtist(artist);
   }, [filteredArtists]);
-  const cCC = Array.isArray(artist) ? artist : "123";
+  console.log(JSON.stringify(parsedArtist));
 
   return (
     <div className="container">
@@ -45,7 +46,11 @@ const FilterAlbums = ({ albums: a, artists, genres }) => {
         <div className="d-flex flex-column w-50 text-sm-left">
           <h3>Filter go here</h3>
           <Select
-            defaultValue={Array.isArray(cCC) ? cCC.map((value) => value) : null}
+            defaultValue={
+              Array.isArray(parsedArtist)
+                ? parsedArtist.map((option) => option)
+                : null
+            }
             getOptionLabel={(option) => `${option.artist_name}`}
             getOptionValue={(option) => option.id}
             options={artists}
@@ -62,8 +67,8 @@ const FilterAlbums = ({ albums: a, artists, genres }) => {
                   ),
                 },
               };
-
               push(nextUrl, nextUrl, { shallow: true });
+              localStorage.setItem("artist", values);
             }}
           />
           <br />
