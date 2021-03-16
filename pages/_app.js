@@ -1,4 +1,4 @@
-import "../styles/styles.css";
+import "../styles/styles.scss";
 import "bootstrap/dist/css/bootstrap.min.css";
 import Header from "../components/header";
 import { DefaultSeo } from "next-seo";
