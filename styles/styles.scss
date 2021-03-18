@@ -1,15 +1,16 @@
 .form-signin {
-    width: 100%;
-    max-width: 330px;
-    padding: 15px;
-    margin: 0 auto;
+  width: 100%;
+  max-width: 330px;
+  padding: 15px;
+  margin: 0 auto;
 }
 .main_bg-color {
-    background-color: #a279ef;
+  background-color: #a279ef;
 }
-.main_text-color{
-    color: #fff6ff;
-    &:hover {
-        color: #190019
-    }
+.main_text-color {
+  color: #fff6ff;
+  &:hover {
+    color: #190019;
+    text-decoration: none;
+  }
 }
