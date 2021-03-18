@@ -22,8 +22,8 @@ const Header = ({ navigation }) => {
 
   return (
     <header className="header header-absolute">
-      <div className="main_bg-color ">
-        <nav className="bg-hover-white bg-fixed-white navbar-hover-light navbar-fixed-light navbar navbar-expand-lg  bg-transparent">
+      <div>
+        <nav className="navbar navbar-expand-lg main_bg-color">
           <div className="container-fluid">
             <Link href="/">
               <a>
@@ -83,7 +83,7 @@ const Header = ({ navigation }) => {
                         width="16"
                         height="16"
                         fill="#fff6ff"
-                        className="svg-icon bi bi-envelope"
+                        className="svg-icon bi bi-envelope main_text-color"
                         viewBox="0 0 16 16"
                       >
                         <path d="M0 4a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V4zm2-1a1 1 0 0 0-1 1v.217l7 4.2 7-4.2V4a1 1 0 0 0-1-1H2zm13 2.383l-4.758 2.855L15 11.114v-5.73zm-.034 6.878L9.271 8.82 8 9.583 6.728 8.82l-5.694 3.44A1 1 0 0 0 2 13h12a1 1 0 0 0 .966-.739zM1 11.114l4.758-2.876L1 5.383v5.73z" />
@@ -99,7 +99,7 @@ const Header = ({ navigation }) => {
                         width="16"
                         height="16"
                         fill="#fff6ff"
-                        className="svg-icon bi bi-telegram"
+                        className="svg-icon bi bi-telegram main_text-color"
                         viewBox="0 0 16 16"
                       >
                         <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM8.287 5.906c-.778.324-2.334.994-4.666 2.01-.378.15-.577.298-.595.442-.03.243.275.339.69.47l.175.055c.408.133.958.288 1.243.294.26.006.549-.1.868-.32 2.179-1.471 3.304-2.214 3.374-2.23.05-.012.12-.026.166.016.047.041.042.12.037.141-.03.129-1.227 1.241-1.846 1.817-.193.18-.33.307-.358.336a8.154 8.154 0 0 1-.188.186c-.38.366-.664.64.015 1.088.327.216.589.393.85.571.284.194.568.387.936.629.093.06.183.125.27.187.331.236.63.448.997.414.214-.02.435-.22.547-.82.265-1.417.786-4.486.906-5.751a1.426 1.426 0 0 0-.013-.315.337.337 0 0 0-.114-.217.526.526 0 0 0-.31-.093c-.3.005-.763.166-2.984 1.09z" />

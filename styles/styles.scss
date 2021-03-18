@@ -6,11 +6,14 @@
 }
 .main_bg-color {
   background-color: #a279ef;
+  height: 70px
 }
 .main_text-color {
   color: #fff6ff;
   &:hover {
-    color: #190019;
+    color: #DFD7DF;
+    fill: #DFD7DF;
     text-decoration: none;
   }
 }
+

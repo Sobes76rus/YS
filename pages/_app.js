@@ -5,9 +5,7 @@ import { DefaultSeo } from "next-seo";
 import SEO from "../next-seo.config";
 import ContextWrapper from "../contexts/ContextWrapper";
 import getConfig from "next/config";
-import { QueryClient, QueryClientProvider } from "react-query";
 
-const queryClient = new QueryClient();
 const { publicRuntimeConfig } = getConfig();
 
 function MyApp({ Component, pageProps, navigation }) {
@@ -16,9 +14,8 @@ function MyApp({ Component, pageProps, navigation }) {
       <DefaultSeo {...SEO} />
       <ContextWrapper>
         <Header navigation={navigation} />
-        <QueryClientProvider client={queryClient}>
-          <Component {...pageProps} />
-        </QueryClientProvider>
+
+        <Component {...pageProps} />
       </ContextWrapper>
     </>
   );

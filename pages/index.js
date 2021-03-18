@@ -1,30 +1,23 @@
-import Card from "../components/Card";
-import Image from "next/image";
+import Slider from "../components/Slider";
 
-const Index = ({ albums }) => {
+const Index = () => {
   return (
-    <div className="container">
-      <ul className="row row-cols-1 list-unstyled">
-        {albums.map((item) => (
-          <li className="col" key={item.id}>
-            <Card item={item} />
-          </li>
-        ))}
-      </ul>
-    </div>
+    <>
+      <Slider />
+    </>
   );
 };
 
-export async function getServerSideProps() {
-  const { API_URL } = process.env;
-  const res = await fetch(`${API_URL}/albums`);
-  const data = await res.json();
+// export async function getServerSideProps() {
+//   const { API_URL } = process.env;
+//   const res = await fetch(`${API_URL}/albums`);
+//   const data = await res.json();
 
-  return {
-    props: {
-      albums: data,
-    },
-  };
-}
+//   return {
+//     props: {
+//       albums: data,
+//     },
+//   };
+// }
 
 export default Index;
