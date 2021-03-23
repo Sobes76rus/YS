@@ -3,7 +3,7 @@ import { useContext, useEffect } from "react";
 import { useRouter } from "next/router";
 import HeaderContext from "../contexts/HeaderContext";
 
-const Header = ({ navigation }) => {
+const Header = () => {
   const { loggedIn, isBlack, setIsBlack } = useContext(HeaderContext);
   const router = useRouter();
   const onChangeBlack = () => {
@@ -45,19 +45,19 @@ const Header = ({ navigation }) => {
             </button>
             <div className="collapse navbar-collapse">
               <ul className="mx-auto navbar-nav">
-                {navigation.map((item) => (
+                {/* {navigation.map((item) => (
                   <li className="nav-item" key={item.id}>
                     <Link href={`${item.Slug}`}>
                       <a className="nav-link main_text-color">{item.Title}</a>
                     </Link>
                   </li>
-                ))}
+                ))} */}
               </ul>
               <div className="d-flex navbar-nav nav justify-content-between">
                 <div className=" align-content-center nav-item px-2">
                   <Link href="/">
                     <a className="d-flex navbar-icon-link main_text-color">
-                      <div className="d-flex px-1 align-self-xl-center">
+                      <div className="d-flex px-1 align-self-center">
                         <svg
                           xmlns="http://www.w3.org/2000/svg"
                           width="16"

@@ -24,9 +24,8 @@ const Slider = ({ albums }) => {
       </div>
       <div className="carousel-inner">
         {albums.map((album) => (
-          <div className="carousel-item active">
+          <div className="carousel-item active" key={album.id}>
             <Image
-              key={album.id}
               width={500}
               height={500}
               src={album.album_cover.url}
@@ -37,12 +36,15 @@ const Slider = ({ albums }) => {
         ))}
       </div>
       <button
-        className="carousel-control-prev"
+        className="carousel-control-prev btn-dark"
         type="button"
         data-bs-target="#carouselExampleIndicators"
         data-bs-slide="prev"
       >
-        <span className="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span
+          className="carousel-control-prev-icon swiper-nav d-none d-lg-block"
+          aria-hidden="true"
+        ></span>
         <span className="visually-hidden">Previous</span>
       </button>
       <button

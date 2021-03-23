@@ -1,21 +1,22 @@
 import "../styles/styles.scss";
 import "bootstrap/dist/css/bootstrap.min.css";
-import Header from "../components/header";
+import Header from "../components/Header";
 import { DefaultSeo } from "next-seo";
 import SEO from "../next-seo.config";
 import ContextWrapper from "../contexts/ContextWrapper";
 import getConfig from "next/config";
+import Layout from "../components/Layout";
 
 const { publicRuntimeConfig } = getConfig();
 
-function MyApp({ Component, pageProps, navigation }) {
+function MyApp({ Component, pageProps }) {
   return (
     <>
       <DefaultSeo {...SEO} />
       <ContextWrapper>
-        <Header navigation={navigation} />
-
-        <Component {...pageProps} />
+        <Layout {...pageProps}>
+          <Component {...pageProps} />
+        </Layout>
       </ContextWrapper>
     </>
   );
