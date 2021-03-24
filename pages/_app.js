@@ -1,5 +1,6 @@
 import "../styles/styles.scss";
 import "bootstrap/dist/css/bootstrap.min.css";
+import "../scss/style.default.scss";
 import Header from "../components/Header";
 import { DefaultSeo } from "next-seo";
 import SEO from "../next-seo.config";

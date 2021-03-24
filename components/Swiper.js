@@ -1,7 +1,8 @@
-import ReactIdSwiper from "react-id-swiper";
+import ReactIdSwiper, { Navigation, Pagination } from "react-id-swiper";
 import { Container, Row, Col, Button } from "reactstrap";
 
 export default function Swiper(props) {
+  console.log(props);
   const { albums } = props;
   const breakpoints = [];
   if (props.sm) {
@@ -82,36 +83,22 @@ export default function Swiper(props) {
       {albums.map((slide, index) => (
         <div
           key={index}
-          className={`${slide.itemclass ? slide.itemclass : ""} ${
-            !props.columns ? "bg-cover" : ""
-          } ${slide.bgdirection ? `bg-cover-${slide.bgdirection}` : ""} ${
-            slide.darkOverlay ? `dark-overlay` : ""
-          }`}
+          className="mb-5 display-2 font-weight-bold text-serif bg-cover"
           style={{
             ...props.style,
-            backgroundImage: !props.columns ? `url(${slide.img})` : `none`,
+            backgroundImage: !props.columns
+              ? `url(${slide.album_cover.url})`
+              : `none`,
           }}
         >
-          <Container
-            fluid={props.containerFluid}
-            className={`h-100 ${!props.columns ? "px-lg-6" : ""} ${
-              props.containerclass ? props.containerclass : ""
-            }`}
-            style={slide.containerStyle}
-          >
+          <Container className="h-100 px-lg-6">
             <Row
               className={`overlay-content h-100 align-items-center ${
                 slide.rowclass ? slide.rowclass : ""
               }`}
               data-swiper-parallax="-500"
             >
-              <Col
-                lg={{
-                  size: props.columns ? 8 : 6,
-                  offset: slide.contentoffset,
-                }}
-                className={slide.contentclass ? slide.contentclass : ""}
-              >
+              <Col>
                 {slide.subtitle && (
                   <p
                     className={`subtitle letter-spacing-${
@@ -127,9 +114,9 @@ export default function Swiper(props) {
                   className={slide.titleclass ? slide.titleclass : ""}
                   style={{ lineHeight: "1" }}
                 >
-                  {slide.name}
+                  {slide.album_title}
                 </h2>
-                {slide.text && (
+                {slide.album_title && (
                   <p
                     className={`${props.columns ? "text-muted" : "lead"}  mb-5`}
                   >
@@ -140,7 +127,7 @@ export default function Swiper(props) {
                   color={props.columns ? "outline-dark" : "light"}
                   href={slide.link}
                 >
-                  {slide.button}
+                  View Collection
                 </Button>
               </Col>
             </Row>
