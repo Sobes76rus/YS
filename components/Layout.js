@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 
 const Layout = (pageProps) => {
   const [paddingTop, setPaddingTop] = useState(0);
+  
   const headerProps = {
     nav: {
       classes: pageProps.nav && pageProps.nav.classes,

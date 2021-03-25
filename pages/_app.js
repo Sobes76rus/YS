@@ -10,12 +10,12 @@ import Layout from "../components/Layout";
 
 const { publicRuntimeConfig } = getConfig();
 
-function MyApp({ Component, pageProps }) {
+function MyApp({ Component, pageProps, navigation }) {
   return (
     <>
       <DefaultSeo {...SEO} />
       <ContextWrapper>
-        <Layout {...pageProps}>
+        <Layout {...navigation}>
           <Component {...pageProps} />
         </Layout>
       </ContextWrapper>
