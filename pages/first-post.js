@@ -1,5 +1,4 @@
 import Router from "next/router";
-import Header from "../components/header";
 
 export default function FirstPost() {
   return (

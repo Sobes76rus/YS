@@ -1,8 +1,11 @@
 import Select from "react-select";
 import { useState, useEffect } from "react";
 import getConfig from "next/config";
-import { useRouter } from "next/router";
+import Router, { useRouter } from "next/router";
 const { publicRuntimeConfig } = getConfig();
+import Slider, { Range } from "rc-slider";
+import "rc-slider/assets/index.css";
+import _ from "lodash";
 
 function getAlbumsUrl(query) {
   const url = new URL(`${publicRuntimeConfig.API_URL}/albums`);
@@ -16,12 +19,32 @@ function getAlbumsUrl(query) {
   return url.toString();
 }
 
+function createFilterQuery(params) {
+  const nextUrl = {
+    pathname,
+    query: {
+      ...query,
+    },
+  };
+}
+
 const FilterAlbums = ({ albums: a, artists, genres }) => {
   const { query, push, pathname } = useRouter();
   const filteredArtists = query["artists.artist_name"];
   const [albums, setAlbums] = useState(a);
   const [loading, setLoading] = useState(false);
-  const [parsedArtist, setParsedArtist] = useState([]);
+
+  async function changeFilter(filter) {
+    const nextUrl = {
+      pathname,
+      query: {
+        ...query,
+        ...filter,
+      },
+    };
+
+    await Router.push(nextUrl, nextUrl, { shallow: true });
+  }
 
   useEffect(() => {
     const url = getAlbumsUrl(query);
@@ -33,11 +56,15 @@ const FilterAlbums = ({ albums: a, artists, genres }) => {
         setAlbums(a);
         setLoading(false);
       });
-    const artist = localStorage.getItem("artist");
-
-    setParsedArtist(artist);
   }, [filteredArtists]);
-  console.log(JSON.stringify(parsedArtist));
+
+  const debouncedHandleChange = _.debounce((evt) => {
+    changeFilter({
+      price: evt.target.value,
+    });
+  }, 300);
+
+  const artistNameFilter = query["artists.artist_name"];
 
   return (
     <div className="container">
@@ -47,28 +74,24 @@ const FilterAlbums = ({ albums: a, artists, genres }) => {
           <h3>Filter go here</h3>
           <Select
             defaultValue={
-              Array.isArray(parsedArtist)
-                ? parsedArtist.map((option) => option)
-                : null
+              artistNameFilter
+                ? artists.filter(({ artist_name }) =>
+                    artistNameFilter.includes(artist_name)
+                  )
+                : []
             }
-            getOptionLabel={(option) => `${option.artist_name}`}
+            getOptionLabel={(option) => option.artist_name}
             getOptionValue={(option) => option.id}
             options={artists}
             instanceId="artists"
             isMulti
             placeholder="Filter by artists"
             onChange={(values) => {
-              const nextUrl = {
-                pathname,
-                query: {
-                  ...query,
-                  "artists.artist_name": values.map(
-                    ({ artist_name }) => artist_name
-                  ),
-                },
-              };
-              push(nextUrl, nextUrl, { shallow: true });
-              localStorage.setItem("artist", values);
+              changeFilter({
+                "artists.artist_name": values.map(
+                  ({ artist_name }) => artist_name
+                ),
+              });
             }}
           />
           <br />
@@ -85,9 +108,11 @@ const FilterAlbums = ({ albums: a, artists, genres }) => {
             type="range"
             className="form-range mt-5"
             min="0"
-            max="5"
+            max="5000"
             id="customRange2"
+            onChange={debouncedHandleChange}
           ></input>
+          <Range />
         </div>
 
         {loading && "Applying filter"}
@@ -118,6 +143,8 @@ export async function getServerSideProps(ctx) {
 
   const resGenres = await fetch(`${API_URL}/genres`);
   const genresData = await resGenres.json();
+
+    
 
   return {
     props: {

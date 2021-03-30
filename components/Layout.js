@@ -4,22 +4,11 @@ import Header from "./Header";
 import { useEffect, useState } from "react";
 
 const Layout = (pageProps) => {
+  console.log(pageProps.layout);
+  const { navigation } = pageProps;
   const [paddingTop, setPaddingTop] = useState(0);
-  
   const headerProps = {
-    nav: {
-      classes: pageProps.nav && pageProps.nav.classes,
-      fixed: pageProps.nav && pageProps.nav.fixed,
-      color: pageProps.nav && pageProps.nav.color,
-      light: pageProps.nav && pageProps.nav.light,
-      dark: pageProps.nav && pageProps.nav.dark,
-      sticky: pageProps.nav && pageProps.nav.sticky,
-    },
-    loggedUser: pageProps.loggedUser,
-    headerClasses: pageProps.headerClasses,
-    headerAbsolute: pageProps.headerAbsolute,
-    hideTopbar: pageProps.hideTopbar,
-    setPaddingTop: (event) => setPaddingTop(event),
+    navigation,
   };
 
   return (

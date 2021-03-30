@@ -9,22 +9,36 @@ import SwiperCore, {
 import CardLookbook from "../components/CardLookbook";
 import { Swiper, SwiperSlide } from "swiper/react";
 import getConfig from "next/config";
+import StackGrid, { transitions } from "react-stack-grid";
 SwiperCore.use([Navigation, Pagination, Scrollbar, Autoplay, Parallax]);
+const { scaleDown } = transitions;
 
 export async function getStaticProps() {
   const { publicRuntimeConfig } = getConfig();
-  const res = await fetch(`${publicRuntimeConfig.API_URL}/albums`);
-  const albums = await res.json();
+  const resAlbums = await fetch(`${publicRuntimeConfig.API_URL}/albums`);
+  const albums = await resAlbums.json();
+  const navRes = await fetch(`${publicRuntimeConfig.API_URL}/navigations`);
+  const navigation = await navRes.json();
+  const cardRes = await fetch(`${publicRuntimeConfig.API_URL}/card-lookbooks`);
+  const cardPhotos = await cardRes.json();
+
+  const randomThree = (a, n) =>
+    a.sort(() => Math.random() - Math.random()).slice(0, n);
+
+  const randomAlbums = randomThree(albums, 3);
 
   return {
     props: {
-      albums,
       nav: {
         dark: true,
         classes:
           "bg-hover-white bg-fixed-white navbar-hover-light navbar-fixed-light",
         color: "transparent",
       },
+      navigation,
+      cardPhotos,
+      // albums,
+      randomAlbums,
       headerAbsolute: true,
       title: "Homepage",
     },
@@ -32,11 +46,7 @@ export async function getStaticProps() {
 }
 
 export default function Home(props) {
-  const { albums } = props;
-  const randomThree = (a, n) =>
-    a.sort(() => Math.random() - Math.random()).slice(0, n);
-
-  const randomAlbums = randomThree(albums, 3);
+  const { randomAlbums, cardPhotos } = props;
 
   return (
     <>
@@ -51,7 +61,7 @@ export default function Home(props) {
         speed={1500}
         navigation
         className="home-full-slider"
-        containerclass="container-fluid h-100 py-5"
+        containerclass="container-fluid"
         pagination={{
           clickable: true,
           dynamicBullets: true,
@@ -62,12 +72,10 @@ export default function Home(props) {
             key={index}
             className="mb-5 display-2 font-weight-bold text-serif bg-cover"
             style={{
-              backgroundImage: !props.columns
-                ? `url(${slide.album_cover.url})`
-                : `none`,
+              backgroundImage: `url(${slide.album_cover.url})`,
             }}
           >
-            <Container className="h-100 px-lg-6">
+            <Container className="h-50 px-lg-6">
               <Row
                 className={`overlay-content h-100 align-items-center ${
                   slide.rowclass ? slide.rowclass : ""
@@ -101,12 +109,12 @@ export default function Home(props) {
                       {slide.text}
                     </p>
                   )}
-                  <Button
+                  {/* <Button
                     color={props.columns ? "outline-dark" : "light"}
                     href={slide.link}
                   >
-                    View Collection
-                  </Button>
+                    Сексуальные транссексуалочки
+                  </Button> */}
                 </Col>
               </Row>
             </Container>
@@ -116,12 +124,14 @@ export default function Home(props) {
 
       <Container fluid className="px-5px">
         <Row className="mx-0">
-          {albums.map((card, index) => {
+          {cardPhotos.map((card, index) => {
             const columns = index < 2 ? { md: 6 } : { lg: 4 };
             const type = index < 2 ? "big" : "small";
             return (
               <Col {...columns} className="mb-10px px-5px" key={index}>
-                <CardLookbook data={card} cardType={type} />
+                <StackGrid columnWidth={500} gutterWidth={30} gutterHeight={30}>
+                  <CardLookbook data={card} cardType={type} />
+                </StackGrid>
               </Col>
             );
           })}
@@ -130,3 +140,8 @@ export default function Home(props) {
     </>
   );
 }
+
+Home.layout = {
+  classes:
+    "bg-hover-white bg-fixed-white navbar-hover-light navbar-fixed-light",
+};
