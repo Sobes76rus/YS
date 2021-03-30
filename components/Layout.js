@@ -1,6 +1,6 @@
 import Head from "next/head";
 import Header from "./Header";
-// import Footer from "./Footer";
+import Footer from "./Footer";
 import { useEffect, useState } from "react";
 
 const Layout = (pageProps) => {
@@ -20,7 +20,7 @@ const Layout = (pageProps) => {
 
       <main>{pageProps.children}</main>
 
-      {/* {!pageProps.hideFooter && <Footer />} */}
+      {!pageProps.hideFooter && <Footer />}
     </div>
   );
 };

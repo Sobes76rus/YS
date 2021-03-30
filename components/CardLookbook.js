@@ -3,7 +3,7 @@ import StackGrid from "react-stack-grid";
 
 import Link from "next/link";
 
-const CardLookbook = ({ photos, data, cardType = "big" }) => {
+const CardLookbook = ({ data, cardType }) => {
   let headingClass =
     cardType == "big" ? "display-3 font-weight-bold mb-4" : "display-4 mb-4";
   if (data.textColor) {

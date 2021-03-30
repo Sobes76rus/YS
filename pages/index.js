@@ -10,6 +10,7 @@ import CardLookbook from "../components/CardLookbook";
 import { Swiper, SwiperSlide } from "swiper/react";
 import getConfig from "next/config";
 import StackGrid, { transitions } from "react-stack-grid";
+import sizeMe from "react-sizeme";
 SwiperCore.use([Navigation, Pagination, Scrollbar, Autoplay, Parallax]);
 const { scaleDown } = transitions;
 
@@ -45,8 +46,10 @@ export async function getStaticProps() {
   };
 }
 
-export default function Home(props) {
+const Home = (props) => {
   const { randomAlbums, cardPhotos } = props;
+  const bigCards = cardPhotos.slice(0, 2);
+  const smallCards = cardPhotos.slice(2);
 
   return (
     <>
@@ -123,24 +126,35 @@ export default function Home(props) {
       </Swiper>
 
       <Container fluid className="px-5px">
-        <Row className="mx-0">
+        <StackGrid columnWidth={"50%"} gutterHeight={10} gutterWidth={10}>
+          {bigCards.map((card, index) => {
+            const type = index < 2 ? "big" : "small";
+            return <CardLookbook data={card} cardType={type} />;
+          })}
+        </StackGrid>
+        <StackGrid columnWidth={"33.3%"} gutterHeight={10} gutterWidth={10}>
+          {smallCards.map((card, index) => {
+            const type = index < 2 ? "big" : "small";
+            return <CardLookbook data={card} cardType={type} />;
+          })}
+        </StackGrid>
+
+        {/* <Row className="mx-0">
           {cardPhotos.map((card, index) => {
             const columns = index < 2 ? { md: 6 } : { lg: 4 };
             const type = index < 2 ? "big" : "small";
             return (
               <Col {...columns} className="mb-10px px-5px" key={index}>
-                <StackGrid columnWidth={500} gutterWidth={30} gutterHeight={30}>
-                  <CardLookbook data={card} cardType={type} />
-                </StackGrid>
+                <CardLookbook data={card} cardType={type} />
               </Col>
             );
           })}
-        </Row>
+        </Row> */}
       </Container>
     </>
   );
-}
-
+};
+export default Home;
 Home.layout = {
   classes:
     "bg-hover-white bg-fixed-white navbar-hover-light navbar-fixed-light",
