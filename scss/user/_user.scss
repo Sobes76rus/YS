@@ -1,1 +1,15 @@
 // this is the place for your components / CSS
+
+.image {
+    display: block;
+    margin: 0;
+  }
+  
+  .image figcaption {
+    display: block;
+    margin: .2em 0 0;
+    font-weight: normal;
+  }
+  .content {
+    padding: 120px 30px;
+  }
