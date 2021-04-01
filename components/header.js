@@ -4,33 +4,12 @@ import Link from "next/link";
 import Router from "next/router";
 import ActiveLink from "./ActiveLink";
 
-import {
-  Collapse,
-  Navbar,
-  NavbarToggler,
-  Nav,
-  NavItem,
-  NavLink,
-  Dropdown,
-  DropdownToggle,
-  DropdownMenu,
-  DropdownItem,
-  Container,
-  Row,
-  Col,
-  Badge,
-} from "reactstrap";
-
-import UseWindowSize from "../hooks/UseWindowSize";
-import useSize from "@react-hook/size";
-import useScrollPosition from "@react-hook/window-scroll";
+import { Collapse, Navbar, NavbarToggler, Nav, Container } from "reactstrap";
 
 const Header = (props) => {
   const { navigation } = props;
 
   const [collapsed, setCollapsed] = useState(false);
-
-  const [additionalNavClasses, setAdditionalNavClasses] = useState("");
 
   const navbarRef = useRef(null);
 
@@ -39,7 +18,7 @@ const Header = (props) => {
       <div ref={navbarRef}>
         <Navbar
           expand="lg"
-          className="bg-hover-purple bg-fixed-white navbar-hover-light navbar-fixed-light  navbar navbar-expand-lg navbar-dark "
+          className="bg-hover-purple bg-fixed-white navbar-hover-light navbar-fixed-light navbar navbar-expand-lg navbar-dark "
         >
           <Container fluid>
             <Link href="/" passHref>

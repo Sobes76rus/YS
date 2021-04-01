@@ -4,7 +4,6 @@ import Footer from "./Footer";
 import { useEffect, useState } from "react";
 
 const Layout = (pageProps) => {
-  console.log(pageProps.layout);
   const { navigation } = pageProps;
   const [paddingTop, setPaddingTop] = useState(0);
   const headerProps = {
@@ -14,13 +13,13 @@ const Layout = (pageProps) => {
   return (
     <div
       style={{ paddingTop: pageProps.noPaddingTop ? "0" : paddingTop }}
-      className={pageProps.className}
+      className="mt-auto"
     >
       {!pageProps.hideHeader && <Header {...headerProps} />}
 
       <main>{pageProps.children}</main>
 
-      {!pageProps.hideFooter && <Footer />}
+      {!pageProps.hideFooter && <Footer navigation={navigation} />}
     </div>
   );
 };
