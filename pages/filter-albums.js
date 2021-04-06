@@ -144,10 +144,12 @@ export async function getServerSideProps(ctx) {
   const resGenres = await fetch(`${API_URL}/genres`);
   const genresData = await resGenres.json();
 
-    
+  const navRes = await fetch(`${publicRuntimeConfig.API_URL}/navigations`);
+  const navigation = await navRes.json();
 
   return {
     props: {
+      navigation,
       albums: albumsData,
       artists: artistsData,
       genres: genresData,

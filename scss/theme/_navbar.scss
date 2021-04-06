@@ -30,6 +30,12 @@
 
 // Used for navbar w/ transparent background
 .bg-hover-purple {
+  background: linear-gradient(
+    0deg,
+    rgba(162, 121, 239, 0) 0%,
+    rgba(162, 121, 239, 0.7) 100%
+  );
+
   &:hover {
     background: #a279ef;
   }

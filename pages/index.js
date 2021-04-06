@@ -29,30 +29,32 @@ export async function getStaticProps() {
     a.sort(() => Math.random() - Math.random()).slice(0, n);
 
   const randomAlbums = randomThree(albums, 3);
+  const randomSix = randomThree(cardPhotos, 8);
 
   return {
     props: {
       nav: {
         dark: true,
-        classes:
-          "bg-hover-white bg-fixed-white navbar-hover-light navbar-fixed-light",
         color: "transparent",
       },
       navigation,
       cardPhotos,
       // albums,
       randomAlbums,
+      randomSix,
+      navbarHoverLight: true,
       headerAbsolute: true,
+      bgHoverPurple: true,
       title: "Homepage",
     },
   };
 }
 
 const Home = (props) => {
-  const { randomAlbums, cardPhotos } = props;
+  const { randomAlbums, cardPhotos, randomSix } = props;
   const bigCards = cardPhotos.slice(0, 2);
   const smallCards = cardPhotos.slice(2);
-
+  console.log(randomSix);
   return (
     <>
       <Swiper
@@ -128,9 +130,9 @@ const Home = (props) => {
       </Swiper>
 
       <Container fluid className="px-0">
-        <section className="mb-3">
+        <div className="mb-3">
           <StackGrid
-            columnWidth={"33.3%"}
+            columnWidth={"25%"}
             duration={600}
             gutterHeight={10}
             gutterWidth={10}
@@ -143,38 +145,19 @@ const Home = (props) => {
             entered={transition.entered}
             leaved={transition.leaved}
           >
-            {cardPhotos.map((card, index) => {
+            {randomSix.map((card, index) => {
               const type = index < 2 ? "big" : "small";
               return <CardLookbook data={card} cardType={type} key={index} />;
             })}
           </StackGrid>
-        </section>
-        {/* <StackGrid columnWidth={"33.3%"} gutterHeight={10} gutterWidth={10}>
-          {smallCards.map((card, index) => {
-            const type = index < 2 ? "big" : "small";
-            return <CardLookbook data={card} cardType={type} key={index} />;
-          })}
-        </StackGrid> */}
-
-        {/* <Row className="mx-0">
-          {cardPhotos.map((card, index) => {
-            const columns = index < 2 ? { md: 6 } : { lg: 4 };
-            const type = index < 2 ? "big" : "small";
-            return (
-              <Col {...columns} className="mb-10px px-5px" key={index}>
-                <CardLookbook data={card} cardType={type} />
-              </Col>
-            );
-          })}
-        </Row> */}
-        <section className="py-6 position-relative light-overlay">
-          <Image
-            className="bg-image"
-            src={randomAlbums[1].album_cover.url}
-            alt=""
-            layout="fill"
-          />
-          <Container>
+        </div>
+        <div>
+          <div className="pt-6 position-relative light-overlay align-content-center text-center">
+            <Link href="/filter-albums">
+              <a className="btn btn-dark">Смотреть еще</a>
+            </Link>
+          </div>
+          <div className="py-6 position-relative light-overlay align-content-center text-center">
             <div className="overlay-content text-center text-dark">
               <h3 className="display-1 font-weight-bold text-serif mb-4">
                 Транс-досуг в Москве
@@ -186,12 +169,9 @@ const Home = (props) => {
                 безымянный печатник создал большую коллекцию размеров и форм
                 шрифтов, используя Lorem Ipsum для распечатки образцов.{" "}
               </p>
-              <Link href="/filter-albums">
-                <a className="btn btn-dark">Смотреть еще</a>
-              </Link>
             </div>
-          </Container>
-        </section>
+          </div>
+        </div>
       </Container>
     </>
   );

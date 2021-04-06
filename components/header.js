@@ -1,24 +1,24 @@
 import React, { useState, useEffect, useRef } from "react";
 
 import Link from "next/link";
-import Router from "next/router";
-import ActiveLink from "./ActiveLink";
 
 import { Collapse, Navbar, NavbarToggler, Nav, Container } from "reactstrap";
 
 const Header = (props) => {
   const { navigation } = props;
-
   const [collapsed, setCollapsed] = useState(false);
-
   const navbarRef = useRef(null);
 
   return (
-    <header className="header header-absolute">
+    <header
+      className={`header ${props.headerAbsolute ? "header-absolute" : ""}`}
+    >
       <div ref={navbarRef}>
         <Navbar
           expand="lg"
-          className="bg-hover-purple bg-fixed-white navbar-hover-light navbar-fixed-light navbar navbar-expand-lg navbar-dark "
+          className={` bg-fixed-white navbar-fixed-light navbar navbar-expand-lg navbar-dark ${
+            props.navbarHoverLight ? "navbar-hover-light" : "navbar-light"
+          } ${props.bgHoverPurple ? "bg-hover-purple" : "bg-purple"}`}
         >
           <Container fluid>
             <Link href="/" passHref>

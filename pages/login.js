@@ -1,5 +1,5 @@
 import AuthContext from "../contexts/AuthContext";
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import Router from "next/router";
 
 const Login = () => {
