@@ -1,10 +1,12 @@
 import React, { useState } from "react";
 import { CardImg } from "reactstrap";
 import Link from "next/link";
+import ModalQuickView from "../components/ModalQuickView";
 import Image from "./CustomImage";
 
 const Product = ({ data, masonry, ...props }) => {
   const [quickView, setQuickView] = useState(false);
+
   let loading = "lazy";
 
   if (props.loading) {
@@ -35,7 +37,9 @@ const Product = ({ data, masonry, ...props }) => {
               {!props.onlyViewButton && (
                 <a
                   className="btn btn-purple btn-product-right"
-                  onClick={() => setQuickView(!quickView)}
+                  onClick={() => {
+                    setQuickView(!quickView);
+                  }}
                 >
                   <i className="fa fa-expand-arrows-alt" />
                 </a>
@@ -55,6 +59,13 @@ const Product = ({ data, masonry, ...props }) => {
           <span className="text-muted">${data.price}</span>
         </div>
       </div>
+      {props.showQuickView !== false && (
+        <ModalQuickView
+          isOpen={quickView}
+          toggle={() => setQuickView()}
+          product={data}
+        />
+      )}
     </>
   );
 };

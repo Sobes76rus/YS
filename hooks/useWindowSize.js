@@ -19,6 +19,7 @@ export default function useWindowSize() {
 
     function handleResize() {
       setWindowSize(getSize());
+      
     }
 
     window.addEventListener("resize", handleResize);
