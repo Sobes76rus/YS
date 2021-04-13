@@ -6,11 +6,13 @@ import SwiperCore, {
   Scrollbar,
   Autoplay,
 } from "swiper";
+
 import CardLookbook from "../components/CardLookbook";
 import { Swiper, SwiperSlide } from "swiper/react";
 import getConfig from "next/config";
 import Link from "next/link";
 import Image from "next/image";
+import Product from "../components/Product";
 import StackGrid, { transitions, easings } from "react-stack-grid";
 
 SwiperCore.use([Navigation, Pagination, Scrollbar, Autoplay, Parallax]);
@@ -54,7 +56,7 @@ const Home = (props) => {
   const { randomAlbums, cardPhotos, randomSix } = props;
   const bigCards = cardPhotos.slice(0, 2);
   const smallCards = cardPhotos.slice(2);
-  console.log(randomSix);
+
   return (
     <>
       <Swiper
@@ -129,10 +131,10 @@ const Home = (props) => {
         ))}
       </Swiper>
 
-      <Container fluid className="px-0">
-        <div className="mb-3">
+      <div className="px-0 fill">
+        <div className="h-50">
           <StackGrid
-            columnWidth={"25%"}
+            columnWidth={"20%"}
             duration={600}
             gutterHeight={10}
             gutterWidth={10}
@@ -145,13 +147,14 @@ const Home = (props) => {
             entered={transition.entered}
             leaved={transition.leaved}
           >
-            {randomSix.map((card, index) => {
+            {cardPhotos.map((card, index) => {
               const type = index < 2 ? "big" : "small";
-              return <CardLookbook data={card} cardType={type} key={index} />;
+
+              return <Product data={card} cardType={type} key={index} />;
             })}
           </StackGrid>
         </div>
-        <div>
+        {/* <div>
           <div className="pt-6 position-relative light-overlay align-content-center text-center">
             <Link href="/filter-albums">
               <a className="btn btn-dark">Смотреть еще</a>
@@ -171,8 +174,8 @@ const Home = (props) => {
               </p>
             </div>
           </div>
-        </div>
-      </Container>
+        </div> */}
+      </div>
     </>
   );
 };

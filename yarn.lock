@@ -3141,6 +3141,14 @@ gentle-fs@^2.3.0, gentle-fs@^2.3.1:
     read-cmd-shim "^1.0.1"
     slide "^1.1.6"
 
+gestalt@^21.6.2:
+  version "21.6.2"
+  resolved "https://registry.yarnpkg.com/gestalt/-/gestalt-21.6.2.tgz#6f5ee88bfe020ad95a8f9ee598652145164da008"
+  integrity sha512-hENJcs5zHKss9QGpAbCK67EuAL30dJZLIXi33VfAT0xcbpQHMvx9WxHz56c6csud6r5zH9A54sLSJwTDacpHMg==
+  dependencies:
+    classnames "^2.2.6"
+    prop-types "^15.7.2"
+
 get-caller-file@^1.0.1:
   version "1.0.3"
   resolved "https://registry.yarnpkg.com/get-caller-file/-/get-caller-file-1.0.3.tgz#f978fa4c90d1dfe7ff2d6beda2a515e713bdcf4a"

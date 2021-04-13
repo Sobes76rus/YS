@@ -1,6 +1,22 @@
 // this is the place for your components / CSS
 
+html,
+body {
+  height: 100%;
+  width: 100%;
+}
+
+.fill {
+  height: 100%;
+  min-height: 100%;
+  position: relative;
+}
+
 .ys-footer {
   bottom: 0;
   width: 100%;
+}
+
+.btn-purple {
+  background-color: $purple
 }

@@ -1,5 +1,13 @@
-import { Button, Card, CardImgOverlay, CardImg } from "reactstrap";
-import StackGrid from "react-stack-grid";
+import {
+  Button,
+  Card,
+  CardImgOverlay,
+  CardText,
+  CardBody,
+  CardLink,
+  CardTitle,
+  CardSubtitleCardImg,
+} from "reactstrap";
 
 import Link from "next/link";
 

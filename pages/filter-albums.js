@@ -1,4 +1,5 @@
 import Select from "react-select";
+import { Container, Row, Col } from "reactstrap";
 import { useState, useEffect } from "react";
 import getConfig from "next/config";
 import Router, { useRouter } from "next/router";
@@ -67,66 +68,70 @@ const FilterAlbums = ({ albums: a, artists, genres }) => {
   const artistNameFilter = query["artists.artist_name"];
 
   return (
-    <div className="container">
-      <h2 className=" text-sm-left">Filter albums</h2>
-      <div className="d-flex flex-row">
-        <div className="d-flex flex-column w-50 text-sm-left">
-          <h3>Filter go here</h3>
-          <Select
-            defaultValue={
-              artistNameFilter
-                ? artists.filter(({ artist_name }) =>
-                    artistNameFilter.includes(artist_name)
-                  )
-                : []
-            }
-            getOptionLabel={(option) => option.artist_name}
-            getOptionValue={(option) => option.id}
-            options={artists}
-            instanceId="artists"
-            isMulti
-            placeholder="Filter by artists"
-            onChange={(values) => {
-              changeFilter({
-                "artists.artist_name": values.map(
-                  ({ artist_name }) => artist_name
-                ),
-              });
-            }}
-          />
-          <br />
-          <Select
-            getOptionLabel={(option) => `${option.genre}`}
-            getOptionValue={(option) => option.id}
-            options={genres}
-            instanceId="genres"
-            placeholder="Filter by genres"
-            isClearable
-            onChange={(value) => setGenreId(value ? value.id : null)}
-          />
-          <input
-            type="range"
-            className="form-range mt-5"
-            min="0"
-            max="5000"
-            id="customRange2"
-            onChange={debouncedHandleChange}
-          ></input>
-          <Range />
-        </div>
+    <Container fluid className="vh-100">
+      <Row>
+        <h2 className=" text-sm-left">Filter albums</h2>
+      </Row>
+      <Row>
+        <div className="d-flex flex-row">
+          <div className="d-flex flex-column w-50 text-sm-left">
+            <h3>Filter go here</h3>
+            <Select
+              defaultValue={
+                artistNameFilter
+                  ? artists.filter(({ artist_name }) =>
+                      artistNameFilter.includes(artist_name)
+                    )
+                  : []
+              }
+              getOptionLabel={(option) => option.artist_name}
+              getOptionValue={(option) => option.id}
+              options={artists}
+              instanceId="artists"
+              isMulti
+              placeholder="Filter by artists"
+              onChange={(values) => {
+                changeFilter({
+                  "artists.artist_name": values.map(
+                    ({ artist_name }) => artist_name
+                  ),
+                });
+              }}
+            />
+            <br />
+            <Select
+              getOptionLabel={(option) => `${option.genre}`}
+              getOptionValue={(option) => option.id}
+              options={genres}
+              instanceId="genres"
+              placeholder="Filter by genres"
+              isClearable
+              onChange={(value) => setGenreId(value ? value.id : null)}
+            />
+            <input
+              type="range"
+              className="form-range mt-5"
+              min="0"
+              max="5000"
+              id="customRange2"
+              onChange={debouncedHandleChange}
+            ></input>
+            <Range />
+          </div>
 
-        {loading && "Applying filter"}
-        <ul className="row row-cols-1 list-unstyled">
-          {albums.map((item) => (
-            <li className="col" key={item.id}>
-              <strong>{item.album_name}</strong> -{" "}
-              {item.genre ? item.genre.genre : null} <br />
-              {item.artist}
-            </li>
-          ))}
-        </ul>
-      </div>
-    </div>
+          {loading && "Applying filter"}
+          <ul className="row row-cols-1 list-unstyled">
+            {albums.map((item) => (
+              <li className="col" key={item.id}>
+                <strong>{item.album_name}</strong> -{" "}
+                {item.genre ? item.genre.genre : null} <br />
+                {item.artist}
+              </li>
+            ))}
+          </ul>
+        </div>
+      </Row>
+    </Container>
   );
 };
 
