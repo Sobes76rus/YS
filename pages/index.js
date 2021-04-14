@@ -14,6 +14,7 @@ import Link from "next/link";
 import Image from "next/image";
 import Product from "../components/Product";
 import StackGrid, { transitions, easings } from "react-stack-grid";
+import Masonry, { ResponsiveMasonry } from "react-responsive-masonry";
 
 SwiperCore.use([Navigation, Pagination, Scrollbar, Autoplay, Parallax]);
 const transition = transitions.scaleDown;
@@ -133,8 +134,21 @@ const Home = (props) => {
 
       <div className="px-0 fill">
         <div className="h-50">
-          <StackGrid
-            columnWidth={"20%"}
+          <ResponsiveMasonry
+            style={{ marginTop: "50px" }}
+            columnsCountBreakPoints={{ 300: 2, 900: 3, 1100: 4 }}
+          >
+            <Masonry gutter="30px">
+              {cardPhotos.map((value, index) => (
+                <div key={index} style={{ marginTop: "-30px" }}>
+                  <Product data={value} key={index} masonry />
+                </div>
+              ))}
+            </Masonry>
+          </ResponsiveMasonry>
+
+          {/* <StackGrid
+            columnWidth={"33.3%"}
             duration={600}
             gutterHeight={10}
             gutterWidth={10}
@@ -152,7 +166,7 @@ const Home = (props) => {
 
               return <Product data={card} cardType={type} key={index} />;
             })}
-          </StackGrid>
+          </StackGrid> */}
         </div>
         {/* <div>
           <div className="pt-6 position-relative light-overlay align-content-center text-center">

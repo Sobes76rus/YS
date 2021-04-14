@@ -3,10 +3,16 @@ import { Container, Row, Col } from "reactstrap";
 import { useState, useEffect } from "react";
 import getConfig from "next/config";
 import Router, { useRouter } from "next/router";
-const { publicRuntimeConfig } = getConfig();
+import ShopPagination from "../components/ShopPagination";
+import Product from "../components/Product";
+import Hero from "../components/Hero";
+import Masonry, { ResponsiveMasonry } from "react-responsive-masonry";
+
 import Slider, { Range } from "rc-slider";
 import "rc-slider/assets/index.css";
 import _ from "lodash";
+
+const { publicRuntimeConfig } = getConfig();
 
 function getAlbumsUrl(query) {
   const url = new URL(`${publicRuntimeConfig.API_URL}/albums`);
@@ -29,7 +35,7 @@ function createFilterQuery(params) {
   };
 }
 
-const FilterAlbums = ({ albums: a, artists, genres }) => {
+const FilterAlbums = ({ albums: a, cardPhotos, breadcrumbs }) => {
   const { query, push, pathname } = useRouter();
   const filteredArtists = query["artists.artist_name"];
   const [albums, setAlbums] = useState(a);
@@ -68,70 +74,97 @@ const FilterAlbums = ({ albums: a, artists, genres }) => {
   const artistNameFilter = query["artists.artist_name"];
 
   return (
-    <Container fluid className="vh-100">
-      <Row>
-        <h2 className=" text-sm-left">Filter albums</h2>
-      </Row>
-      <Row>
-        <div className="d-flex flex-row">
-          <div className="d-flex flex-column w-50 text-sm-left">
-            <h3>Filter go here</h3>
-            <Select
-              defaultValue={
-                artistNameFilter
-                  ? artists.filter(({ artist_name }) =>
-                      artistNameFilter.includes(artist_name)
-                    )
-                  : []
-              }
-              getOptionLabel={(option) => option.artist_name}
-              getOptionValue={(option) => option.id}
-              options={artists}
-              instanceId="artists"
-              isMulti
-              placeholder="Filter by artists"
-              onChange={(values) => {
-                changeFilter({
-                  "artists.artist_name": values.map(
-                    ({ artist_name }) => artist_name
-                  ),
-                });
-              }}
-            />
-            <br />
-            <Select
-              getOptionLabel={(option) => `${option.genre}`}
-              getOptionValue={(option) => option.id}
-              options={genres}
-              instanceId="genres"
-              placeholder="Filter by genres"
-              isClearable
-              onChange={(value) => setGenreId(value ? value.id : null)}
-            />
-            <input
-              type="range"
-              className="form-range mt-5"
-              min="0"
-              max="5000"
-              id="customRange2"
-              onChange={debouncedHandleChange}
-            ></input>
-            <Range />
-          </div>
+    <>
+      <Hero title={breadcrumbs.title} breadcrumbs={breadcrumbs.breadcrumbs} />
 
-          {loading && "Applying filter"}
-          <ul className="row row-cols-1 list-unstyled">
-            {albums.map((item) => (
-              <li className="col" key={item.id}>
-                <strong>{item.album_name}</strong> -{" "}
-                {item.genre ? item.genre.genre : null} <br />
-                {item.artist}
-              </li>
-            ))}
-          </ul>
+      <Container fluid>
+        <div>
+          <Row>
+            <Col className="products-grid">
+              {/* <ShopHeader /> */}
+              <ResponsiveMasonry
+                style={{ marginTop: "50px" }}
+                columnsCountBreakPoints={{ 300: 2, 900: 3, 1100: 4 }}
+              >
+                <Masonry gutter="30px">
+                  {cardPhotos.slice(0, -1).map((value, index) => (
+                    <div key={index} style={{ marginTop: "-30px" }}>
+                      <Product data={value} key={index} masonry />
+                    </div>
+                  ))}
+                </Masonry>
+              </ResponsiveMasonry>
+            </Col>
+            {/* <ShopSidebar /> */}
+          </Row>
         </div>
-      </Row>
-    </Container>
+      </Container>
+    </>
+
+    // <Container fluid className="vh-100">
+    //   <Row>
+    //     <h2 className=" text-sm-left">Filter albums</h2>
+    //   </Row>
+    //   <Row>
+    //     <div className="d-flex flex-row">
+    //       <div className="d-flex flex-column w-50 text-sm-left">
+    //         <h3>Filter go here</h3>
+    //         <Select
+    //           defaultValue={
+    //             artistNameFilter
+    //               ? artists.filter(({ artist_name }) =>
+    //                   artistNameFilter.includes(artist_name)
+    //                 )
+    //               : []
+    //           }
+    //           getOptionLabel={(option) => option.artist_name}
+    //           getOptionValue={(option) => option.id}
+    //           options={artists}
+    //           instanceId="artists"
+    //           isMulti
+    //           placeholder="Filter by artists"
+    //           onChange={(values) => {
+    //             changeFilter({
+    //               "artists.artist_name": values.map(
+    //                 ({ artist_name }) => artist_name
+    //               ),
+    //             });
+    //           }}
+    //         />
+    //         <br />
+    //         <Select
+    //           getOptionLabel={(option) => `${option.genre}`}
+    //           getOptionValue={(option) => option.id}
+    //           options={genres}
+    //           instanceId="genres"
+    //           placeholder="Filter by genres"
+    //           isClearable
+    //           onChange={(value) => setGenreId(value ? value.id : null)}
+    //         />
+    //         <input
+    //           type="range"
+    //           className="form-range mt-5"
+    //           min="0"
+    //           max="5000"
+    //           id="customRange2"
+    //           onChange={debouncedHandleChange}
+    //         ></input>
+    //         <Range />
+    //       </div>
+
+    //       {loading && "Applying filter"}
+    //       <ul className="row row-cols-1 list-unstyled">
+    //         {albums.map((item) => (
+    //           <li className="col" key={item.id}>
+    //             <strong>{item.album_name}</strong> -{" "}
+    //             {item.genre ? item.genre.genre : null} <br />
+    //             {item.artist}
+    //           </li>
+    //         ))}
+    //       </ul>
+    //     </div>
+    //   </Row>
+    // </Container>
   );
 };
 
@@ -152,12 +185,31 @@ export async function getServerSideProps(ctx) {
   const navRes = await fetch(`${publicRuntimeConfig.API_URL}/navigations`);
   const navigation = await navRes.json();
 
+  const cardRes = await fetch(`${publicRuntimeConfig.API_URL}/card-lookbooks`);
+  const cardPhotos = await cardRes.json();
+
   return {
     props: {
+      breadcrumbs: {
+        title: "Все анкеты",
+        subtitle: "Все анкеты",
+        breadcrumbs: [
+          {
+            name: "Домой",
+            link: "/",
+            linkClass: "link-purple",
+          },
+          {
+            name: "Все анкеты",
+            active: true,
+          },
+        ],
+      },
       navigation,
       albums: albumsData,
       artists: artistsData,
       genres: genresData,
+      cardPhotos,
     },
   };
 }

@@ -11,7 +11,7 @@ const Footer = (props) => {
         <Row className="align-items-center justify-content-center">
           <Navbar
             expand="lg"
-            className={` py-1 ${
+            className={` p-0 fs-2  ${
               props.navbarHoverLight ? "navbar-hover-light" : "navbar-light"
             }`}
           >

@@ -1,13 +1,4 @@
-import {
-  Button,
-  Card,
-  CardImgOverlay,
-  CardText,
-  CardBody,
-  CardLink,
-  CardTitle,
-  CardSubtitleCardImg,
-} from "reactstrap";
+import { Button, Card, CardImgOverlay } from "reactstrap";
 
 import Link from "next/link";
 
