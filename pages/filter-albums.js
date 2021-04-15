@@ -1,5 +1,13 @@
 import Select from "react-select";
-import { Container, Row, Col } from "reactstrap";
+import {
+  Container,
+  Row,
+  Col,
+  Collapse,
+  Button,
+  CardBody,
+  Card,
+} from "reactstrap";
 import { useState, useEffect } from "react";
 import getConfig from "next/config";
 import Router, { useRouter } from "next/router";
@@ -11,6 +19,7 @@ import Masonry, { ResponsiveMasonry } from "react-responsive-masonry";
 import Slider, { Range } from "rc-slider";
 import "rc-slider/assets/index.css";
 import _ from "lodash";
+import { transitions } from "react-stack-grid";
 
 const { publicRuntimeConfig } = getConfig();
 
@@ -40,6 +49,9 @@ const FilterAlbums = ({ albums: a, cardPhotos, breadcrumbs }) => {
   const filteredArtists = query["artists.artist_name"];
   const [albums, setAlbums] = useState(a);
   const [loading, setLoading] = useState(false);
+  const [isOpen, setIsOpen] = useState(false);
+
+  const toggle = () => setIsOpen(!isOpen);
 
   async function changeFilter(filter) {
     const nextUrl = {
@@ -76,28 +88,56 @@ const FilterAlbums = ({ albums: a, cardPhotos, breadcrumbs }) => {
   return (
     <>
       <Hero title={breadcrumbs.title} breadcrumbs={breadcrumbs.breadcrumbs} />
+      <Container
+        fluid
+        className="d-flex flex-column align-items-center justify-content-center "
+      >
+        <Button block onClick={toggle} className="btn-toggle py-4">
+          Фильтр
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="16"
+            height="16"
+            className={`svg-arrow ${isOpen ? "svg-rotate" : ""}`}
+            viewBox="0 0 16 16"
+          >
+            <path
+              fill-rule="evenodd"
+              d="M8 1a.5.5 0 0 1 .5.5v11.793l3.146-3.147a.5.5 0 0 1 .708.708l-4 4a.5.5 0 0 1-.708 0l-4-4a.5.5 0 0 1 .708-.708L7.5 13.293V1.5A.5.5 0 0 1 8 1z"
+            />
+          </svg>
+        </Button>
+        <Collapse isOpen={isOpen}>
+          <Card className="border-0">
+            <CardBody>
+              Anim pariatur cliche reprehenderit, enim eiusmod high life
+              accusamus terry richardson ad squid. Nihil anim keffiyeh
+              helvetica, craft beer labore wes anderson cred nesciunt sapiente
+              ea proident.
+            </CardBody>
+          </Card>
+        </Collapse>
+      </Container>
 
-      <Container fluid>
-        <div>
-          <Row>
-            <Col className="products-grid">
-              {/* <ShopHeader /> */}
-              <ResponsiveMasonry
-                style={{ marginTop: "50px" }}
-                columnsCountBreakPoints={{ 300: 2, 900: 3, 1100: 4 }}
-              >
-                <Masonry gutter="30px">
-                  {cardPhotos.slice(0, -1).map((value, index) => (
-                    <div key={index} style={{ marginTop: "-30px" }}>
-                      <Product data={value} key={index} masonry />
-                    </div>
-                  ))}
-                </Masonry>
-              </ResponsiveMasonry>
-            </Col>
-            {/* <ShopSidebar /> */}
-          </Row>
-        </div>
+      <Container className="px-0 mw-100">
+        <Row>
+          <Col className="products-grid">
+            {/* <ShopHeader /> */}
+            <ResponsiveMasonry
+              style={{ marginTop: "50px" }}
+              columnsCountBreakPoints={{ 300: 2, 900: 3, 1100: 4 }}
+            >
+              <Masonry gutter="30px">
+                {cardPhotos.slice(0, -1).map((value, index) => (
+                  <div key={index} style={{ marginTop: "-30px" }}>
+                    <Product data={value} key={index} masonry />
+                  </div>
+                ))}
+              </Masonry>
+            </ResponsiveMasonry>
+          </Col>
+          {/* <ShopSidebar /> */}
+        </Row>
       </Container>
     </>
 

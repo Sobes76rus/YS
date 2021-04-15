@@ -54,9 +54,7 @@ export async function getStaticProps() {
 }
 
 const Home = (props) => {
-  const { randomAlbums, cardPhotos, randomSix } = props;
-  const bigCards = cardPhotos.slice(0, 2);
-  const smallCards = cardPhotos.slice(2);
+  const { randomAlbums, cardPhotos } = props;
 
   return (
     <>

@@ -23,3 +23,22 @@ body {
 .link-purple {
   color: $purple
 }
+.btn-toggle {
+  margin-bottom: 1rem; 
+  border-radius: 0.75rem;
+  background-color: #f2f2f2;
+  color: black;
+  border: none;      
+  &:hover,
+  &:focus {    
+    svg{    
+    fill: white; 
+}
+  }
+}
+.svg-rotate {
+  transform: rotate(
+    180deg
+    );
+ }
+
