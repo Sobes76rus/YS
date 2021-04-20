@@ -8,6 +8,7 @@
     padding-top: 2rem;
     padding-bottom: 2rem;
     border-bottom: 1px solid $gray-200;
+    
     &:last-of-type {
         border-bottom: none;
     }
@@ -19,8 +20,15 @@
 .sidebar-heading {
     margin-bottom: 1.2rem;
     font-weight: 400;
-    color: $gray-600;
+    color: $gray-600;    
     @include uppercase;
+
+    &.main {
+        color: black;
+        font-weight: bold;
+        font-size: smaller
+    };
+    
 }
 
 .sidebar-badge {

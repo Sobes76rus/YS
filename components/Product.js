@@ -24,11 +24,11 @@ const Product = ({ data, masonry, ...props }) => {
           <CardImg src={data.photo.url} alt={data.album_name} />
 
           <div className="product-hover-overlay">
-            <Link href="#">
+            <Link href="/filter-albums">
               <a className="product-hover-overlay-link" />
             </Link>
             <div className="product-hover-overlay-buttons">
-              <Link href="#">
+              <Link href="/filter-albums">
                 <a className="btn btn-purple btn-buy">
                   <i className="fa-search fa" />
                   <span className="btn-buy-label ml-2">Смотреть</span>
@@ -52,7 +52,7 @@ const Product = ({ data, masonry, ...props }) => {
             <p className="text-muted text-sm mb-1">{data.category[0].title}</p>
           )}
           <h3 className="h6 text-uppercase mb-1">
-            <Link href="#">
+            <Link href="/filter-albums">
               <a className="text-dark">{data.name}</a>
             </Link>
           </h3>

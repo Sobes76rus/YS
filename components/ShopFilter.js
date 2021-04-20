@@ -7,9 +7,12 @@ import {
   Nav,
   Form,
   Label,
-  Input,
   FormGroup,
   CustomInput,
+  Input,
+  Row,
+  ListGroupItem,
+  ListGroup,
 } from "reactstrap";
 const ShopFilter = (props) => {
   // FILTERS OBJECT IS ON THE BOTTOM OF THE PAGE
@@ -54,163 +57,66 @@ const ShopFilter = (props) => {
   };
 
   return (
-    <Col lg={{ size: 4, order: 1 }} xl="3" className="sidebar">
-      {/* Loop throug filters object */}
-      {filters.map((filter, index) => (
-        <div className="sidebar-block px-3 px-lg-0 mr-lg-4" key={index}>
-          {/* COLLAPSE TOGGLE */}
-          <a
-            className="d-lg-none block-toggler"
-            aria-expanded={collapse[filter.name]}
-            onClick={() => toggleCollapse(filter.name)}
-          >
-            {filter.name}
-          </a>
-          {/* END COLLAPSE TOGGLE */}
+    <Row xs="4">
+      <Col>
+        <ListGroup>
+          <h3 className="sidebar-heading main">Цена</h3>
+          <ListGroupItem>
+            <h6 className="sidebar-heading d-none d-lg-block">За 1 час</h6>
+            <PriceSlider />
+          </ListGroupItem>
+          <ListGroupItem>
+            <h6 className="sidebar-heading d-none d-lg-block">За 2 часа</h6>
+            <PriceSlider />
+          </ListGroupItem>
+          <ListGroupItem>
+            <h6 className="sidebar-heading d-none d-lg-block">За ночь</h6>
+            <PriceSlider />
+          </ListGroupItem>
+        </ListGroup>
+      </Col>
+      <Col>
+        <h3 className="sidebar-heading main">Секс</h3>
+        <Form className="mt-4 mt-lg-0" action="#">
+          {filters.map((filter) => {
+            <>
+              <h6 className="sidebar-heading d-none d-lg-block">
+                {filter.subtitle}
+              </h6>
 
-          {/* COLLAPSE */}
-          <Collapse isOpen={collapse[filter.name]} className="expand-lg">
-            {/* LOOP THROUGH FILTER WITH MENU ITEMS */}
-            {filter.items && (
-              <Nav pills className="flex-column mt-4 mt-lg-0" tag="div">
-                {filter.items.map((item) => (
-                  <>
-                    <a
-                      className={`nav-link d-flex justify-content-between mb-2 ${
-                        item.active ? "active" : ""
-                      }`}
-                      href="#"
-                    >
-                      <span>{item.name}</span>
-                      <span className="sidebar-badge">{item.count}</span>
-                    </a>
-                    <Nav pills className="flex-column ml-3" tag="div">
-                      {item.items.map((subitem) => (
-                        <a
-                          className="nav-link mb-2"
-                          href={subitem.link}
-                          key={subitem.name}
-                        >
-                          {subitem.name}
-                        </a>
-                      ))}
-                    </Nav>
-                  </>
-                ))}
-              </Nav>
-            )}
-            {/* END LOOP THROUGH FILTER WITH MENU ITEMS */}
-
-            {/* FILTER USING COMPONENT */}
-            {filter.component && (
-              <>
-                <h6 className="sidebar-heading d-none d-lg-block">
-                  {filter.subtitle}
-                </h6>
-                <PriceSlider />
-              </>
-            )}
-            {/* END FILTER USING COMPONENT */}
-
-            {/* IF CHECKBOX || RADIO || COLOUR */}
-            {(filter.checkboxes || filter.radios || filter.colours) && (
-              <>
-                <h6 className="sidebar-heading d-none d-lg-block">
-                  {filter.subtitle}
-                </h6>
-
-                {/* INPUT FORM */}
-                <Form className="mt-4 mt-lg-0" action="#">
-                  {filter.checkboxes && // IF CHECKBOXES
-                    filter.checkboxes.map((
-                      checkbox // LOOP THROUGH INPUTS
-                    ) => (
-                      <FormGroup className="mb-1" key={checkbox.id}>
-                        <CustomInput
-                          type="checkbox"
-                          id={checkbox.id}
-                          name={checkbox.name}
-                          label={
-                            <>
-                              {checkbox.label} <small>({checkbox.count})</small>
-                            </>
-                          }
-                          // CHECKED - CONTROLLED INPUT
-                          checked={
-                            filterInputs[checkbox.name]
-                              ? filterInputs[checkbox.name].includes(
-                                  checkbox.id
-                                )
-                              : ""
-                          }
-                          onChange={(e) => onInputChange(e)}
-                        />
-                      </FormGroup>
-                    ))}
-                  {filter.radios && // IF RADIOS
-                    filter.radios.map((
-                      radio // LOOP THROUGH INPUTS
-                    ) => (
-                      <FormGroup className="mb-1" key={radio.id}>
-                        <CustomInput
-                          type="radio"
-                          id={radio.id}
-                          name={radio.name}
-                          label={radio.label}
-                          // CHECKED - CONTROLLED INPUT
-                          checked={
-                            filterInputs[radio.name]
-                              ? filterInputs[radio.name].includes(radio.id)
-                              : ""
-                          }
-                          onChange={(e) => onRadioChange(e)}
-                        />
-                      </FormGroup>
-                    ))}
-                  {filter.colours && ( // IF COLOURS
-                    <ul className="list-inline mb-0 colours-wrapper">
-                      {filter.colours.map((
-                        colour // LOOP THROUGH INPUTS
-                      ) => (
-                        <li className="list-inline-item" key={colour.id}>
-                          <Label
-                            className={`btn-colour ${
-                              filterInputs[colour.name] &&
-                              filterInputs[colour.name].some(
-                                (item) => item === colour.id
-                              )
-                                ? "active"
-                                : ""
-                            }`}
-                            for={colour.id}
-                            style={{ backgroundColor: colour.hex }}
-                          />
-                          <Input
-                            className="input-invisible"
-                            type="checkbox"
-                            name={colour.name}
-                            id={colour.id}
-                            // CHECKED - CONTROLLED INPUT
-                            checked={
-                              filterInputs[colour.name]
-                                ? filterInputs[colour.name].includes(colour.id)
-                                : ""
-                            }
-                            onChange={(e) => onInputChange(e)}
-                          />
-                        </li>
-                      ))}
-                    </ul>
-                  )}
-                </Form>
-              </>
-            )}
-            {/* END IF CHECKBOX || RADIO || COLOUR */}
-          </Collapse>
-          {/* END COLLAPSE */}
-        </div>
-      ))}
-    </Col>
+              {/* INPUT FORM */}
+              <Form className="mt-4 mt-lg-0" action="filter-albums">
+                <p>hello</p>
+                {/* {filter.checkboxes && // IF CHECKBOXES
+                  filter.checkboxes.map((
+                    checkbox // LOOP THROUGH INPUTS
+                  ) => (
+                    <FormGroup className="mb-1" key={checkbox.id}>
+                      <CustomInput
+                        type="checkbox"
+                        id={checkbox.id}
+                        name={checkbox.name}
+                        label={
+                          <>
+                            {checkbox.label} <small>({checkbox.count})</small>
+                          </>
+                        }
+                        // CHECKED - CONTROLLED INPUT
+                        checked={
+                          filterInputs[checkbox.name]
+                            ? filterInputs[checkbox.name].includes(checkbox.id)
+                            : ""
+                        }
+                        onChange={(e) => onInputChange(e)}
+                      />
+                    </FormGroup>
+                  ))} */}
+              </Form>
+            </>;
+          })}
+        </Form>
+      </Col>
+    </Row>
   );
 };
 
@@ -226,11 +132,11 @@ const filters = [
         items: [
           {
             name: "Lorem ipsum",
-            link: "#",
+            link: "/",
           },
           {
             name: "Dolor",
-            link: "#",
+            link: "/",
           },
           {
             name: "Sit amet",
@@ -249,19 +155,19 @@ const filters = [
         items: [
           {
             name: "Lorem ipsum",
-            link: "#",
+            link: "filter-albums",
           },
           {
             name: "Dolor",
-            link: "#",
+            link: "filter-albums",
           },
           {
             name: "Sit amet",
-            link: "#",
+            link: "filter-albums",
           },
           {
             name: "Donec vitae",
-            link: "#",
+            link: "filter-albums",
           },
         ],
       },
