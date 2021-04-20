@@ -14,6 +14,7 @@ import Router, { useRouter } from "next/router";
 import ShopPagination from "../components/ShopPagination";
 import Product from "../components/Product";
 import Hero from "../components/Hero";
+import ShopFilter from "../components/ShopFilter";
 import Masonry, { ResponsiveMasonry } from "react-responsive-masonry";
 
 import Slider, { Range } from "rc-slider";
@@ -109,17 +110,12 @@ const FilterAlbums = ({ albums: a, cardPhotos, breadcrumbs }) => {
         </Button>
         <Collapse isOpen={isOpen}>
           <Card className="border-0">
-            <CardBody>
-              Anim pariatur cliche reprehenderit, enim eiusmod high life
-              accusamus terry richardson ad squid. Nihil anim keffiyeh
-              helvetica, craft beer labore wes anderson cred nesciunt sapiente
-              ea proident.
-            </CardBody>
+            <CardBody>{/* <ShopFilter /> */}</CardBody>
           </Card>
         </Collapse>
       </Container>
 
-      <Container className="px-0 mw-100">
+      <Container className="px-0">
         <Row>
           <Col className="products-grid">
             {/* <ShopHeader /> */}

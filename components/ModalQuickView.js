@@ -11,6 +11,7 @@ import {
   InputGroupAddon,
   InputGroup,
 } from "reactstrap";
+import SwiperGallery from "../components/SwiperGallery";
 
 import { Swiper, SwiperSlide } from "swiper/react";
 
@@ -81,21 +82,13 @@ const ModalQuickView = ({ isOpen, toggle, product }) => {
         <Row>
           <Col lg="6">
             <div className="detail-carousel">
-              <Swiper {...params} loop ref={swiperRef}>
+              <SwiperGallery data={product} vertical={true} />
+              {/* <Swiper {...params} loop ref={swiperRef}>
                 <img
                   className="img-fluid"
                   src={product.photo.url}
                   key={product.index}
                 />
-
-                {/* {product.photo.map((image, index) => (
-                  <img
-                    className="img-fluid"
-                    src={image.img}
-                    alt={image.alt}
-                    key={index}
-                  />
-                ))} */}
               </Swiper>
               <div className="swiper-thumbs">
                 <button
@@ -112,7 +105,7 @@ const ModalQuickView = ({ isOpen, toggle, product }) => {
                   />
                 </button>
 
-                {/* {product.photo.map((image, index) => (
+                /* {product.photo.map((image, index) => (
                   <button
                     key={image.img}
                     onClick={() => slideTo(index)}
@@ -126,8 +119,8 @@ const ModalQuickView = ({ isOpen, toggle, product }) => {
                       alt={image.alt}
                     />
                   </button>
-                ))} */}
-              </div>
+                ))} 
+              </div> */}
             </div>
           </Col>
           <Col lg="6" className="p-lg-5">
