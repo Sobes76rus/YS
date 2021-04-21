@@ -1,61 +1,22 @@
 import PriceSlider from "./PriceSlider";
 import { useState } from "react";
 
-import {
-  Col,
-  Collapse,
-  Nav,
-  Form,
-  Label,
-  FormGroup,
-  CustomInput,
-  Input,
-  Row,
-  ListGroupItem,
-  ListGroup,
-} from "reactstrap";
-const ShopFilter = (props) => {
-  // FILTERS OBJECT IS ON THE BOTTOM OF THE PAGE
+import { Col, Row, ListGroupItem, ListGroup, CustomInput } from "reactstrap";
 
+const ShopFilter = () => {
   const [filterInputs, setFilterInputs] = useState({
-    // Remove or customize on PRODUCTION - Some brands are preselected
     "clothes-brand": ["brand0", "brand1"],
-    // Remove or customize on PRODUCTION - Some sizes are preselected
-    size: ["size1"],
   });
 
-  // Collapse state
-  const [collapse, setCollapse] = useState({});
-  const toggleCollapse = (name) => {
-    setCollapse({ ...collapse, [name]: !collapse[name] });
-  };
-
-  // On input change func
   const onInputChange = (e) => {
-    const value = e.target.id; // Input value
-    const name = e.target.name; // Input name
-    filterInputs[name] // If input group exists
-      ? filterInputs[name].some((item) => item === value) // If item exists in array > remove
-        ? setFilterInputs({
-            ...filterInputs,
-            [name]: filterInputs[name].filter((x) => x !== value),
-          })
-        : setFilterInputs({
-            ...filterInputs,
-            [name]: [...filterInputs[name], value],
-          }) // If item doesn't exists in array > add it to input group
-      : setFilterInputs({ ...filterInputs, [name]: [value] }); // If input group doesn't exists > create input group and add value
+    const value = e.target.value;
+    setFilterInputs({
+      ...filterInputs,
+      [name]: [value],
+    });
   };
-
-  // On input radio change func
-  const onRadioChange = (e) => {
-    const value = e.target.id; // Input value
-    const name = e.target.name; // Input name
-
-    // Set active radio input
-    setFilterInputs({ ...filterInputs, [name]: value });
-  };
-
+  const checkboxes = filters[2].checkboxes;
+  console.log(filterInputs);
   return (
     <Row xs="4">
       <Col>
@@ -77,44 +38,21 @@ const ShopFilter = (props) => {
       </Col>
       <Col>
         <h3 className="sidebar-heading main">Секс</h3>
-        <Form className="mt-4 mt-lg-0" action="#">
-          {filters.map((filter) => {
-            <>
-              <h6 className="sidebar-heading d-none d-lg-block">
-                {filter.subtitle}
-              </h6>
 
-              {/* INPUT FORM */}
-              <Form className="mt-4 mt-lg-0" action="filter-albums">
-                <p>hello</p>
-                {/* {filter.checkboxes && // IF CHECKBOXES
-                  filter.checkboxes.map((
-                    checkbox // LOOP THROUGH INPUTS
-                  ) => (
-                    <FormGroup className="mb-1" key={checkbox.id}>
-                      <CustomInput
-                        type="checkbox"
-                        id={checkbox.id}
-                        name={checkbox.name}
-                        label={
-                          <>
-                            {checkbox.label} <small>({checkbox.count})</small>
-                          </>
-                        }
-                        // CHECKED - CONTROLLED INPUT
-                        checked={
-                          filterInputs[checkbox.name]
-                            ? filterInputs[checkbox.name].includes(checkbox.id)
-                            : ""
-                        }
-                        onChange={(e) => onInputChange(e)}
-                      />
-                    </FormGroup>
-                  ))} */}
-              </Form>
-            </>;
-          })}
-        </Form>
+        {checkboxes.map((checkbox) => (
+          <CustomInput
+            type="checkbox"
+            id={checkbox.id}
+            name={checkbox.name}
+            label={
+              <>
+                {checkbox.label} <small>({checkbox.count})</small>
+              </>
+            }
+            checked={filterInputs[checkbox.name]}
+            onChange={(e) => onInputChange(e)}
+          />
+        ))}
       </Col>
     </Row>
   );
@@ -205,31 +143,31 @@ const filters = [
     subtitle: "Brands",
     checkboxes: [
       {
-        name: "clothes-brand",
+        name: "Calvin Klein",
         id: "brand0",
         count: "18",
         label: "Calvin Klein",
       },
       {
-        name: "clothes-brand",
+        name: "Levi Strauss",
         id: "brand1",
         count: "30",
         label: "Levi Strauss",
       },
       {
-        name: "clothes-brand",
+        name: "Hugo Boss",
         id: "brand2",
         count: "120",
         label: "Hugo Boss",
       },
       {
-        name: "clothes-brand",
+        name: "Tomi Hilfiger",
         id: "brand3",
         count: "70",
         label: "Tomi Hilfiger",
       },
       {
-        name: "clothes-brand",
+        name: "Tom Ford",
         id: "brand4",
         count: "110",
         label: "Tom Ford",
