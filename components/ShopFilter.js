@@ -4,17 +4,19 @@ import { useState } from "react";
 import { Col, Row, ListGroupItem, ListGroup, CustomInput } from "reactstrap";
 
 const ShopFilter = () => {
-  const [filterInputs, setFilterInputs] = useState({
-    "clothes-brand": ["brand0", "brand1"],
-  });
-
+  const [filterInputs, setFilterInputs] = useState({});
   const onInputChange = (e) => {
-    const value = e.target.value;
     setFilterInputs({
       ...filterInputs,
-      [name]: [value],
+      [e.target.name]: e.target.checked,
     });
+
+    // setFilterInputs({
+    //   ...filterInputs,
+    //   [e.target.name]: e.target.checked,
+    // });
   };
+
   const checkboxes = filters[2].checkboxes;
   console.log(filterInputs);
   return (
@@ -50,7 +52,43 @@ const ShopFilter = () => {
               </>
             }
             checked={filterInputs[checkbox.name]}
-            onChange={(e) => onInputChange(e)}
+            onChange={onInputChange}
+          />
+        ))}
+      </Col>
+      <Col>
+        <h3 className="sidebar-heading main">Массаж</h3>
+
+        {checkboxes.map((checkbox) => (
+          <CustomInput
+            type="checkbox"
+            id={checkbox.id}
+            name={checkbox.name}
+            label={
+              <>
+                {checkbox.label} <small>({checkbox.count})</small>
+              </>
+            }
+            checked={filterInputs[checkbox.name]}
+            onChange={onInputChange}
+          />
+        ))}
+      </Col>
+      <Col>
+        <h3 className="sidebar-heading main">Разное</h3>
+
+        {checkboxes.map((checkbox) => (
+          <CustomInput
+            type="checkbox"
+            id={checkbox.id}
+            name={checkbox.name}
+            label={
+              <>
+                {checkbox.label} <small>({checkbox.count})</small>
+              </>
+            }
+            checked={filterInputs[checkbox.name]}
+            onChange={onInputChange}
           />
         ))}
       </Col>
