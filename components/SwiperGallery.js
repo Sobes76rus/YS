@@ -1,28 +1,25 @@
 import React, { useState, useRef } from "react";
-
+import Image from "next/image";
 import Lightbox from "react-image-lightbox";
-import Magnifier from "react-magnifier";
-import { Row, Col, Button } from "reactstrap";
 
-// import ReactIdSwiper from "react-id-swiper";
+import { Row, Col, Button } from "reactstrap";
 import { Swiper, SwiperSlide } from "swiper/react";
 
 const SwiperGallery = ({ data, vertical }) => {
   const [lightBoxOpen, setLightBoxOpen] = useState(false);
   const [activeImage, setActiveImage] = useState(0);
   const [activeSlide, setActiveSlide] = useState(0);
-
   const gallerySwiperRef = useRef(null);
 
-  // const slideTo = (index) => {
-  //   setActiveSlide(index);
-  //   if (
-  //     gallerySwiperRef.current !== null &&
-  //     gallerySwiperRef.current.swiper !== null
-  //   ) {
-  //     gallerySwiperRef.current.swiper.slideToLoop(index);
-  //   }
-  // };
+  const slideTo = (index) => {
+    setActiveSlide(index);
+    if (
+      gallerySwiperRef.current !== null &&
+      gallerySwiperRef.current.swiper !== null
+    ) {
+      gallerySwiperRef.current.swiper.slideToLoop(index);
+    }
+  };
 
   const onClick = (index) => {
     setActiveImage(index);
@@ -64,52 +61,44 @@ const SwiperGallery = ({ data, vertical }) => {
       <Row>
         <Col className={sliderClass} {...sliderColumns}>
           <Swiper {...sliderParams} ref={gallerySwiperRef}>
-            <div>
-              <Magnifier
-                mgShowOverflow={false}
-                mgWidth={2000}
-                mgHeight={2000}
-                className="img-fluid"
-                src={data.photo.url}
-                alt={data.alt}
-                zoomFactor={0.11}
-                style={{ cursor: "default" }}
-              />
-
-              <Button color="expand">
-                <svg className="svg-icon">
-                  <use xlinkHref="/icons/orion-svg-sprite.svg#expand-1"></use>
-                </svg>
-              </Button>
-            </div>
+            {data.photo.map((slide, index) => {
+              return (
+                <SwiperSlide key={index}>
+                  <Image
+                    className="img-fluid"
+                    src={slide.url}
+                    width={slide.width}
+                    height={slide.height}
+                  />
+                  <Button color="expand" onClick={() => onClick(index)}>
+                    <svg className="svg-icon">
+                      <use xlinkHref="/icons/orion-svg-sprite.svg#expand-1"></use>
+                    </svg>
+                  </Button>
+                </SwiperSlide>
+              );
+            })}
           </Swiper>
         </Col>
 
         <Col className={thumbsClass} {...thumbsColumns}>
-          <button
-            // onClick={() => slideTo(index)}
-            className={`detail-thumb-item mb-3 ${activeSlide ? "active" : ""}`}
-          >
-            <img className="img-fluid" src={data.photo.url} alt={data.alt} />
-          </button>
+          {data.photo.map((slide, index) => (
+            <button
+              key={index}
+              onClick={() => slideTo(index)}
+              className={`detail-thumb-item mb-3 ${
+                activeSlide === index ? "active" : ""
+              }`}
+            >
+              <img className="img-fluid" src={slide.url} alt={slide.alt} />
+            </button>
+          ))}
         </Col>
 
         {lightBoxOpen && (
           <Lightbox
-            mainSrc={data[activeImage].photo.url}
-            nextSrc={data[(activeImage + 1) % data.length].photo.url}
-            prevSrc={
-              data[(activeImage + data.length - 1) % data.length].photo.url
-            }
+            mainSrc={data.photo[activeImage].url}
             onCloseRequest={() => setLightBoxOpen(false)}
-            imageCaption={data[activeImage].name}
-            onMovePrevRequest={() =>
-              setActiveImage((activeImage + data.length - 1) % data.length)
-            }
-            onMoveNextRequest={() =>
-              setActiveImage((activeImage + 1) % data.length)
-            }
-            enableZoom={false}
             reactModalStyle={customStyles}
           />
         )}

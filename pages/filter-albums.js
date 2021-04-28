@@ -45,7 +45,14 @@ function createFilterQuery(params) {
   };
 }
 
-const FilterAlbums = ({ albums: a, cardPhotos, breadcrumbs }) => {
+const FilterAlbums = ({
+  albums: a,
+  cardPhotos,
+  services,
+  cities,
+  metros,
+  breadcrumbs,
+}) => {
   const { query, push, pathname } = useRouter();
   const filteredArtists = query["artists.artist_name"];
   const [albums, setAlbums] = useState(a);
@@ -111,7 +118,7 @@ const FilterAlbums = ({ albums: a, cardPhotos, breadcrumbs }) => {
         <Collapse className="w-100" isOpen={isOpen}>
           <Card className="border-0">
             <CardBody>
-              <ShopFilter />
+              <ShopFilter services={services} cities={cities} metros={metros} />
             </CardBody>
           </Card>
         </Collapse>
@@ -226,6 +233,15 @@ export async function getServerSideProps(ctx) {
   const cardRes = await fetch(`${publicRuntimeConfig.API_URL}/card-lookbooks`);
   const cardPhotos = await cardRes.json();
 
+  const serviceRes = await fetch(`${publicRuntimeConfig.API_URL}/usligis`);
+  const services = await serviceRes.json();
+
+  const citiesRes = await fetch(`${publicRuntimeConfig.API_URL}/cities`);
+  const cities = await citiesRes.json();
+
+  const metroRes = await fetch(`${publicRuntimeConfig.API_URL}/cities`);
+  const metros = await metroRes.json();
+
   return {
     props: {
       breadcrumbs: {
@@ -247,7 +263,10 @@ export async function getServerSideProps(ctx) {
       albums: albumsData,
       artists: artistsData,
       genres: genresData,
+      cities,
+      metros,
       cardPhotos,
+      services,
     },
   };
 }

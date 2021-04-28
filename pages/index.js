@@ -6,7 +6,7 @@ import SwiperCore, {
   Scrollbar,
   Autoplay,
 } from "swiper";
-
+import dynamic from "next/dynamic";
 import CardLookbook from "../components/CardLookbook";
 import { Swiper, SwiperSlide } from "swiper/react";
 import getConfig from "next/config";
@@ -14,10 +14,13 @@ import Link from "next/link";
 import Image from "next/image";
 import Product from "../components/Product";
 import StackGrid, { transitions, easings } from "react-stack-grid";
-import Masonry, { ResponsiveMasonry } from "react-responsive-masonry";
+
+const LayoutGrid = dynamic(() => import("../components/LayoutGrid"), {
+  ssr: false,
+  loading: () => <>Loading...</>,
+});
 
 SwiperCore.use([Navigation, Pagination, Scrollbar, Autoplay, Parallax]);
-const transition = transitions.scaleDown;
 
 export async function getStaticProps() {
   const { publicRuntimeConfig } = getConfig();
@@ -117,12 +120,6 @@ const Home = (props) => {
                       {slide.text}
                     </p>
                   )}
-                  {/* <Button
-                    color={props.columns ? "outline-dark" : "light"}
-                    href={slide.link}
-                  >
-                    Сексуальные транссексуалочки
-                  </Button> */}
                 </Col>
               </Row>
             </Container>
@@ -132,61 +129,8 @@ const Home = (props) => {
 
       <div className="px-0 fill">
         <div className="h-50">
-          <ResponsiveMasonry
-            style={{ marginTop: "50px" }}
-            columnsCountBreakPoints={{ 300: 2, 900: 3, 1100: 4 }}
-          >
-            <Masonry gutter="30px">
-              {cardPhotos.map((value, index) => (
-                <div key={index} style={{ marginTop: "-30px" }}>
-                  <Product data={value} key={index} masonry />
-                </div>
-              ))}
-            </Masonry>
-          </ResponsiveMasonry>
-
-          {/* <StackGrid
-            columnWidth={"33.3%"}
-            duration={600}
-            gutterHeight={10}
-            gutterWidth={10}
-            monitorImagesLoaded={true}
-            easing={easings.cubicOut}
-            appearDelay={60}
-            appear={transition.appear}
-            appeared={transition.appeared}
-            enter={transition.enter}
-            entered={transition.entered}
-            leaved={transition.leaved}
-          >
-            {cardPhotos.map((card, index) => {
-              const type = index < 2 ? "big" : "small";
-
-              return <Product data={card} cardType={type} key={index} />;
-            })}
-          </StackGrid> */}
+          <LayoutGrid cards={cardPhotos} />
         </div>
-        {/* <div>
-          <div className="pt-6 position-relative light-overlay align-content-center text-center">
-            <Link href="/filter-albums">
-              <a className="btn btn-dark">Смотреть еще</a>
-            </Link>
-          </div>
-          <div className="py-6 position-relative light-overlay align-content-center text-center">
-            <div className="overlay-content text-center text-dark">
-              <h3 className="display-1 font-weight-bold text-serif mb-4">
-                Транс-досуг в Москве
-              </h3>
-              <p className="text-uppercase font-weight-bold mb-1 letter-spacing-5">
-                Lorem Ipsum - это текст-"рыба", часто используемый в печати и
-                вэб-дизайне. Lorem Ipsum является стандартной "рыбой" для
-                текстов на латинице с начала XVI века. В то время некий
-                безымянный печатник создал большую коллекцию размеров и форм
-                шрифтов, используя Lorem Ipsum для распечатки образцов.{" "}
-              </p>
-            </div>
-          </div>
-        </div> */}
       </div>
     </>
   );

@@ -1,63 +1,10 @@
-import React, { useState, useRef } from "react";
+import React from "react";
 
-import {
-  Button,
-  ModalBody,
-  Modal,
-  Row,
-  Col,
-  Form,
-  Input,
-  InputGroupAddon,
-  InputGroup,
-} from "reactstrap";
+import { Button, ModalBody, Modal, Row, Col } from "reactstrap";
 import SwiperGallery from "../components/SwiperGallery";
-
-import { Swiper, SwiperSlide } from "swiper/react";
-
-import SelectBox from "./SelectBox";
 import Stars from "./Stars";
 
 const ModalQuickView = ({ isOpen, toggle, product }) => {
-  const [button, setButton] = useState(false);
-  const swiperRef = useRef(null);
-  const [inputs, setInputs] = useState({});
-  const [currentIndex, updateCurrentIndex] = useState(0);
-
-  const params = {
-    on: {
-      slideChange: () => updateCurrentIndex(swiperRef.current.swiper.realIndex),
-    },
-  };
-  const slideTo = (index) => {
-    if (swiperRef.current && swiperRef.current.swiper) {
-      swiperRef.current.swiper.slideTo(index + 1);
-      updateCurrentIndex(index);
-    }
-  };
-  const onChange = (e) => {
-    const value = e.target.value;
-    setInputs({ ...inputs, [e.target.name]: value });
-  };
-
-  const addToCart = (e) => {
-    e.preventDefault();
-  };
-
-  const sizes = [
-    {
-      value: "value_0",
-      label: "Small",
-    },
-    {
-      value: "value_1",
-      label: "Medium",
-    },
-    {
-      value: "value_2",
-      label: "Large",
-    },
-  ];
   return (
     <Modal isOpen={isOpen} toggle={toggle} size="xl" modalClassName="quickview">
       <button
@@ -83,44 +30,6 @@ const ModalQuickView = ({ isOpen, toggle, product }) => {
           <Col lg="6">
             <div className="detail-carousel">
               <SwiperGallery data={product} vertical={true} />
-              {/* <Swiper {...params} loop ref={swiperRef}>
-                <img
-                  className="img-fluid"
-                  src={product.photo.url}
-                  key={product.index}
-                />
-              </Swiper>
-              <div className="swiper-thumbs">
-                <button
-                  key={product.index}
-                  onClick={() => slideTo(product.index)}
-                  className={`swiper-thumb-item detail-thumb-item ${
-                    currentIndex === product.index ? "active" : ""
-                  }`}
-                >
-                  <img
-                    className="img-fluid"
-                    src={product.photo.url}
-                    alt={product.photo.alt}
-                  />
-                </button>
-
-                /* {product.photo.map((image, index) => (
-                  <button
-                    key={image.img}
-                    onClick={() => slideTo(index)}
-                    className={`swiper-thumb-item detail-thumb-item ${
-                      currentIndex === index ? "active" : ""
-                    }`}
-                  >
-                    <img
-                      className="img-fluid"
-                      src={image.img}
-                      alt={image.alt}
-                    />
-                  </button>
-                ))} 
-              </div> */}
             </div>
           </Col>
           <Col lg="6" className="p-lg-5">
@@ -151,12 +60,17 @@ const ModalQuickView = ({ isOpen, toggle, product }) => {
             </p>
             <Col sm="6" lg="12" className="detail-option mb-4">
               <h6 className="detail-option-heading">Услуги</h6>
-              <Button outline color="secondary" size="sm">
-                Уборка
-              </Button>{" "}
-              <Button outline color="secondary" size="sm">
-                Мытье окон
-              </Button>{" "}
+              {product.uslugis.map((service, index) => (
+                <Button
+                  outline
+                  color="secondary"
+                  className="mr-3"
+                  size="sm"
+                  key={index}
+                >
+                  {service.name}
+                </Button>
+              ))}
             </Col>
           </Col>
         </Row>

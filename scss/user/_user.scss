@@ -18,26 +18,28 @@ body {
 }
 
 .btn-purple {
-  background-color: $purple
+  background-color: $purple;
 }
 .link-purple {
-  color: $purple
+  color: $purple;
 }
 .btn-toggle {
-  margin-bottom: 1rem; 
+  margin-bottom: 1rem;
   border-radius: 0.75rem;
   background-color: #f2f2f2;
   color: black;
-  border: none;      
+  border: none;
   &:hover,
-  &:focus {    
-    svg{    
-    fill: white; 
-}
+  &:focus {
+    svg {
+      fill: white;
+    }
   }
 }
 .svg-rotate {
-  transform: rotate(
-    180deg
-    );
- }
+  transform: rotate(180deg);
+}
+
+.filter_col {
+  margin-bottom: 1.2rem;
+}

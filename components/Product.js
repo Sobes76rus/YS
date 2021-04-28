@@ -7,21 +7,16 @@ import Image from "./CustomImage";
 const Product = ({ data, masonry, ...props }) => {
   const [quickView, setQuickView] = useState(false);
 
-  let loading = "lazy";
-
-  if (props.loading) {
-    loading = props.loading;
-  }
-
+  let loading = props.loading || "lazy";
   return (
     <>
       <div className="product">
         <div className="product-image">
-          {data.new && <div className="ribbon ribbon-info">Fresh</div>}
-          {data.sale && <div className="ribbon ribbon-primary">Sale</div>}
-          {data.soldout && <div className="ribbon ribbon-danger">Sold out</div>}
-
-          <CardImg src={data.photo.url} alt={data.album_name} />
+          <CardImg
+            src={data.photo[0].url}
+            alt={data.album_name}
+            loading="lazy"
+          />
 
           <div className="product-hover-overlay">
             <Link href="/filter-albums">

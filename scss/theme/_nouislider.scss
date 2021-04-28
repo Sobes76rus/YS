@@ -336,16 +336,15 @@ html:not([dir="rtl"]) .noUi-horizontal .noUi-handle {
 }
 
 .noUi-horizontal .noUi-handle {
-  top: -5px;
+  top: -4px;
   right: -2px !important;
   left: 0;
-  width: 3px;
-  height: 14px;
+  width: 10px;
+  height: 10px;
   cursor: pointer;
-  border: none;
-  border-radius: 0;
+  border-radius: 50%;
   outline: none;
-  background: #222 !important;
+  background: $purple;
   box-shadow: none;
 }
 
@@ -355,5 +354,5 @@ html:not([dir="rtl"]) .noUi-horizontal .noUi-handle {
 }
 
 .noUi-connect {
-  background: #222;
+  background: $purple;
 }
