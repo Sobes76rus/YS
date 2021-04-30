@@ -58,7 +58,6 @@ const FilterAlbums = ({
   const [albums, setAlbums] = useState(a);
   const [loading, setLoading] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
-
   const toggle = () => setIsOpen(!isOpen);
 
   async function changeFilter(filter) {
@@ -233,13 +232,15 @@ export async function getServerSideProps(ctx) {
   const cardRes = await fetch(`${publicRuntimeConfig.API_URL}/card-lookbooks`);
   const cardPhotos = await cardRes.json();
 
-  const serviceRes = await fetch(`${publicRuntimeConfig.API_URL}/usligis`);
+  const serviceRes = await fetch(
+    `${publicRuntimeConfig.API_URL}/uslugi-groups`
+  );
   const services = await serviceRes.json();
 
   const citiesRes = await fetch(`${publicRuntimeConfig.API_URL}/cities`);
   const cities = await citiesRes.json();
 
-  const metroRes = await fetch(`${publicRuntimeConfig.API_URL}/cities`);
+  const metroRes = await fetch(`${publicRuntimeConfig.API_URL}/metros`);
   const metros = await metroRes.json();
 
   return {

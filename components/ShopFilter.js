@@ -8,9 +8,6 @@ const ShopFilter = ({ services, cities, metros }) => {
   const randomThree = (a, n) =>
     a.sort(() => Math.random() - Math.random()).slice(0, n);
 
-  const randomServices3 = randomThree(services, 3);
-  const randomServices5 = randomThree(services, 5);
-
   const onInputChange = (e) => {
     setFilterInputs({
       ...filterInputs,
@@ -43,6 +40,7 @@ const ShopFilter = ({ services, cities, metros }) => {
         <h3 className="sidebar-heading main">Местоположение</h3>
         {cities.map((city) => (
           <Select
+            key={city.id}
             className="mb-3"
             defaultValue={city}
             getOptionLabel={(option) => option.name}
@@ -56,49 +54,28 @@ const ShopFilter = ({ services, cities, metros }) => {
       </Col>
 
       <Col>
-        <Col className="filter_col">
-          <h3 className="sidebar-heading main">Услуги</h3>
-
-          {randomServices3.map((service) => (
-            <CustomInput
-              type="checkbox"
-              key={service.id}
-              id={service.id}
-              name={service.name}
-              label={<>{service.name}</>}
-              checked={filterInputs[service.name]}
-              onChange={onInputChange}
-            />
-          ))}
-        </Col>
-        <Col className="filter_col">
-          <h3 className="sidebar-heading main">Услуги</h3>
-          {randomServices3.map((service) => (
-            <CustomInput
-              type="checkbox"
-              key={service.id}
-              id={service.id}
-              name={service.name}
-              label={<>{service.name}</>}
-              checked={filterInputs[service.name]}
-              onChange={onInputChange}
-            />
-          ))}
-        </Col>
-        <Col className="filter_col">
-          <h3 className="sidebar-heading main">Услуги</h3>
-          {randomServices5.map((service) => (
-            <CustomInput
-              type="checkbox"
-              key={service.id}
-              id={service.id}
-              name={service.name}
-              label={service.name}
-              checked={filterInputs[service.name]}
-              onChange={onInputChange}
-            />
-          ))}
-        </Col>
+        {services.map((service, index) => {
+          return (
+            <>
+              <Col className="filter_col">
+                <h3 className="sidebar-heading main" key={index}>
+                  {service.group_name}
+                </h3>
+                {service.uslugis.map((usluga) => (
+                  <CustomInput
+                    type="checkbox"
+                    key={usluga.id}
+                    id={usluga.id}
+                    name={usluga.name}
+                    label={<>{usluga.name}</>}
+                    checked={filterInputs[usluga.name]}
+                    onChange={onInputChange}
+                  />
+                ))}
+              </Col>
+            </>
+          );
+        })}
       </Col>
     </Row>
   );

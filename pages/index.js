@@ -7,13 +7,8 @@ import SwiperCore, {
   Autoplay,
 } from "swiper";
 import dynamic from "next/dynamic";
-import CardLookbook from "../components/CardLookbook";
 import { Swiper, SwiperSlide } from "swiper/react";
 import getConfig from "next/config";
-import Link from "next/link";
-import Image from "next/image";
-import Product from "../components/Product";
-import StackGrid, { transitions, easings } from "react-stack-grid";
 
 const LayoutGrid = dynamic(() => import("../components/LayoutGrid"), {
   ssr: false,
