@@ -15,12 +15,6 @@ const PriceSlider = ({ top }) => {
 
   return (
     <>
-      {/* <Range
-        min={priceMin}
-        max={priceMax}
-        defaultValue={[priceMin, priceMax]}
-        handle={priceSlider(value)}
-      /> */}
       <Nouislider
         key={2}
         range={{ min: 1000, max: 30000 }}
@@ -28,7 +22,7 @@ const PriceSlider = ({ top }) => {
         onUpdate={priceSlider}
         connect
       />
-      <div className="nouislider-values mb-4 ">
+      <div className="nouislider-values">
         <div className="min d-flex align-items-end">
           <p className="m-0 pr-2">от</p>
           <div className="mr-2">

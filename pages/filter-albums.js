@@ -1,4 +1,4 @@
-import Select from "react-select";
+import FilterContext from "../contexts/FilterContext";
 import {
   Container,
   Row,
@@ -8,90 +8,27 @@ import {
   CardBody,
   Card,
 } from "reactstrap";
-import { useState, useEffect } from "react";
+import { useState, useContext } from "react";
 import getConfig from "next/config";
-import Router, { useRouter } from "next/router";
-import ShopPagination from "../components/ShopPagination";
 import Product from "../components/Product";
 import Hero from "../components/Hero";
 import ShopFilter from "../components/ShopFilter";
 import Masonry, { ResponsiveMasonry } from "react-responsive-masonry";
-
-import Slider, { Range } from "rc-slider";
 import "rc-slider/assets/index.css";
 import _ from "lodash";
-import { transitions } from "react-stack-grid";
-
-const { publicRuntimeConfig } = getConfig();
-
-function getAlbumsUrl(query) {
-  const url = new URL(`${publicRuntimeConfig.API_URL}/albums`);
-
-  const artistId = query["artists.artist_name"];
-
-  if (artistId) {
-    url.searchParams.append("artists.artist_name", artistId);
-  }
-
-  return url.toString();
-}
-
-function createFilterQuery(params) {
-  const nextUrl = {
-    pathname,
-    query: {
-      ...query,
-    },
-  };
-}
 
 const FilterAlbums = ({
-  albums: a,
-  cardPhotos,
   services,
+  cardPhotos,
   cities,
   metros,
   breadcrumbs,
 }) => {
-  const { query, push, pathname } = useRouter();
-  const filteredArtists = query["artists.artist_name"];
-  const [albums, setAlbums] = useState(a);
-  const [loading, setLoading] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
   const toggle = () => setIsOpen(!isOpen);
 
-  async function changeFilter(filter) {
-    const nextUrl = {
-      pathname,
-      query: {
-        ...query,
-        ...filter,
-      },
-    };
-
-    await Router.push(nextUrl, nextUrl, { shallow: true });
-  }
-
-  useEffect(() => {
-    const url = getAlbumsUrl(query);
-    setLoading(true);
-
-    fetch(url)
-      .then((r) => r.json())
-      .then((a) => {
-        setAlbums(a);
-        setLoading(false);
-      });
-  }, [filteredArtists]);
-
-  const debouncedHandleChange = _.debounce((evt) => {
-    changeFilter({
-      price: evt.target.value,
-    });
-  }, 300);
-
-  const artistNameFilter = query["artists.artist_name"];
-
+  const { cards } = useContext(FilterContext);
+  console.log(cards);
   return (
     <>
       <Hero title={breadcrumbs.title} breadcrumbs={breadcrumbs.breadcrumbs} />
@@ -132,9 +69,9 @@ const FilterAlbums = ({
               columnsCountBreakPoints={{ 300: 2, 900: 3, 1100: 4 }}
             >
               <Masonry gutter="30px">
-                {cardPhotos.slice(0, -1).map((value, index) => (
+                {cards.map((value, index) => (
                   <div key={index} style={{ marginTop: "-30px" }}>
-                    <Product data={value} key={index} masonry />
+                    <Product cards={value} key={index} masonry />
                   </div>
                 ))}
               </Masonry>
@@ -212,18 +149,13 @@ const FilterAlbums = ({
   );
 };
 
-export async function getServerSideProps(ctx) {
-  const { API_URL } = process.env;
+export async function getServerSideProps() {
+  const { publicRuntimeConfig } = getConfig();
 
-  const albumsUrl = getAlbumsUrl(ctx.query);
-
-  const resAlbums = await fetch(albumsUrl);
-  const albumsData = await resAlbums.json();
-
-  const resArtists = await fetch(`${API_URL}/artists`);
+  const resArtists = await fetch(`${publicRuntimeConfig.API_URL}/artists`);
   const artistsData = await resArtists.json();
 
-  const resGenres = await fetch(`${API_URL}/genres`);
+  const resGenres = await fetch(`${publicRuntimeConfig.API_URL}/genres`);
   const genresData = await resGenres.json();
 
   const navRes = await fetch(`${publicRuntimeConfig.API_URL}/navigations`);
@@ -261,7 +193,6 @@ export async function getServerSideProps(ctx) {
         ],
       },
       navigation,
-      albums: albumsData,
       artists: artistsData,
       genres: genresData,
       cities,

@@ -1,34 +1,85 @@
 import PriceSlider from "./PriceSlider";
-import { useState } from "react";
+import { useState, useEffect, useContext } from "react";
 import Select from "react-select";
 import { Col, Row, ListGroupItem, ListGroup, CustomInput } from "reactstrap";
+import Router, { useRouter } from "next/router";
+import getConfig from "next/config";
+import _ from "lodash";
+import FilterContext from "../contexts/FilterContext";
 
-const ShopFilter = ({ services, cities, metros }) => {
-  const [filterInputs, setFilterInputs] = useState({ services });
-  const randomThree = (a, n) =>
-    a.sort(() => Math.random() - Math.random()).slice(0, n);
+const { publicRuntimeConfig } = getConfig();
+
+function getCardsUrl(query) {
+  const url = new URL(`${publicRuntimeConfig.API_URL}/card-lookbooks`);
+
+  const cityId = query["city.name"];
+
+  if (cityId) {
+    url.searchParams.append("city.name", cityId);
+  }
+
+  return url.toString();
+}
+
+const ShopFilter = ({ services, cities, cards: a, metros }) => {
+  const [filterInputs, setFilterInputs] = useState({ services: "services" });
+  const { query, push, pathname } = useRouter();
+  const filteredCards = query["city.name"];
+  const { cards, setCards } = useContext(FilterContext);
+  const [loading, setLoading] = useState(false);
+
+  async function changeFilter(filter) {
+    const nextUrl = {
+      pathname,
+      query: {
+        ...query,
+        ...filter,
+      },
+    };
+
+    await Router.push(nextUrl, nextUrl, { shallow: true });
+  }
+
+  useEffect(() => {
+    const url = getCardsUrl(query);
+    setLoading(true);
+
+    fetch(url)
+      .then((r) => r.json())
+      .then((a) => {
+        setCards(a);
+        setLoading(false);
+      });
+  }, [filteredCards]);
+
+  const citiesNameFilter = query["city.name"];
 
   const onInputChange = (e) => {
     setFilterInputs({
       ...filterInputs,
       [e.target.name]: e.target.checked,
     });
-  };
 
+    const debouncedHandleChange = _.debounce((evt) => {
+      changeFilter({
+        price: evt.target.value,
+      });
+    }, 300);
+  };
   return (
     <Row xs="3">
       <Col>
         <ListGroup>
           <h3 className="sidebar-heading main">Цена</h3>
-          <ListGroupItem>
+          <ListGroupItem className="border-0">
             <h6 className="sidebar-heading d-none d-lg-block">Первая</h6>
             <PriceSlider />
           </ListGroupItem>
-          <ListGroupItem>
+          <ListGroupItem className="border-0">
             <h6 className="sidebar-heading d-none d-lg-block">Вторая</h6>
             <PriceSlider />
           </ListGroupItem>
-          <ListGroupItem>
+          <ListGroupItem className="border-0">
             <h6 className="sidebar-heading d-none d-lg-block">
               Минимальный заказ
             </h6>
@@ -38,19 +89,26 @@ const ShopFilter = ({ services, cities, metros }) => {
       </Col>
       <Col>
         <h3 className="sidebar-heading main">Местоположение</h3>
-        {cities.map((city) => (
-          <Select
-            key={city.id}
-            className="mb-3"
-            defaultValue={city}
-            getOptionLabel={(option) => option.name}
-            getOptionValue={(option) => option.id}
-            options={city}
-            instanceId="artists"
-            isMulti
-            placeholder="Filter by artists"
-          />
-        ))}
+
+        <Select
+          className="mb-3"
+          defaultValue={
+            citiesNameFilter
+              ? cities.filter(({ name }) => citiesNameFilter.includes(name))
+              : []
+          }
+          getOptionLabel={(option) => option.name}
+          getOptionValue={(option) => option.id}
+          options={cities}
+          instanceId="cities"
+          isMulti
+          placeholder="Filter by cities"
+          onChange={(values) => {
+            changeFilter({
+              "city.name": values.map(({ name }) => name),
+            });
+          }}
+        />
       </Col>
 
       <Col>
@@ -82,28 +140,3 @@ const ShopFilter = ({ services, cities, metros }) => {
 };
 
 export default ShopFilter;
-
-{
-  /* <Select
-              defaultValue={
-                artistNameFilter
-                  ? artists.filter(({ artist_name }) =>
-                      artistNameFilter.includes(artist_name)
-                    )
-                  : []
-              }
-              getOptionLabel={(option) => option.artist_name}
-              getOptionValue={(option) => option.id}
-              options={artists}
-              instanceId="artists"
-              isMulti
-              placeholder="Filter by artists"
-              onChange={(values) => {
-                changeFilter({
-                  "artists.artist_name": values.map(
-                    ({ artist_name }) => artist_name
-                  ),
-                });
-              }}
-            /> */
-}

@@ -4,7 +4,7 @@ import Link from "next/link";
 import ModalQuickView from "../components/ModalQuickView";
 import Image from "./CustomImage";
 
-const Product = ({ data, masonry, ...props }) => {
+const Product = ({ cards, masonry, ...props }) => {
   const [quickView, setQuickView] = useState(false);
 
   let loading = props.loading || "lazy";
@@ -13,8 +13,8 @@ const Product = ({ data, masonry, ...props }) => {
       <div className="product">
         <div className="product-image">
           <CardImg
-            src={data.photo[0].url}
-            alt={data.album_name}
+            src={cards.photo[0].url}
+            alt={cards.album_name}
             loading="lazy"
           />
 
@@ -43,22 +43,22 @@ const Product = ({ data, masonry, ...props }) => {
           </div>
         </div>
         <div className="py-1">
-          {data.category && (
-            <p className="text-muted text-sm mb-1">{data.category[0].title}</p>
+          {cards.category && (
+            <p className="text-muted text-sm mb-1">{cards.category[0].title}</p>
           )}
           <h3 className="h6 text-uppercase mb-1">
             <Link href="/filter-albums">
-              <a className="text-dark">{data.name}</a>
+              <a className="text-dark">{cards.name}</a>
             </Link>
           </h3>
-          <span className="text-muted">${data.price}</span>
+          <span className="text-muted">${cards.price}</span>
         </div>
       </div>
       {props.showQuickView !== false && (
         <ModalQuickView
           isOpen={quickView}
           toggle={() => setQuickView()}
-          product={data}
+          product={cards}
         />
       )}
     </>
