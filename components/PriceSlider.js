@@ -9,8 +9,8 @@ const PriceSlider = ({ top }) => {
   const [priceMax, setPriceMax] = useState(100);
 
   const priceSlider = (render, handle, value, un, percent) => {
-    setPriceMin(value[0]);
-    setPriceMax(value[1]);
+    setPriceMin(value[0].toFixed(0));
+    setPriceMax(value[1].toFixed(0));
   };
 
   return (
@@ -23,13 +23,13 @@ const PriceSlider = ({ top }) => {
         connect
       />
       <div className="nouislider-values">
-        <div className="min d-flex align-items-end">
+        <div className="min d-flex align-items-center">
           <p className="m-0 pr-2">от</p>
           <div className="mr-2">
             <Input placeholder={priceMin} />
           </div>
         </div>
-        <div className="max d-flex align-items-end">
+        <div className="max d-flex align-items-center">
           <p className="m-0 pr-2">до</p>
           <Input placeholder={priceMax} />
         </div>

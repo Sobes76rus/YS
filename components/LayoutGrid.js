@@ -10,7 +10,7 @@ export default function LayoutGrid({ cards }) {
       <Masonry gutter="30px">
         {cards.map((value) => (
           <div key={value.id} style={{ marginTop: "-30px" }}>
-            <Product data={value} masonry />
+            <Product card={value} masonry />
           </div>
         ))}
       </Masonry>

@@ -8,14 +8,42 @@ import {
   CardBody,
   Card,
 } from "reactstrap";
-import { useState, useContext } from "react";
+import { useRouter } from "next/router";
+import { useState, useContext, useEffect } from "react";
 import getConfig from "next/config";
-import Product from "../components/Product";
+
 import Hero from "../components/Hero";
 import ShopFilter from "../components/ShopFilter";
-import Masonry, { ResponsiveMasonry } from "react-responsive-masonry";
+
 import "rc-slider/assets/index.css";
 import _ from "lodash";
+import dynamic from "next/dynamic";
+
+const LayoutGrid = dynamic(() => import("../components/LayoutGrid"), {
+  ssr: false,
+  loading: () => <>Loading...</>,
+});
+const { publicRuntimeConfig } = getConfig();
+
+function getCardsUrl(query) {
+  const url = new URL(`${publicRuntimeConfig.API_URL}/card-lookbooks`);
+
+  const cityId = query["city.name"];
+  const metroId = query["metro.name"];
+  const uslugiTags = query["usligis.name"];
+
+  if (cityId) {
+    url.searchParams.append("city.name", cityId);
+  }
+  if (metroId) {
+    url.searchParams.append("metros.name", metroId);
+  }
+  if (uslugiTags) {
+    url.searchParams.append("usligis.name", uslugiTags);
+  }
+
+  return url.toString();
+}
 
 const FilterAlbums = ({
   services,
@@ -24,11 +52,37 @@ const FilterAlbums = ({
   metros,
   breadcrumbs,
 }) => {
+  const { query } = useRouter();
   const [isOpen, setIsOpen] = useState(false);
+  const [isLoading, setLoading] = useState(false);
+  const [cards, setCards] = useState(cardPhotos);
   const toggle = () => setIsOpen(!isOpen);
+  const citiesNameFilter = query["city.name"];
+  const metrosNameFilter = query["metro.name"];
+  const usluginTagsFilter = query["usligis.name"];
 
-  const { cards } = useContext(FilterContext);
-  console.log(cards);
+  useEffect(() => {
+    const url = getCardsUrl(query);
+    console.log(url);
+    setLoading(true);
+
+    fetch(url)
+      .then((r) => {
+        if (r.ok) {
+          return r.json();
+        }
+        return Promise.reject(r);
+      })
+      .then((a) => {
+        setCards(a);
+        setLoading(false);
+      })
+      .catch((e) => {
+        setLoading(false);
+        // TODO: показать ошибку
+      });
+  }, [citiesNameFilter, metrosNameFilter, usluginTagsFilter]);
+
   return (
     <>
       <Hero title={breadcrumbs.title} breadcrumbs={breadcrumbs.breadcrumbs} />
@@ -63,93 +117,16 @@ const FilterAlbums = ({
       <Container className="px-0">
         <Row>
           <Col className="products-grid">
-            {/* <ShopHeader /> */}
-            <ResponsiveMasonry
-              style={{ marginTop: "50px" }}
-              columnsCountBreakPoints={{ 300: 2, 900: 3, 1100: 4 }}
-            >
-              <Masonry gutter="30px">
-                {cards.map((value, index) => (
-                  <div key={index} style={{ marginTop: "-30px" }}>
-                    <Product cards={value} key={index} masonry />
-                  </div>
-                ))}
-              </Masonry>
-            </ResponsiveMasonry>
+            <LayoutGrid cards={cards} />
           </Col>
           {/* <ShopSidebar /> */}
         </Row>
       </Container>
     </>
-
-    // <Container fluid className="vh-100">
-    //   <Row>
-    //     <h2 className=" text-sm-left">Filter albums</h2>
-    //   </Row>
-    //   <Row>
-    //     <div className="d-flex flex-row">
-    //       <div className="d-flex flex-column w-50 text-sm-left">
-    //         <h3>Filter go here</h3>
-    //         <Select
-    //           defaultValue={
-    //             artistNameFilter
-    //               ? artists.filter(({ artist_name }) =>
-    //                   artistNameFilter.includes(artist_name)
-    //                 )
-    //               : []
-    //           }
-    //           getOptionLabel={(option) => option.artist_name}
-    //           getOptionValue={(option) => option.id}
-    //           options={artists}
-    //           instanceId="artists"
-    //           isMulti
-    //           placeholder="Filter by artists"
-    //           onChange={(values) => {
-    //             changeFilter({
-    //               "artists.artist_name": values.map(
-    //                 ({ artist_name }) => artist_name
-    //               ),
-    //             });
-    //           }}
-    //         />
-    //         <br />
-    //         <Select
-    //           getOptionLabel={(option) => `${option.genre}`}
-    //           getOptionValue={(option) => option.id}
-    //           options={genres}
-    //           instanceId="genres"
-    //           placeholder="Filter by genres"
-    //           isClearable
-    //           onChange={(value) => setGenreId(value ? value.id : null)}
-    //         />
-    //         <input
-    //           type="range"
-    //           className="form-range mt-5"
-    //           min="0"
-    //           max="5000"
-    //           id="customRange2"
-    //           onChange={debouncedHandleChange}
-    //         ></input>
-    //         <Range />
-    //       </div>
-
-    //       {loading && "Applying filter"}
-    //       <ul className="row row-cols-1 list-unstyled">
-    //         {albums.map((item) => (
-    //           <li className="col" key={item.id}>
-    //             <strong>{item.album_name}</strong> -{" "}
-    //             {item.genre ? item.genre.genre : null} <br />
-    //             {item.artist}
-    //           </li>
-    //         ))}
-    //       </ul>
-    //     </div>
-    //   </Row>
-    // </Container>
   );
 };
 
-export async function getServerSideProps() {
+export async function getServerSideProps(ctx) {
   const { publicRuntimeConfig } = getConfig();
 
   const resArtists = await fetch(`${publicRuntimeConfig.API_URL}/artists`);
@@ -175,6 +152,20 @@ export async function getServerSideProps() {
   const metroRes = await fetch(`${publicRuntimeConfig.API_URL}/metros`);
   const metros = await metroRes.json();
 
+  if (ctx.query["metro.name"] && !ctx.query["city.name"]) {
+    const newQuery = { ...ctx.query };
+    delete newQuery["metro.name"];
+    const queryString = new URLSearchParams(newQuery).toString();
+
+    return {
+      redirect: {
+        destination: `/filter-albums${
+          queryString.length > 0 ? `?${queryString}` : ""
+        }`,
+        permanent: false,
+      },
+    };
+  }
   return {
     props: {
       breadcrumbs: {

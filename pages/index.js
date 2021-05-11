@@ -51,9 +51,7 @@ export async function getStaticProps() {
   };
 }
 
-const Home = (props) => {
-  const { randomAlbums, cardPhotos } = props;
-
+const Home = ({ randomAlbums, cardPhotos }) => {
   return (
     <>
       <Swiper
