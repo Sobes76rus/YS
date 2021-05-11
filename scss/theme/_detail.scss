@@ -99,8 +99,8 @@
     &.active,
     &:hover,
     &:focus {
-        color: theme-color('dark');
-        border-color: #fff #fff theme-color('dark') !important;
+        color: $purple;
+        border-color: #fff #fff  $purple !important;
     }
 }
 

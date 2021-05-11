@@ -6,7 +6,9 @@ import { Container, Row, Col, Nav, Navbar } from "reactstrap";
 const Footer = (props) => {
   const { navigation } = props;
   return (
-    <div className=" bg-purple text-muted fixed-bottom">
+    <div
+      className={`${props.fixedBottom && "fixed-bottom"} bg-purple text-muted`}
+    >
       <Container className="container">
         <Row className="align-items-center justify-content-center">
           <Navbar

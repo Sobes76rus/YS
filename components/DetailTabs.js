@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { YMaps, Map, Placemark } from "react-yandex-maps";
 import {
   Container,
   TabContent,
@@ -6,7 +7,7 @@ import {
   Nav,
   NavItem,
   NavLink,
-  Media,
+  Table,
   Row,
   Col,
 } from "reactstrap";
@@ -20,13 +21,6 @@ const DetailTabs = ({ product }) => {
   const toggleTab = (tab) => {
     if (activeTab !== tab) setActiveTab(tab);
   };
-  // const groupByN = (n, data) => {
-  //   let result = [];
-  //   for (let i = 0; i < data.length; i += n) result.push(data.slice(i, i + n));
-  //   return result;
-  // };
-
-  // const groupedAdditionalInfo = groupByN(4, product.additionalinfo);
 
   return (
     <section className="mt-5">
@@ -68,6 +62,18 @@ const DetailTabs = ({ product }) => {
               Отзывы
             </NavLink>
           </NavItem>
+          <NavItem>
+            <NavLink
+              className={classnames("detail-nav-link", {
+                active: activeTab === 4,
+              })}
+              onClick={() => {
+                toggleTab(4);
+              }}
+            >
+              Смотреть на карте
+            </NavLink>
+          </NavItem>
         </Nav>
         <TabContent activeTab={activeTab} className="py-4">
           <TabPane tabId={1} className="px-3">
@@ -88,6 +94,59 @@ const DetailTabs = ({ product }) => {
           </TabPane>
           <TabPane tabId={2}>
             <Row>
+              <Col md="6">
+                <Table className="table text-sm">
+                  <thead className="detail-tab-heading main">
+                    <tr>
+                      <th>Местоположение</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <th className={"text-uppercase font-weight-normal"}>
+                        Город
+                      </th>
+                      <td className="text-muted">{product.city.name}</td>
+                    </tr>
+                    <tr>
+                      <th className="text-uppercase font-weight-normal">
+                        Метро
+                      </th>
+                      <td className={"text-muted"}>
+                        {product.metros.map((metro) => metro.name)}
+                      </td>
+                    </tr>
+                  </tbody>
+
+                  <thead className="detail-tab-heading main">
+                    <tr>
+                      <th>Стоимость</th>
+                    </tr>
+                  </thead>
+
+                  <tbody>
+                    <tr>
+                      <th className={"text-uppercase font-weight-normal "}>
+                        Первая
+                      </th>
+                      <td className="text-muted">{product.price} руб.</td>
+                    </tr>
+                    <tr>
+                      <th className="text-uppercase font-weight-normal">
+                        Вторая
+                      </th>
+                      <td className="text-muted">{product.price} руб.</td>
+                    </tr>
+                    <tr>
+                      <th className="text-uppercase font-weight-normal">
+                        Минимальный заказ
+                      </th>
+                      <td className="text-muted">{product.price} руб.</td>
+                    </tr>
+                  </tbody>
+                </Table>
+              </Col>
+
               {/* {groupedAdditionalInfo.map((infoBlock, index) => (
                 <Col key={index} md="6">
                   <table className="table text-sm">
@@ -147,6 +206,15 @@ const DetailTabs = ({ product }) => {
                 ))} */}
               </Col>
             </Row>
+          </TabPane>
+          <TabPane tabId={4} className="px-3">
+            <YMaps>
+              <Map
+                width="100%"
+                height="100%"
+                defaultState={{ center: [55.75, 37.57], zoom: 9 }}
+              ></Map>
+            </YMaps>
           </TabPane>
         </TabContent>
       </Container>

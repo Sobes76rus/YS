@@ -7,10 +7,13 @@ import DetailMain from "../../components/DetailMain";
 
 import { Swiper, SwiperSlide } from "swiper/react";
 import getConfig from "next/config";
+SwiperCore.use([Pagination, Navigation]);
 
 export async function getServerSideProps(ctx) {
   const { publicRuntimeConfig } = getConfig();
   const { id } = ctx.query;
+  const navRes = await fetch(`${publicRuntimeConfig.API_URL}/navigations`);
+  const navigation = await navRes.json();
   const allCardsFetch = await fetch(
     `${publicRuntimeConfig.API_URL}/card-lookbooks/`
   );
@@ -20,12 +23,12 @@ export async function getServerSideProps(ctx) {
     `${publicRuntimeConfig.API_URL}/card-lookbooks/${id}`
   );
   const personsData = await resPersons.json();
-  SwiperCore.use([Pagination, Navigation]);
+
   return {
     props: {
       allCards,
       personsData,
-
+      navigation,
       breadcrumbs: [
         {
           name: "Домой",
@@ -56,7 +59,6 @@ export default function Detail(props) {
               <Swiper
                 className="detail-full"
                 pagination={{
-                  el: ".swiper-pagination.swiper-pagination-white",
                   clickable: true,
                   dynamicBullets: true,
                 }}

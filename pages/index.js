@@ -46,6 +46,7 @@ export async function getStaticProps() {
       navbarHoverLight: true,
       headerAbsolute: true,
       bgHoverPurple: true,
+      fixedBottom: true,
       title: "Homepage",
     },
   };

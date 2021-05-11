@@ -12,6 +12,9 @@ const Layout = (pageProps) => {
     navbarHoverLight: pageProps.navbarHoverLight,
     bgHoverPurple: pageProps.bgHoverPurple,
   };
+  const footerProps = {
+    fixedBottom: pageProps.fixedBottom,
+  };
 
   return (
     <div
@@ -26,7 +29,6 @@ const Layout = (pageProps) => {
           rel="stylesheet"
           href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&display=swap"
         />
-
         <link rel="icon" href="/img/favicon.png" />
         <link
           href="https://use.fontawesome.com/releases/v5.8.1/css/all.css"
@@ -38,7 +40,9 @@ const Layout = (pageProps) => {
 
       <main className="main pb-6">{pageProps.children}</main>
 
-      {!pageProps.hideFooter && <Footer navigation={navigation} />}
+      {!pageProps.hideFooter && (
+        <Footer navigation={navigation} {...footerProps} />
+      )}
     </div>
   );
 };
