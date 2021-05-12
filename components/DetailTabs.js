@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { YMaps, Map, Placemark } from "react-yandex-maps";
 import {
   Container,
@@ -17,6 +17,7 @@ import Stars from "./Stars";
 
 const DetailTabs = ({ product }) => {
   const [activeTab, setActiveTab] = useState(1);
+  const [coords, setCoords] = useState(null);
 
   const toggleTab = (tab) => {
     if (activeTab !== tab) setActiveTab(tab);
@@ -208,12 +209,26 @@ const DetailTabs = ({ product }) => {
             </Row>
           </TabPane>
           <TabPane tabId={4} className="px-3">
-            <YMaps>
+            <YMaps
+              query={{
+                apikey: "a071233a-e16e-42b6-9971-43c85214e736",
+                load: "package.full",
+              }}
+            >
               <Map
-                width="100%"
-                height="100%"
+                modules={["geolocation", "geocode"]}
+                onLoad={(ymaps) => {
+                  ymaps
+                    .geocode("город Москва, метро Автозаводская")
+                    .then((result) => {
+                      setCoords(
+                        result.geoObjects.get(0).geometry.getCoordinates()
+                      );
+                    });
+                }}
                 defaultState={{ center: [55.75, 37.57], zoom: 9 }}
-              ></Map>
+              />
+              <Placemark geometry={{ coordinates: coords }} />
             </YMaps>
           </TabPane>
         </TabContent>
