@@ -22,6 +22,9 @@ const DetailTabs = ({ product }) => {
   const toggleTab = (tab) => {
     if (activeTab !== tab) setActiveTab(tab);
   };
+  const getCoords = (arr) => {
+    setCoords(arr.geoObjects.get(0).geometry.getCoordinates());
+  };
 
   return (
     <section className="mt-5">
@@ -217,18 +220,28 @@ const DetailTabs = ({ product }) => {
             >
               <Map
                 modules={["geolocation", "geocode"]}
+                width="100%"
                 onLoad={(ymaps) => {
                   ymaps
-                    .geocode("город Москва, метро Автозаводская")
-                    .then((result) => {
-                      setCoords(
-                        result.geoObjects.get(0).geometry.getCoordinates()
-                      );
-                    });
+                    .geocode(
+                      `город ${product.city.name}, метро ${product.metros[0].name}`
+                    )
+                    .then((result) => getCoords(result));
                 }}
-                defaultState={{ center: [55.75, 37.57], zoom: 9 }}
-              />
-              <Placemark geometry={{ coordinates: coords }} />
+                defaultState={{
+                  center: [55.75, 37.57],
+                  zoom: 12,
+                  controls: [],
+                }}
+              >
+                {coords && (
+                  <Placemark
+                    geometry={coords}
+                    options={{ iconColor: "#a279ef" }}
+                    properties={{ iconCaption: product.metros[0].name }}
+                  />
+                )}
+              </Map>
             </YMaps>
           </TabPane>
         </TabContent>
