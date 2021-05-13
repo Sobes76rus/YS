@@ -12,7 +12,7 @@ const { publicRuntimeConfig } = getConfig();
 const ShopFilter = ({ services, cities, cards: a }) => {
   // const [filterInputs, setFilterInputs] = useState({ services: "services" });
   const { query, push, pathname } = useRouter();
-  const { cards, setCards } = useContext(FilterContext);
+
   const citiesNameFilter = query["city.name"];
   const metrosNameFilter = query["metro.name"];
   const usluginTagsFilter =

@@ -22,13 +22,24 @@ const DetailTabs = ({ product }) => {
   const toggleTab = (tab) => {
     if (activeTab !== tab) setActiveTab(tab);
   };
-  const getCoords = (arr) => {
-    setCoords(arr.geoObjects.get(0).geometry.getCoordinates());
-  };
 
+  async function getCoords(y) {
+    const geoCode = await y.geocode(
+      `город ${product.city.name}, метро ${product.metros[0].name}`
+    );
+    const result = await geoCode;
+    setCoords(result.geoObjects.get(0).geometry.getCoordinates());
+  }
+
+  // useEffect(() => {
+  //   const { result } = getCoords();
+  //   setCoords(result.geoObjects.get(0).geometry.getCoordinates());
+  // });
+
+  console.log(coords);
   return (
-    <section className="mt-5">
-      <Container>
+    <section>
+      <Container className="p-0">
         <Nav tabs className="flex-column flex-sm-row">
           <NavItem>
             <NavLink
@@ -221,16 +232,11 @@ const DetailTabs = ({ product }) => {
               <Map
                 modules={["geolocation", "geocode"]}
                 width="100%"
-                onLoad={(ymaps) => {
-                  ymaps
-                    .geocode(
-                      `город ${product.city.name}, метро ${product.metros[0].name}`
-                    )
-                    .then((result) => getCoords(result));
-                }}
+                height="440px"
+                onLoad={(ymaps) => getCoords(ymaps)}
                 defaultState={{
                   center: [55.75, 37.57],
-                  zoom: 12,
+                  zoom: 10,
                   controls: [],
                 }}
               >

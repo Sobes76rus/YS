@@ -1,13 +1,21 @@
 import { Container, Row, Col } from "reactstrap";
 import SwiperCore, { Navigation, Pagination } from "swiper";
 import Breadcrumbs from "../../components/Breadcrumbs";
-import DetailSimilar from "../../components/DetailSimilar";
+
 import DetailTabs from "../../components/DetailTabs";
 import DetailMain from "../../components/DetailMain";
 
 import { Swiper, SwiperSlide } from "swiper/react";
 import getConfig from "next/config";
+import dynamic from "next/dynamic";
 SwiperCore.use([Pagination, Navigation]);
+const SwiperProducts = dynamic(
+  () => import("../../components/SwiperProducts"),
+  {
+    ssr: false,
+    loading: () => <>Loading...</>,
+  }
+);
 
 export async function getServerSideProps(ctx) {
   const { publicRuntimeConfig } = getConfig();
@@ -82,7 +90,7 @@ export default function Detail(props) {
               xs={{ size: 12, order: 1 }}
               lg={{ size: 6, order: 2 }}
               xl="5"
-              className="d-flex align-items-center pl-lg-5 mb-5"
+              className="d-flex align-items-center pl-lg-5 mb-5 pb-0"
             >
               <div>
                 <Breadcrumbs links={breadcrumbs} />
@@ -93,7 +101,15 @@ export default function Detail(props) {
           </Row>
         </Container>
       </section>
-      <DetailSimilar allCards={allCards} />
+
+      <section className="my-5">
+        <div className="container">
+          <header className="text-center">
+            <h6 className="text-uppercase mb-5">Вам также могут понравиться</h6>
+          </header>
+          <SwiperProducts products={allCards} />
+        </div>
+      </section>
     </>
   );
 }
