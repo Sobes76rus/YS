@@ -13,18 +13,14 @@ import {
 } from "reactstrap";
 import Router, { useRouter } from "next/router";
 import _ from "lodash";
-import { LogoJsonLd } from "next-seo";
 
 const ShopFilter = ({ services, cities, price, cards: a }) => {
   const { query, push, pathname } = useRouter();
   const max = Math.max.apply(null, price[0]);
   const min = Math.min.apply(null, price[0]);
-  const [priceMin, setPriceMin] = useState(min);
-  const [priceMax, setPriceMax] = useState(max);
-  const onUpdate = (render, handle, value, un, percent) => {
-    setPriceMin(value[0].toFixed(0));
-    setPriceMax(value[1].toFixed(0));
-  };
+
+  const priceMin = query["priceMin.tag"];
+  const priceMax = query["priceMax.tag"];
 
   const citiesNameFilter = query["city.name"];
   const metrosNameFilter = query["metro.name"];
@@ -54,6 +50,13 @@ const ShopFilter = ({ services, cities, price, cards: a }) => {
     await Router.push(nextUrl, nextUrl, { shallow: true });
   }
 
+  const onUpdate = (render, handle, value, un, percent) => {
+    changeFilter({
+      "priceMin.tag": value[0].toFixed(0),
+      "priceMax.tag": value[1].toFixed(0),
+    });
+  };
+
   const debouncedHandleChange = (evt) => {
     const u = [];
     if (evt.target.checked) {
@@ -67,7 +70,6 @@ const ShopFilter = ({ services, cities, price, cards: a }) => {
         u.pop(evt.target.name);
       }
     }
-
     changeFilter({
       ["usligis.tag"]: u,
     });
