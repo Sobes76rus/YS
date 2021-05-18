@@ -10,7 +10,12 @@ const Hero = ({ children, ...props }) => {
         {props.breadcrumbs && (
           <Breadcrumbs className="text-left" links={props.breadcrumbs} />
         )}
-        <div className="hero-content text-left p-0">
+        <div
+          className={`${props.textCenter ? "text-center" : "text-left"}`}
+          // className={`${
+          //   props.textCenter ? "text-center" : "text-left"
+          // } text-center hero-content p-0`}
+        >
           <h3 className="mb-5">{props.title}</h3>
           {children}
         </div>

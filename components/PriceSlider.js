@@ -12,6 +12,9 @@ const PriceSlider = ({ top }) => {
     setPriceMin(value[0].toFixed(0));
     setPriceMax(value[1].toFixed(0));
   };
+  const debouncedHandleChange = (evt) => {
+    console.log(evt);
+  };
 
   return (
     <>
@@ -21,6 +24,7 @@ const PriceSlider = ({ top }) => {
         start={[1000, 10000]}
         onUpdate={priceSlider}
         connect
+        onChange={debouncedHandleChange}
       />
       <div className="nouislider-values">
         <div className="min d-flex align-items-center">

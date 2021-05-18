@@ -1,24 +1,37 @@
 import PriceSlider from "./PriceSlider";
 import { useState, useEffect, useContext } from "react";
+import "rc-slider/assets/index.css";
+import Nouislider from "nouislider-react";
 import Select from "react-select";
-import { Col, Row, ListGroupItem, ListGroup, CustomInput } from "reactstrap";
+import {
+  Col,
+  Row,
+  ListGroupItem,
+  ListGroup,
+  CustomInput,
+  Input,
+} from "reactstrap";
 import Router, { useRouter } from "next/router";
-import getConfig from "next/config";
 import _ from "lodash";
-import FilterContext from "../contexts/FilterContext";
+import { LogoJsonLd } from "next-seo";
 
-const { publicRuntimeConfig } = getConfig();
-
-const ShopFilter = ({ services, cities, cards: a }) => {
-  // const [filterInputs, setFilterInputs] = useState({ services: "services" });
+const ShopFilter = ({ services, cities, price, cards: a }) => {
   const { query, push, pathname } = useRouter();
+  const max = Math.max.apply(null, price[0]);
+  const min = Math.min.apply(null, price[0]);
+  const [priceMin, setPriceMin] = useState(min);
+  const [priceMax, setPriceMax] = useState(max);
+  const onUpdate = (render, handle, value, un, percent) => {
+    setPriceMin(value[0].toFixed(0));
+    setPriceMax(value[1].toFixed(0));
+  };
 
   const citiesNameFilter = query["city.name"];
   const metrosNameFilter = query["metro.name"];
   const usluginTagsFilter =
-    typeof query["usligis.name"] === "string"
-      ? [query["usligis.name"]]
-      : query["usligis.name"];
+    typeof query["usligis.tag"] === "string"
+      ? [query["usligis.tag"]]
+      : query["usligis.tag"];
 
   const finalCities = citiesNameFilter
     ? cities.filter(({ name }) => citiesNameFilter.includes(name))
@@ -46,8 +59,13 @@ const ShopFilter = ({ services, cities, cards: a }) => {
     if (evt.target.checked) {
       u.push(evt.target.name);
     }
-    if (typeof query["usligis.name"] === "string") {
-      u.push(query["usligis.name"]);
+
+    if (typeof query["usligis.tag"] === "string") {
+      u.push(query["usligis.tag"]);
+
+      if (!evt.target.checked) {
+        u.pop(evt.target.name);
+      }
     }
 
     changeFilter({
@@ -62,9 +80,27 @@ const ShopFilter = ({ services, cities, cards: a }) => {
           <h3 className="sidebar-heading main">Цена</h3>
           <ListGroupItem className="border-0">
             <h6 className="sidebar-heading d-none d-lg-block">Первая</h6>
-            <PriceSlider />
+            <Nouislider
+              key={2}
+              range={{ min: min, max: max }}
+              start={[min, max]}
+              onUpdate={onUpdate}
+              connect
+            />
+            <div className="nouislider-values">
+              <div className="min d-flex align-items-center">
+                <p className="m-0 pr-2">от</p>
+                <div className="mr-2">
+                  <Input placeholder={priceMin} />
+                </div>
+              </div>
+              <div className="max d-flex align-items-center">
+                <p className="m-0 pr-2">до</p>
+                <Input placeholder={priceMax} />
+              </div>
+            </div>
           </ListGroupItem>
-          <ListGroupItem className="border-0">
+          {/* <ListGroupItem className="border-0">
             <h6 className="sidebar-heading d-none d-lg-block">Вторая</h6>
             <PriceSlider />
           </ListGroupItem>
@@ -73,7 +109,7 @@ const ShopFilter = ({ services, cities, cards: a }) => {
               Минимальный заказ
             </h6>
             <PriceSlider />
-          </ListGroupItem>
+          </ListGroupItem> */}
         </ListGroup>
       </Col>
       <Col>
@@ -138,7 +174,7 @@ const ShopFilter = ({ services, cities, cards: a }) => {
                   name={usluga.name}
                   label={usluga.name}
                   checked={
-                    usluginTagsFilter && usluginTagsFilter.includes(usluga.tag)
+                    usluginTagsFilter && usluginTagsFilter.includes(usluga.name)
                   }
                   onChange={debouncedHandleChange}
                 />

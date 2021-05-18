@@ -45,26 +45,29 @@ body {
 }
 
 .swiper-pagination-bullet-active {
-    opacity: 1;
-    background: $purple;
-  }
-
-  .detail-tab-heading {
-    margin-bottom: 2rem;
-        font-weight: 400;
-    color: $gray-600;    
-    
-    @include uppercase;
-
-    &.main {
-        color: $purple;
-        font-weight: bold;
-        font-size: smaller
-    };
-    
+  opacity: 1;
+  background: $purple;
 }
 
-.map-tab {  
+.detail-tab-heading {
+  margin-bottom: 2rem;
+  font-weight: 400;
+  color: $gray-600;
+
+  @include uppercase;
+
+  &.main {
+    color: $purple;
+    font-weight: bold;
+    font-size: smaller;
+  }
+}
+
+.map-tab {
   justify-content: center;
-    display: flex;
+  display: flex;
+}
+
+.swiper-wrapper {
+  align-items: baseline;
 }

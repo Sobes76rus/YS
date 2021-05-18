@@ -29,7 +29,7 @@ function getCardsUrl(query) {
 
   const cityId = query["city.name"];
   const metroId = query["metro.name"];
-  const uslugiTags = query["usligis.name"];
+  const uslugiTags = query["usligis.tag"];
 
   if (cityId) {
     url.searchParams.append("city.name", cityId);
@@ -38,7 +38,7 @@ function getCardsUrl(query) {
     url.searchParams.append("metros.name", metroId);
   }
   if (uslugiTags) {
-    url.searchParams.append("usligis.name", uslugiTags);
+    url.searchParams.append("uslugis.name", uslugiTags);
   }
 
   return url.toString();
@@ -52,13 +52,15 @@ const FilterAlbums = ({
   breadcrumbs,
 }) => {
   const { query } = useRouter();
+
   const [isOpen, setIsOpen] = useState(false);
   const [isLoading, setLoading] = useState(false);
   const [cards, setCards] = useState(cardPhotos);
   const toggle = () => setIsOpen(!isOpen);
   const citiesNameFilter = query["city.name"];
   const metrosNameFilter = query["metro.name"];
-  const usluginTagsFilter = query["usligis.name"];
+  const usluginTagsFilter = query["usligis.tag"];
+  const price = [cardPhotos.map((card) => Number(card.price))];
 
   useEffect(() => {
     const url = getCardsUrl(query);
@@ -107,7 +109,12 @@ const FilterAlbums = ({
         <Collapse className="w-100" isOpen={isOpen}>
           <Card className="border-0">
             <CardBody>
-              <ShopFilter services={services} cities={cities} metros={metros} />
+              <ShopFilter
+                services={services}
+                cities={cities}
+                metros={metros}
+                price={price}
+              />
             </CardBody>
           </Card>
         </Collapse>

@@ -22,24 +22,13 @@ const DetailTabs = ({ product }) => {
   const toggleTab = (tab) => {
     if (activeTab !== tab) setActiveTab(tab);
   };
+  const getCoords = (arr) => {
+    setCoords(arr.geoObjects.get(0).geometry.getCoordinates());
+  };
 
-  async function getCoords(y) {
-    const geoCode = await y.geocode(
-      `город ${product.city.name}, метро ${product.metros[0].name}`
-    );
-    const result = await geoCode;
-    setCoords(result.geoObjects.get(0).geometry.getCoordinates());
-  }
-
-  // useEffect(() => {
-  //   const { result } = getCoords();
-  //   setCoords(result.geoObjects.get(0).geometry.getCoordinates());
-  // });
-
-  console.log(coords);
   return (
-    <section>
-      <Container className="p-0">
+    <section className="mt-5">
+      <Container>
         <Nav tabs className="flex-column flex-sm-row">
           <NavItem>
             <NavLink
@@ -161,33 +150,6 @@ const DetailTabs = ({ product }) => {
                   </tbody>
                 </Table>
               </Col>
-
-              {/* {groupedAdditionalInfo.map((infoBlock, index) => (
-                <Col key={index} md="6">
-                  <table className="table text-sm">
-                    <tbody>
-                      {infoBlock.map((info, index) => (
-                        <tr key={index}>
-                          <th
-                            className={`text-uppercase font-weight-normal ${
-                              index == 0 ? "border-0" : ""
-                            }`}
-                          >
-                            {info.name}
-                          </th>
-                          <td
-                            className={`text-muted ${
-                              index == 0 ? "border-0" : ""
-                            }`}
-                          >
-                            {info.text}
-                          </td>
-                        </tr>
-                      ))}
-                    </tbody>
-                  </table>
-                </Col>
-              ))} */}
             </Row>
           </TabPane>
           <TabPane tabId={3}>
@@ -232,11 +194,16 @@ const DetailTabs = ({ product }) => {
               <Map
                 modules={["geolocation", "geocode"]}
                 width="100%"
-                height="440px"
-                onLoad={(ymaps) => getCoords(ymaps)}
+                onLoad={(ymaps) => {
+                  ymaps
+                    .geocode(
+                      `город ${product.city.name}, метро ${product.metros[0].name}`
+                    )
+                    .then((result) => getCoords(result));
+                }}
                 defaultState={{
                   center: [55.75, 37.57],
-                  zoom: 10,
+                  zoom: 12,
                   controls: [],
                 }}
               >
