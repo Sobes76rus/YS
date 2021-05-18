@@ -51,10 +51,13 @@ const ShopFilter = ({ services, cities, price, cards: a }) => {
   }
 
   const onUpdate = (render, handle, value, un, percent) => {
-    changeFilter({
-      "priceMin.tag": value[0].toFixed(0),
-      "priceMax.tag": value[1].toFixed(0),
-    });
+    _.debounce(
+      changeFilter({
+        "priceMin.tag": value[0].toFixed(0),
+        "priceMax.tag": value[1].toFixed(0),
+      }),
+      500
+    );
   };
 
   const debouncedHandleChange = (evt) => {
@@ -93,12 +96,12 @@ const ShopFilter = ({ services, cities, price, cards: a }) => {
               <div className="min d-flex align-items-center">
                 <p className="m-0 pr-2">от</p>
                 <div className="mr-2">
-                  <Input placeholder={priceMin} />
+                  <Input placeholder={min} />
                 </div>
               </div>
               <div className="max d-flex align-items-center">
                 <p className="m-0 pr-2">до</p>
-                <Input placeholder={priceMax} />
+                <Input placeholder={max} />
               </div>
             </div>
           </ListGroupItem>
