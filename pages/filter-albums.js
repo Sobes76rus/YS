@@ -70,7 +70,6 @@ const FilterAlbums = ({
 
   useEffect(() => {
     const url = getCardsUrl(query);
-    console.log(url);
     setLoading(true);
 
     fetch(url)

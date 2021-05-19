@@ -1,6 +1,7 @@
 import PriceSlider from "./PriceSlider";
 import { useState, useEffect, useContext } from "react";
 import "rc-slider/assets/index.css";
+import { Range } from "rc-slider";
 import Nouislider from "nouislider-react";
 import Select from "react-select";
 import {
@@ -18,9 +19,7 @@ const ShopFilter = ({ services, cities, price, cards: a }) => {
   const { query, push, pathname } = useRouter();
   const max = Math.max.apply(null, price[0]);
   const min = Math.min.apply(null, price[0]);
-
   const priceMin = query["priceMin.tag"];
-  const priceMax = query["priceMax.tag"];
 
   const citiesNameFilter = query["city.name"];
   const metrosNameFilter = query["metro.name"];
@@ -51,13 +50,10 @@ const ShopFilter = ({ services, cities, price, cards: a }) => {
   }
 
   const onUpdate = (render, handle, value, un, percent) => {
-    _.debounce(
-      changeFilter({
-        "priceMin.tag": value[0].toFixed(0),
-        "priceMax.tag": value[1].toFixed(0),
-      }),
-      500
-    );
+    changeFilter({
+      "priceMin.tag": value[0].toFixed(0),
+      "priceMax.tag": value[1].toFixed(0),
+    });
   };
 
   const debouncedHandleChange = (evt) => {
@@ -85,13 +81,18 @@ const ShopFilter = ({ services, cities, price, cards: a }) => {
           <h3 className="sidebar-heading main">Цена</h3>
           <ListGroupItem className="border-0">
             <h6 className="sidebar-heading d-none d-lg-block">Первая</h6>
-            <Nouislider
+            <Range
+              allowCross={false}
+              ariaLabelledByGroupForHandles={[min, max]}
+              draggableTrack
+            />
+            {/* <Nouislider
               key={2}
               range={{ min: min, max: max }}
               start={[min, max]}
               onUpdate={onUpdate}
               connect
-            />
+            /> */}
             <div className="nouislider-values">
               <div className="min d-flex align-items-center">
                 <p className="m-0 pr-2">от</p>
