@@ -27,13 +27,17 @@ const { publicRuntimeConfig } = getConfig();
 function getCardsUrl(query) {
   const url = new URL(`${publicRuntimeConfig.API_URL}/card-lookbooks`);
 
-  const priceTagMore = query["priceMin.tag"];
+  const priceTagMore = query["priceMin"];
+  const priceTagLess = query["priceMax"];
   const cityId = query["city.name"];
   const metroId = query["metro.name"];
   const uslugiTags = query["usligis.tag"];
 
   if (priceTagMore) {
     url.searchParams.append("price_gte", priceTagMore);
+  }
+  if (priceTagLess) {
+    url.searchParams.append("price_lt", priceTagLess);
   }
 
   if (cityId) {
@@ -62,7 +66,7 @@ const FilterAlbums = ({
   const [isLoading, setLoading] = useState(false);
   const [cards, setCards] = useState(cardPhotos);
   const toggle = () => setIsOpen(!isOpen);
-  const priceTagFilter = query["priceMin.tag"];
+  const priceTagFilter = [query["priceMin"], query["priceMax"]];
   const citiesNameFilter = query["city.name"];
   const metrosNameFilter = query["metro.name"];
   const usluginTagsFilter = query["usligis.tag"];

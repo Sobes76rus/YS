@@ -5,8 +5,10 @@ import { Range } from "rc-slider";
 import Nouislider from "nouislider-react";
 import Select from "react-select";
 import {
+  Button,
   Col,
   Row,
+  Form,
   ListGroupItem,
   ListGroup,
   CustomInput,
@@ -19,7 +21,12 @@ const ShopFilter = ({ services, cities, price, cards: a }) => {
   const { query, push, pathname } = useRouter();
   const max = Math.max.apply(null, price[0]);
   const min = Math.min.apply(null, price[0]);
-  const priceMin = query["priceMin.tag"];
+  const priceMin = query["priceMin"]
+    ? query["priceMin"]
+    : Math.min.apply(null, price[0]);
+  const priceMax = query["priceMax"]
+    ? query["priceMax"]
+    : Math.max.apply(null, price[0]);
 
   const citiesNameFilter = query["city.name"];
   const metrosNameFilter = query["metro.name"];
@@ -51,8 +58,8 @@ const ShopFilter = ({ services, cities, price, cards: a }) => {
 
   const onUpdate = (render, handle, value, un, percent) => {
     changeFilter({
-      "priceMin.tag": value[0].toFixed(0),
-      "priceMax.tag": value[1].toFixed(0),
+      priceMin: value[0].toFixed(0),
+      priceMax: value[1].toFixed(0),
     });
   };
 
@@ -74,6 +81,10 @@ const ShopFilter = ({ services, cities, price, cards: a }) => {
     });
   };
 
+  const onInput = (e) => {
+    console.log(e);
+  };
+
   return (
     <Row xs="3">
       <Col>
@@ -81,30 +92,27 @@ const ShopFilter = ({ services, cities, price, cards: a }) => {
           <h3 className="sidebar-heading main">Цена</h3>
           <ListGroupItem className="border-0">
             <h6 className="sidebar-heading d-none d-lg-block">Первая</h6>
-            <Range
-              allowCross={false}
-              ariaLabelledByGroupForHandles={[min, max]}
-              draggableTrack
-            />
-            {/* <Nouislider
+            <Nouislider
+              className="w-100"
               key={2}
               range={{ min: min, max: max }}
               start={[min, max]}
               onUpdate={onUpdate}
               connect
-            /> */}
-            <div className="nouislider-values">
+            />
+            <Form className="nouislider-values" onSubmit={onInput}>
               <div className="min d-flex align-items-center">
                 <p className="m-0 pr-2">от</p>
                 <div className="mr-2">
-                  <Input placeholder={min} />
-                </div>
+                  <Input placeholder={priceMin} />
+                </div>{" "}
               </div>
               <div className="max d-flex align-items-center">
                 <p className="m-0 pr-2">до</p>
-                <Input placeholder={max} />
+                <Input placeholder={priceMax} />
               </div>
-            </div>
+            </Form>
+            <Button type="submit">Refresh</Button>
           </ListGroupItem>
           {/* <ListGroupItem className="border-0">
             <h6 className="sidebar-heading d-none d-lg-block">Вторая</h6>
