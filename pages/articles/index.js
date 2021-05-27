@@ -22,27 +22,13 @@ export async function getStaticProps() {
       navigation,
       posts,
       title: "Блог",
-      breadcrumbs: {
-        title: "Блог",
-        subtitle: "Блог",
-        breadcrumbs: [
-          {
-            name: "Домой",
-            link: "/",
-            linkClass: "link-purple",
-          },
-          {
-            name: "Все анкеты",
-            active: true,
-          },
-        ],
-      },
-      fixedBottom: true,
     },
   };
 }
 
-const Index = ({ posts }) => {
+const Index = (props) => {
+  const { posts } = props;
+
   const featuredPost = posts[0];
   return (
     <>
@@ -65,10 +51,12 @@ const Index = ({ posts }) => {
                   </strong>
                   <h2 className="mb-3">{featuredPost.title}</h2>
                   <p className="text-muted">{featuredPost.content}</p>
-                  <Link href="/blog/[slug]" as={`/blog/${featuredPost.slug}`}>
+                  <Link
+                    href="/articles/[slug]"
+                    as={`/articles/${featuredPost.slug}`}
+                  >
                     <a className="btn btn-link text-dark p-0">
-                      Continue reading{" "}
-                      <i className="fa fa-long-arrow-alt-right" />
+                      Продолжить <i className="fa fa-long-arrow-alt-right" />
                     </a>
                   </Link>
                 </div>
@@ -100,12 +88,12 @@ const Index = ({ posts }) => {
             <PaginationItem>
               <PaginationLink href="#" className="page-link text-sm">
                 <i className="fa fa-chevron-left mr-2" />
-                Older posts
+                Более старые
               </PaginationLink>
             </PaginationItem>
             <PaginationItem className="disabled">
               <PaginationLink href="#" className="page-link text-sm">
-                Newer posts
+                Более новые
                 <i className="fa fa-chevron-right ml-2" />
               </PaginationLink>
             </PaginationItem>

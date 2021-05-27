@@ -1,16 +1,24 @@
 import { Container, Row, Col } from "reactstrap";
 import Hero from "../../components/Hero";
+import Image from "../../components/CustomImage";
 import getConfig from "next/config";
 
-export async function getServerSideProps() {
+export async function getServerSideProps({ query }) {
+  const postSlug = query["id"];
+
   const { publicRuntimeConfig } = getConfig();
   const navRes = await fetch(`${publicRuntimeConfig.API_URL}/navigations`);
   const navigation = await navRes.json();
 
+  const postRes = await fetch(
+    `${publicRuntimeConfig.API_URL}/posts/?slug=${postSlug}`
+  );
+  const post = await postRes.json();
+
   return {
     props: {
       navigation,
-      title: "Блог",
+      post,
       breadcrumbs: {
         title: "Блог",
         subtitle: "Блог",
@@ -21,7 +29,12 @@ export async function getServerSideProps() {
             linkClass: "link-purple",
           },
           {
-            name: "Все анкеты",
+            name: "Все статьи",
+            link: "/articles",
+            linkClass: "link-purple",
+          },
+          {
+            name: post[0].title,
             active: true,
           },
         ],
@@ -32,13 +45,15 @@ export async function getServerSideProps() {
 }
 
 export default function Blog(props) {
+  const { post } = props;
   const heroProps = {
     textCenter: props.textCenter,
   };
+
   return (
     <>
       <Hero
-        title={props.title}
+        title={post[0].title}
         breadcrumbs={props.breadcrumbs.breadcrumbs}
         {...heroProps}
       />
@@ -46,51 +61,34 @@ export default function Blog(props) {
       <section className="pb-5">
         <Container>
           <Row>
-            <Col xl="8" lg="10" className="mx-auto">
-              <p
-                className="lead mb-5"
-                // dangerouslySetInnerHTML={{ __html: data.excerpt }}
-              >
-                "Sed ut perspiciatis unde omnis iste natus error sit voluptatem
-                accusantium doloremque laudantium, totam rem aperiam, eaque ipsa
-                quae ab illo inventore veritatis et quasi architecto beatae
-                vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia
-                voluptas sit aspernatur aut odit aut fugit, sed quia
-                consequuntur magni dolores eos qui ratione voluptatem sequi
-                nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor
-                sit amet, consectetur, adipisci velit, sed quia non numquam eius
-                modi tempora incidunt ut labore et dolore magnam aliquam quaerat
-                voluptatem. Ut enim ad minima veniam, quis nostrum
-                exercitationem ullam corporis suscipit laboriosam, nisi ut
-                aliquid ex ea commodi consequatur? Quis autem vel eum iure
-                reprehenderit qui in ea voluptate velit esse quam nihil
-                molestiae consequatur, vel illum qui dolorem eum fugiat quo
-                voluptas nulla pariatur?
-              </p>
-
-              <div
-                className="text-content text-lg"
-                // dangerouslySetInnerHTML={{ __html: data.content }}
-              >
-                But I must explain to you how all this mistaken idea of
-                denouncing pleasure and praising pain was born and I will give
-                you a complete account of the system, and expound the actual
-                teachings of the great explorer of the truth, the master-builder
-                of human happiness. No one rejects, dislikes, or avoids pleasure
-                itself, because it is pleasure, but because those who do not
-                know how to pursue pleasure rationally encounter consequences
-                that are extremely painful. Nor again is there anyone who loves
-                or pursues or desires to obtain pain of itself, because it is
-                pain, but because occasionally circumstances occur in which toil
-                and pain can procure him some great pleasure. To take a trivial
-                example, which of us ever undertakes laborious physical
-                exercise, except to obtain some advantage from it? But who has
-                any right to find fault with a man who chooses to enjoy a
-                pleasure that has no annoying consequences, or one who avoids a
-                pain that produces no resultant pleasure?
-              </div>
+            <Col xl="10" className="mx-auto">
+              <Image
+                src={post[0].img.url}
+                alt=""
+                className="img-fluid mb-5"
+                width={1000}
+                height={667}
+                sizes="100vw"
+              />
             </Col>
           </Row>
+          <Row>
+            <Col lg="10" xl="8" className="mx-auto">
+              <p
+                className="lead mb-5 text-left"
+                dangerouslySetInnerHTML={{ __html: post[0].content }}
+              />
+            </Col>
+          </Row>
+
+          {/* <Row>
+            <Col xl="8" lg="10" className="mx-auto">
+              <div
+                className="text-content text-lg"
+                dangerouslySetInnerHTML={{ __html: post[0].content }}
+              ></div>
+            </Col>
+          </Row> */}
         </Container>
       </section>
     </>

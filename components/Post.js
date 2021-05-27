@@ -25,7 +25,7 @@ const Post = ({ data }) => {
 
           <Link href="/blog/[slug]" as={`/blog/${data.slug}`}>
             <a className="btn btn-link text-gray-700 pl-0">
-              Read more <i className="fa fa-long-arrow-alt-right ml-2" />
+              Продолжить <i className="fa fa-long-arrow-alt-right ml-2" />
             </a>
           </Link>
         </div>

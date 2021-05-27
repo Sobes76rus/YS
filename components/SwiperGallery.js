@@ -41,21 +41,17 @@ const SwiperGallery = ({ data, vertical }) => {
     slidesPerView: 1,
     spaceBetween: 0,
     loop: true,
-    on: {
-      slideChange: () =>
-        setActiveSlide(gallerySwiperRef.current.swiper.realIndex),
-    },
   };
 
   const customStyles = {
     overlay: {
-      zIndex: "1000",
+      zIndex: "2000",
     },
     bodyOpen: {
       position: "fixed",
     },
   };
-
+  console.log(data.photo);
   return (
     <>
       <Row>
@@ -63,7 +59,7 @@ const SwiperGallery = ({ data, vertical }) => {
           <Swiper {...sliderParams} ref={gallerySwiperRef}>
             {data.photo.map((slide, index) => {
               return (
-                <SwiperSlide key={index}>
+                <SwiperSlide key={index} className="align-self-center">
                   <Image
                     className="img-fluid"
                     src={slide.url}
@@ -98,7 +94,23 @@ const SwiperGallery = ({ data, vertical }) => {
         {lightBoxOpen && (
           <Lightbox
             mainSrc={data.photo[activeImage].url}
+            nextSrc={data.photo[(activeImage + 1) % data.photo.length].url}
+            prevSrc={
+              data.photo[
+                (activeImage + data.photo.length - 1) % data.photo.length
+              ].url
+            }
+            onMovePrevRequest={() =>
+              setActiveImage(
+                (activeImage + data.photo.length - 1) % data.photo.length
+              )
+            }
+            onMoveNextRequest={() =>
+              setActiveImage((activeImage + 1) % data.photo.length)
+            }
             onCloseRequest={() => setLightBoxOpen(false)}
+            imageCaption={data.photo[activeImage].caption}
+            enableZoom={false}
             reactModalStyle={customStyles}
           />
         )}
