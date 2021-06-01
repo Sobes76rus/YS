@@ -1,5 +1,5 @@
 import PriceSlider from "./PriceSlider";
-import { useState, useEffect, useContext } from "react";
+import { useState, useEffect, useContext, useRef } from "react";
 import "rc-slider/assets/index.css";
 import { Range } from "rc-slider";
 import Nouislider from "nouislider-react";
@@ -19,21 +19,17 @@ import _ from "lodash";
 
 const ShopFilter = ({ services, cities, price, cards: a }) => {
   const { query, push, pathname } = useRouter();
-  const max = Math.max.apply(null, price[0]);
-  const min = Math.min.apply(null, price[0]);
-  const priceMin = query["priceMin"]
-    ? query["priceMin"]
-    : Math.min.apply(null, price[0]);
-  const priceMax = query["priceMax"]
-    ? query["priceMax"]
-    : Math.max.apply(null, price[0]);
+  const min = Math.min(...price[0]);
+  const max = Math.max(...price[0]);
+  const priceMin = query.priceMin ? query.priceMin : min;
+  const priceMax = query.priceMax ? query.priceMax : max;
 
   const citiesNameFilter = query["city.name"];
   const metrosNameFilter = query["metro.name"];
   const usluginTagsFilter =
-    typeof query["usligis.tag"] === "string"
-      ? [query["usligis.tag"]]
-      : query["usligis.tag"];
+    typeof query["usligis.name"] === "string"
+      ? [query["usligis.name"]]
+      : query["usligis.name"] || [];
 
   const finalCities = citiesNameFilter
     ? cities.filter(({ name }) => citiesNameFilter.includes(name))
@@ -44,11 +40,17 @@ const ShopFilter = ({ services, cities, price, cards: a }) => {
     })
   );
 
+  const queryRef = useRef(query);
+
+  useEffect(() => {
+    queryRef.current = query;
+  }, [query]);
+
   async function changeFilter(filter) {
     const nextUrl = {
       pathname,
       query: {
-        ...query,
+        ...queryRef.current,
         ...filter,
       },
     };
@@ -56,28 +58,34 @@ const ShopFilter = ({ services, cities, price, cards: a }) => {
     await Router.push(nextUrl, nextUrl, { shallow: true });
   }
 
-  const onUpdate = (render, handle, value, un, percent) => {
+  function onUpdate(render, handle, value, un, percent) {
+    console.log("render", query);
     changeFilter({
       priceMin: value[0].toFixed(0),
       priceMax: value[1].toFixed(0),
     });
-  };
+  }
 
   const debouncedHandleChange = (evt) => {
     const u = [];
+
+    if (typeof query["usligis.name"] === "string") {
+      u.push(query["usligis.name"]);
+    }
+    if (Array.isArray(query["usligis.name"])) {
+      u.push(...query["usligis.name"]);
+    }
+
     if (evt.target.checked) {
       u.push(evt.target.name);
+    } else {
+      const index = u.findIndex((v) => v === evt.target.name);
+
+      u.splice(index, 1);
     }
 
-    if (typeof query["usligis.tag"] === "string") {
-      u.push(query["usligis.tag"]);
-
-      if (!evt.target.checked) {
-        u.pop(evt.target.name);
-      }
-    }
     changeFilter({
-      ["usligis.tag"]: u,
+      ["usligis.name"]: u,
     });
   };
 
@@ -95,9 +103,9 @@ const ShopFilter = ({ services, cities, price, cards: a }) => {
             <Nouislider
               className="w-100"
               key={2}
-              range={{ min: min, max: max }}
+              range={{ min, max }}
               start={[min, max]}
-              onUpdate={onUpdate}
+              onSlide={onUpdate}
               connect
             />
             <Form className="nouislider-values" onSubmit={onInput}>
@@ -112,7 +120,6 @@ const ShopFilter = ({ services, cities, price, cards: a }) => {
                 <Input placeholder={priceMax} />
               </div>
             </Form>
-            <Button type="submit">Refresh</Button>
           </ListGroupItem>
           {/* <ListGroupItem className="border-0">
             <h6 className="sidebar-heading d-none d-lg-block">Вторая</h6>
@@ -187,9 +194,7 @@ const ShopFilter = ({ services, cities, price, cards: a }) => {
                   id={usluga.id}
                   name={usluga.name}
                   label={usluga.name}
-                  checked={
-                    usluginTagsFilter && usluginTagsFilter.includes(usluga.name)
-                  }
+                  checked={usluginTagsFilter.includes(usluga.name)}
                   onChange={debouncedHandleChange}
                 />
               );

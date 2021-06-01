@@ -34,7 +34,7 @@ const SwiperGallery = ({ data, vertical }) => {
   if (vertical) {
     sliderColumns = { xs: 12, md: 10 };
     (sliderClass = "detail-carousel order-md-2"), (thumbsColumns = { md: 2 });
-    thumbsClass = "d-none d-md-block pr-0 order-md-1";
+    thumbsClass = "d-none d-md-block pr-0 order-md-1 align-self-center";
   }
 
   const sliderParams = {
@@ -51,7 +51,6 @@ const SwiperGallery = ({ data, vertical }) => {
       position: "fixed",
     },
   };
-  console.log(data.photo);
   return (
     <>
       <Row>

@@ -1,5 +1,5 @@
-import React from "react";
-
+import Link from "next/link";
+import Router from "next/router";
 import { Button, ModalBody, Modal, Row, Col } from "reactstrap";
 import SwiperGallery from "../components/SwiperGallery";
 import Stars from "./Stars";
@@ -61,15 +61,21 @@ const ModalQuickView = ({ isOpen, toggle, product }) => {
             <Col sm="6" lg="12" className="detail-option mb-4">
               <h6 className="detail-option-heading">Услуги</h6>
               {product.uslugis.map((service, index) => (
-                <Button
-                  outline
-                  color="secondary"
-                  className="mr-3"
-                  size="sm"
+                <Link
+                  href={`/filter-albums/?usligis.tag=${service.tag}`}
                   key={index}
+                  passHref
                 >
-                  {service.name}
-                </Button>
+                  <Button
+                    tag="a"
+                    outline
+                    color="secondary"
+                    className="mr-3"
+                    size="sm"
+                  >
+                    {service.name}
+                  </Button>
+                </Link>
               ))}
             </Col>
           </Col>

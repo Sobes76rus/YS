@@ -8,7 +8,7 @@ import {
   Card,
 } from "reactstrap";
 import { useRouter } from "next/router";
-import { useState, useContext, useEffect } from "react";
+import { useState, useContext, useEffect, useRef } from "react";
 import getConfig from "next/config";
 
 import Hero from "../components/Hero";
@@ -31,7 +31,7 @@ function getCardsUrl(query) {
   const priceTagLess = query["priceMax"];
   const cityId = query["city.name"];
   const metroId = query["metro.name"];
-  const uslugiTags = query["usligis.tag"];
+  const uslugiTags = query["usligis.name"];
 
   if (priceTagMore) {
     url.searchParams.append("price_gte", priceTagMore);
@@ -66,16 +66,29 @@ const FilterAlbums = ({
   const [isLoading, setLoading] = useState(false);
   const [cards, setCards] = useState(cardPhotos);
   const toggle = () => setIsOpen(!isOpen);
-  const priceTagFilter = [query["priceMin"], query["priceMax"]];
   const citiesNameFilter = query["city.name"];
   const metrosNameFilter = query["metro.name"];
-  const usluginTagsFilter = query["usligis.tag"];
+  const usluginTagsFilter = query["usligis.name"];
   const price = [cardPhotos.map((card) => Number(card.price))];
+  const secondEffectRef = useRef(false);
+
+  const updateDeps = [
+    query.priceMin,
+    query.priceMax,
+    citiesNameFilter,
+    metrosNameFilter,
+    usluginTagsFilter,
+  ];
 
   useEffect(() => {
-    const url = getCardsUrl(query);
-    setLoading(true);
+    if (!secondEffectRef.current) {
+      secondEffectRef.current = true;
+      return;
+    }
 
+    const url = getCardsUrl(query);
+
+    setLoading(true);
     fetch(url)
       .then((r) => {
         if (r.ok) {
@@ -91,15 +104,12 @@ const FilterAlbums = ({
         setLoading(false);
         // TODO: показать ошибку
       });
-  }, [priceTagFilter, citiesNameFilter, metrosNameFilter, usluginTagsFilter]);
+  }, updateDeps);
 
   return (
     <>
       <Hero title={breadcrumbs.title} breadcrumbs={breadcrumbs.breadcrumbs} />
-      <Container
-        fluid
-        className="d-flex flex-column align-items-center justify-content-center "
-      >
+      <Container className="d-flex flex-column align-items-center justify-content-center ">
         <Button block onClick={toggle} className="btn-toggle py-4">
           Фильтр
           <svg
@@ -132,9 +142,8 @@ const FilterAlbums = ({
       <Container className="px-0">
         <Row>
           <Col className="products-grid">
-            <LayoutGrid cards={cards} />
+            {isLoading ? "loading" : <LayoutGrid cards={cards} />}
           </Col>
-          {/* <ShopSidebar /> */}
         </Row>
       </Container>
     </>
@@ -181,6 +190,7 @@ export async function getServerSideProps(ctx) {
       },
     };
   }
+
   return {
     props: {
       breadcrumbs: {
