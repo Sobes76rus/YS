@@ -10,10 +10,10 @@ import {
   Table,
   Row,
   Col,
+  CustomInput,
 } from "reactstrap";
 
 import classnames from "classnames";
-import Stars from "./Stars";
 
 const DetailTabs = ({ product }) => {
   const [activeTab, setActiveTab] = useState(1);
@@ -97,23 +97,19 @@ const DetailTabs = ({ product }) => {
             </Row>
           </TabPane>
           <TabPane tabId={2}>
-            <Row>
-              <Col md="6">
-                <Table className="table text-sm">
-                  <thead className="detail-tab-heading main">
-                    <tr>
-                      <th>Местоположение</th>
-                    </tr>
-                  </thead>
+            <Row xs="2">
+              <Col className="pb-4">
+                <h1 className="detail-tab-heading main">Местоположение</h1>
+                <Table>
                   <tbody>
                     <tr>
-                      <th className={"text-uppercase font-weight-normal"}>
+                      <th className="text-uppercase font-weight-normal pl-0">
                         Город
                       </th>
                       <td className="text-muted">{product.city.name}</td>
                     </tr>
                     <tr>
-                      <th className="text-uppercase font-weight-normal">
+                      <th className="text-uppercase font-weight-normal pl-0">
                         Метро
                       </th>
                       <td className={"text-muted"}>
@@ -121,28 +117,46 @@ const DetailTabs = ({ product }) => {
                       </td>
                     </tr>
                   </tbody>
-
-                  <thead className="detail-tab-heading main">
-                    <tr>
-                      <th>Стоимость</th>
-                    </tr>
-                  </thead>
-
+                </Table>
+              </Col>
+              <Col>
+                <h1 className="detail-tab-heading main">Услуги</h1>
+                <Table>
                   <tbody>
                     <tr>
-                      <th className={"text-uppercase font-weight-normal "}>
+                      <th className="font-weight-normal pl-0">
+                        <CustomInput
+                          type="checkbox"
+                          className="text-secondary"
+                          //       key={usluga.id}
+                          // id={usluga.id}
+                          name="Параметр 1"
+                          label="Принимаю заказы"
+                          defaultChecked={product.take_orders}
+                        />
+                      </th>
+                    </tr>
+                  </tbody>
+                </Table>
+              </Col>
+              <Col>
+                <h1 className="detail-tab-heading main">Стоимость</h1>
+                <Table>
+                  <tbody>
+                    <tr>
+                      <th className="text-uppercase font-weight-normal pl-0">
                         Первая
                       </th>
                       <td className="text-muted">{product.price} руб.</td>
                     </tr>
                     <tr>
-                      <th className="text-uppercase font-weight-normal">
+                      <th className="text-uppercase font-weight-normal pl-0">
                         Вторая
                       </th>
                       <td className="text-muted">{product.price} руб.</td>
                     </tr>
                     <tr>
-                      <th className="text-uppercase font-weight-normal">
+                      <th className="text-uppercase font-weight-normal pl-0">
                         Минимальный заказ
                       </th>
                       <td className="text-muted">{product.price} руб.</td>
