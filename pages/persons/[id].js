@@ -8,6 +8,7 @@ import DetailMain from "../../components/DetailMain";
 import { Swiper, SwiperSlide } from "swiper/react";
 import getConfig from "next/config";
 import dynamic from "next/dynamic";
+import { useRouter } from "next/router";
 SwiperCore.use([Pagination, Navigation]);
 const SwiperProducts = dynamic(
   () => import("../../components/SwiperProducts"),
@@ -53,6 +54,7 @@ export async function getServerSideProps(ctx) {
 }
 
 export default function Detail(props) {
+  const { query } = useRouter();
   const { personsData, allCards, breadcrumbs } = props;
   return (
     <>

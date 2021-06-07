@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { YMaps, Map, Placemark } from "react-yandex-maps";
 import {
   Container,
@@ -17,14 +17,32 @@ import classnames from "classnames";
 
 const DetailTabs = ({ product }) => {
   const [activeTab, setActiveTab] = useState(1);
-  const [coords, setCoords] = useState(null);
+  const [coords, setCoords] = useState();
+  const mapsRef = useRef();
 
   const toggleTab = (tab) => {
     if (activeTab !== tab) setActiveTab(tab);
   };
-  const getCoords = (arr) => {
-    setCoords(arr.geoObjects.get(0).geometry.getCoordinates());
+
+  const setNewLocation = () => {
+    if (!mapsRef.current) {
+      console.log("no maps");
+      return;
+    }
+
+    console.log("set geocode");
+    mapsRef.current
+      .geocode(`город ${product.city.name}, метро ${product.metros[0].name}`)
+      .then((result) => {
+        const coords = result.geoObjects.get(0).geometry.getCoordinates();
+        setCoords(coords);
+      });
   };
+
+  useEffect(() => {
+    console.log("after render");
+    setNewLocation();
+  }, [product.city.name, product.metros[0].name]);
 
   return (
     <section className="mt-5">
@@ -209,12 +227,16 @@ const DetailTabs = ({ product }) => {
                 modules={["geolocation", "geocode"]}
                 width="100%"
                 onLoad={(ymaps) => {
-                  ymaps
-                    .geocode(
-                      `город ${product.city.name}, метро ${product.metros[0].name}`
-                    )
-                    .then((result) => getCoords(result));
+                  mapsRef.current = ymaps;
+                  setNewLocation();
                 }}
+                state={
+                  coords
+                    ? {
+                        center: coords,
+                      }
+                    : undefined
+                }
                 defaultState={{
                   center: [55.75, 37.57],
                   zoom: 12,

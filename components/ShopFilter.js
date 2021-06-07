@@ -97,9 +97,8 @@ const ShopFilter = ({ services, cities, price, cards: a }) => {
     <Row xs="3">
       <Col>
         <ListGroup>
-          <h3 className="sidebar-heading main">Цена</h3>
-          <ListGroupItem className="border-0">
-            <h6 className="sidebar-heading d-none d-lg-block">Первая</h6>
+          <ListGroupItem className="border-0 p-0">
+            <h3 className="sidebar-heading main">Цена за час</h3>
             <Nouislider
               className="w-100"
               key={2}

@@ -21,25 +21,18 @@ const Header = (props) => {
           } ${props.bgHoverPurple ? "bg-hover-purple" : "bg-purple"}`}
         >
           <Container fluid>
-            <Link href="/" passHref>
-              <a className="py-1 navbar-brand">
-                <img
-                  src="https://cdn.worldvectorlogo.com/logos/next-js.svg"
-                  className="navbar-brand"
-                  width="50"
-                  height="44"
-                  alt="..."
-                />
-              </a>
-            </Link>
             <NavbarToggler
               onClick={() => setCollapsed(!collapsed)}
               className="navbar-toggler-right"
             >
               <i className="fa fa-bars"></i>
             </NavbarToggler>
-            <Collapse isOpen={collapsed} navbar>
-              <Nav navbar className="mx-auto">
+            <Collapse
+              className="justify-content-md-between"
+              isOpen={collapsed}
+              navbar
+            >
+              <Nav navbar>
                 {navigation &&
                   navigation.map((item) => (
                     <li className="nav-item" key={item._id}>
@@ -49,8 +42,19 @@ const Header = (props) => {
                     </li>
                   ))}
               </Nav>
-              <div className="d-flex align-items-center justify-content-between justify-content-lg-end mt-1 mb-2 my-lg-0">
-                <div className="nav-item navbar-icon-link">
+              <Link href="/" passHref>
+                <a className="py-1 navbar-brand">
+                  <img
+                    src="https://cdn.worldvectorlogo.com/logos/next-js.svg"
+                    className="navbar-brand"
+                    width="50"
+                    height="44"
+                    alt="..."
+                  />
+                </a>
+              </Link>
+              <div className="d-flex justify-content-lg-end mt-1 mb-2 my-lg-0">
+                {/* <div className="nav-item navbar-icon-link">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     width="16"
@@ -62,7 +66,7 @@ const Header = (props) => {
                     <path d="M8 16s6-5.686 6-10A6 6 0 0 0 2 6c0 4.314 6 10 6 10zm0-7a3 3 0 1 1 0-6 3 3 0 0 1 0 6z" />
                   </svg>
                   Москва
-                </div>
+                </div> */}
                 <div className="nav-item navbar-icon-link">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"

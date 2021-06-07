@@ -34,19 +34,29 @@ const ModalQuickView = ({ isOpen, toggle, product }) => {
           </Col>
           <Col lg="6" className="p-lg-5">
             <h2 className="mb-4 mt-4 mt-lg-1">{product.name}</h2>
+            <h2 className="h4 font-weight-light mb-5">${product.price}</h2>
             <div className="d-flex flex-column flex-sm-row align-items-sm-center justify-content-sm-between mb-4">
-              <ul className="list-inline mb-2 mb-sm-0">
+              {/* <ul className="list-inline mb-2 mb-sm-0">
                 <li className="list-inline-item h4 font-weight-light mb-0">
-                  ${product.price}
+                  
                 </li>
-              </ul>
+              </ul> */}
+              <Button className="p-0" color="link" outline>
+                <Link href="/persons/[id]" as={`/persons/${product.id}/`}>
+                  <a className="link-purple text-decoration-none ">
+                    <h6 className="m-0">Перейти на анкету</h6>
+                  </a>
+                </Link>
+              </Button>
               <div className="d-flex align-items-center text-sm">
-                <Stars
+                {/* <Stars
                   stars={product.stars}
                   className="mr-2 mb-0"
                   secondColor="gray-300"
-                />
-                <span className="text-muted text-uppercase">1 review</span>
+                /> */}
+                <span className="text-muted text-uppercase link-purple">
+                  1 review
+                </span>
               </div>
             </div>
             <p className="mb-4 text-muted">
