@@ -47,7 +47,7 @@ const DetailTabs = ({ product }) => {
   return (
     <section className="mt-5">
       <Container>
-        <Nav tabs className="flex-column flex-sm-row">
+        <Nav pills className="flex-column flex-sm-row">
           <NavItem>
             <NavLink
               className={classnames("detail-nav-link", {
@@ -98,7 +98,7 @@ const DetailTabs = ({ product }) => {
           </NavItem>
         </Nav>
         <TabContent activeTab={activeTab} className="py-4">
-          <TabPane tabId={1} className="px-3">
+          <TabPane tabId={1}>
             <Row xs="2">
               <Col className="pb-4">
                 <h1 className="detail-tab-heading main">Параметры</h1>
@@ -137,7 +137,7 @@ const DetailTabs = ({ product }) => {
             </Row>
           </TabPane>
           <TabPane tabId={2}>
-            <Row xs="2">
+            <Row>
               {/* <Col>
                 <h1 className="detail-tab-heading main">Услуги</h1>
                 <Table>
@@ -220,7 +220,7 @@ const DetailTabs = ({ product }) => {
               </Col>
             </Row>
           </TabPane>
-          <TabPane tabId={4} className="px-3">
+          <TabPane tabId={4}>
             <Col className="pb-4">
               <h1 className="detail-tab-heading main">Местоположение</h1>
               <Table>

@@ -5,7 +5,7 @@ import Breadcrumbs from "../../components/Breadcrumbs";
 
 import DetailTabs from "../../components/DetailTabs";
 import DetailMain from "../../components/DetailMain";
-
+import Image from "next/image";
 import { Swiper, SwiperSlide } from "swiper/react";
 import getConfig from "next/config";
 import dynamic from "next/dynamic";
@@ -64,7 +64,7 @@ export default function Detail(props) {
         <Container fluid>
           <Row>
             <Col
-              xs={{ size: 12, order: 2 }}
+              xs={{ size: 12, order: 1 }}
               lg={{ size: 6, order: 1 }}
               className="py-3"
             >
@@ -106,18 +106,24 @@ export default function Detail(props) {
               >
                 {personsData.photo.map((image, index) => (
                   <SwiperSlide key={index}>
-                    <div
+                    <Image
+                      src={image.url}
+                      alt="..."
+                      width={image.width}
+                      height="fill"
+                    />
+                    {/* <div
                       className="detail-full-item bg-cover"
                       style={{
                         backgroundImage: `url(${image.url})`,
                       }}
-                    ></div>
+                    ></div> */}
                   </SwiperSlide>
                 ))}
               </Swiper>
             </Col>
             <Col
-              xs={{ size: 12, order: 1 }}
+              xs={{ size: 12, order: 2 }}
               lg={{ size: 6, order: 2 }}
               xl="5"
               className="d-flex align-items-start pl-lg-5 mb-5 pb-0"

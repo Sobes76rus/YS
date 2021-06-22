@@ -1,7 +1,5 @@
-import PriceSlider from "./PriceSlider";
-import { useState, useEffect, useContext, useRef } from "react";
+import { useEffect, useRef } from "react";
 import "rc-slider/assets/index.css";
-import { Range } from "rc-slider";
 import Nouislider from "nouislider-react";
 import Select from "react-select";
 import {
