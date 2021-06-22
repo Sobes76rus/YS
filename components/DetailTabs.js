@@ -69,7 +69,7 @@ const DetailTabs = ({ product }) => {
                 toggleTab(2);
               }}
             >
-              Параметры
+              ЦЕНА
             </NavLink>
           </NavItem>
           <NavItem>
@@ -99,45 +99,46 @@ const DetailTabs = ({ product }) => {
         </Nav>
         <TabContent activeTab={activeTab} className="py-4">
           <TabPane tabId={1} className="px-3">
-            <Row>
-              <Col
-                md="7"
-                xl="8"
-                dangerouslySetInnerHTML={{ __html: product.opisanie }}
-              />
-              <Col md="5" xl="4">
-                <img
-                  className="img-fluid"
-                  src={product.photo[0].url}
-                  alt={product.name}
-                />
-              </Col>
-            </Row>
-          </TabPane>
-          <TabPane tabId={2}>
             <Row xs="2">
               <Col className="pb-4">
-                <h1 className="detail-tab-heading main">Местоположение</h1>
+                <h1 className="detail-tab-heading main">Параметры</h1>
                 <Table>
                   <tbody>
                     <tr>
                       <th className="text-uppercase font-weight-normal pl-0">
-                        Город
+                        Возраст
                       </th>
                       <td className="text-muted">{product.city.name}</td>
                     </tr>
                     <tr>
                       <th className="text-uppercase font-weight-normal pl-0">
-                        Метро
+                        Грудь
                       </th>
                       <td className={"text-muted"}>
                         {product.metros.map((metro) => metro.name)}
                       </td>
                     </tr>
+                    <tr>
+                      <th className="text-uppercase font-weight-normal pl-0">
+                        Член
+                      </th>
+                      <td className={"text-muted"}>25 см</td>
+                    </tr>
+                    <tr>
+                      <th className="text-uppercase font-weight-normal pl-0">
+                        Рост
+                      </th>
+                      <td className={"text-muted"}>170 см</td>
+                    </tr>
                   </tbody>
                 </Table>
               </Col>
-              <Col>
+              <Col dangerouslySetInnerHTML={{ __html: product.opisanie }} />
+            </Row>
+          </TabPane>
+          <TabPane tabId={2}>
+            <Row xs="2">
+              {/* <Col>
                 <h1 className="detail-tab-heading main">Услуги</h1>
                 <Table>
                   <tbody>
@@ -156,26 +157,26 @@ const DetailTabs = ({ product }) => {
                     </tr>
                   </tbody>
                 </Table>
-              </Col>
+              </Col> */}
               <Col>
                 <h1 className="detail-tab-heading main">Стоимость</h1>
                 <Table>
                   <tbody>
                     <tr>
                       <th className="text-uppercase font-weight-normal pl-0">
-                        Первая
+                        1 ЧАС
                       </th>
                       <td className="text-muted">{product.price} руб.</td>
                     </tr>
                     <tr>
                       <th className="text-uppercase font-weight-normal pl-0">
-                        Вторая
+                        2 ЧАСА
                       </th>
                       <td className="text-muted">{product.price} руб.</td>
                     </tr>
                     <tr>
                       <th className="text-uppercase font-weight-normal pl-0">
-                        Минимальный заказ
+                        НОЧЬ
                       </th>
                       <td className="text-muted">{product.price} руб.</td>
                     </tr>
@@ -187,6 +188,9 @@ const DetailTabs = ({ product }) => {
           <TabPane tabId={3}>
             <Row className="mb-5">
               <Col lg="10" xl="9">
+                <Col>
+                  <h1 className="detail-tab-heading main">Мнения</h1>
+                </Col>
                 {/* {product.reviews.map((review) => (
                   <Media key={review.author} className="review">
                     <div className="text-center mr-4 mr-xl-5">
@@ -217,6 +221,27 @@ const DetailTabs = ({ product }) => {
             </Row>
           </TabPane>
           <TabPane tabId={4} className="px-3">
+            <Col className="pb-4">
+              <h1 className="detail-tab-heading main">Местоположение</h1>
+              <Table>
+                <tbody>
+                  <tr>
+                    <th className="text-uppercase font-weight-normal pl-0">
+                      Город
+                    </th>
+                    <td className="text-muted">{product.city.name}</td>
+                  </tr>
+                  <tr>
+                    <th className="text-uppercase font-weight-normal pl-0">
+                      Метро
+                    </th>
+                    <td className={"text-muted"}>
+                      {product.metros.map((metro) => metro.name)}
+                    </td>
+                  </tr>
+                </tbody>
+              </Table>
+            </Col>
             <YMaps
               query={{
                 apikey: "a071233a-e16e-42b6-9971-43c85214e736",

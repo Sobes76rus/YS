@@ -14,19 +14,19 @@ export default function DetailMain({ product }) {
 
   return (
     <>
-      <h1 className="mb-4">{product.name}</h1>
-
+      <div className="d-flex flex-column flex-sm-row align-items-sm-center justify-content-sm-between ">
+        <h1 className="mb-4">{product.name}</h1>
+        <span className="text-muted text-uppercase link-purple">
+          1 просмотр
+        </span>
+      </div>
       <div className="d-flex flex-column flex-sm-row align-items-sm-center justify-content-sm-between mb-5 ">
-        <div className="h4 font-weight-light mb-0 mb-sm-0 mr-5">
+        {/* <div className="h4 font-weight-light mb-0 mb-sm-0 mr-5">
           {product.price} руб
-        </div>
+        </div> */}
 
         <div className="h4 font-weight-light mb-0 mb-sm-0 mr-5"></div>
         <div className="d-flex align-items-center">
-          <span className="text-muted text-uppercase link-purple">
-            1 review
-          </span>
-
           <span className="text-muted text-uppercase text-sm mt-1">
             {/* {product.reviewscount} reviews */}
           </span>

@@ -34,7 +34,7 @@ const ModalQuickView = ({ isOpen, toggle, product }) => {
           </Col>
           <Col lg="6" className="p-lg-5">
             <h2 className="mb-4 mt-4 mt-lg-1">{product.name}</h2>
-            <h2 className="h4 font-weight-light mb-5">${product.price}</h2>
+            <h2 className="h4 font-weight-light mb-5">{product.price} руб</h2>
             <div className="d-flex flex-column flex-sm-row align-items-sm-center justify-content-sm-between mb-4">
               {/* <ul className="list-inline mb-2 mb-sm-0">
                 <li className="list-inline-item h4 font-weight-light mb-0">
@@ -55,7 +55,7 @@ const ModalQuickView = ({ isOpen, toggle, product }) => {
                   secondColor="gray-300"
                 /> */}
                 <span className="text-muted text-uppercase link-purple">
-                  1 review
+                  1 просмотр
                 </span>
               </div>
             </div>

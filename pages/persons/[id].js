@@ -1,5 +1,6 @@
 import { Container, Row, Col } from "reactstrap";
-import SwiperCore, { Navigation, Pagination } from "swiper";
+import { useState } from "react";
+import SwiperCore, { Navigation, Pagination, Thumbs } from "swiper";
 import Breadcrumbs from "../../components/Breadcrumbs";
 
 import DetailTabs from "../../components/DetailTabs";
@@ -9,7 +10,7 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import getConfig from "next/config";
 import dynamic from "next/dynamic";
 import { useRouter } from "next/router";
-SwiperCore.use([Pagination, Navigation]);
+SwiperCore.use([Pagination, Navigation, Thumbs]);
 const SwiperProducts = dynamic(
   () => import("../../components/SwiperProducts"),
   {
@@ -55,6 +56,7 @@ export async function getServerSideProps(ctx) {
 
 export default function Detail(props) {
   const { query } = useRouter();
+  const [thumbsSwiper, setThumbsSwiper] = useState(null);
   const { personsData, allCards, breadcrumbs } = props;
   return (
     <>
@@ -67,7 +69,13 @@ export default function Detail(props) {
               className="py-3"
             >
               <Swiper
-                className="detail-full"
+                thumbs={{ swiper: thumbsSwiper }}
+                spaceBetween={10}
+                slidesPerView={4}
+                freeMode={true}
+                watchSlidesVisibility={true}
+                watchSlidesProgress={true}
+                className="detail-full mySwiper2"
                 pagination={{
                   clickable: true,
                   dynamicBullets: true,
@@ -87,12 +95,32 @@ export default function Detail(props) {
                   </SwiperSlide>
                 ))}
               </Swiper>
+              <Swiper
+                onSwiper={setThumbsSwiper}
+                spaceBetween={10}
+                slidesPerView={4}
+                freeMode={true}
+                watchSlidesVisibility={true}
+                watchSlidesProgress={true}
+                className="mySwiper"
+              >
+                {personsData.photo.map((image, index) => (
+                  <SwiperSlide key={index}>
+                    <div
+                      className="detail-full-item bg-cover"
+                      style={{
+                        backgroundImage: `url(${image.url})`,
+                      }}
+                    ></div>
+                  </SwiperSlide>
+                ))}
+              </Swiper>
             </Col>
             <Col
               xs={{ size: 12, order: 1 }}
               lg={{ size: 6, order: 2 }}
               xl="5"
-              className="d-flex align-items-center pl-lg-5 mb-5 pb-0"
+              className="d-flex align-items-start pl-lg-5 mb-5 pb-0"
             >
               <div>
                 <Breadcrumbs links={breadcrumbs} />

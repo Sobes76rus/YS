@@ -73,12 +73,21 @@ body {
 }
 
 .rc-slider-track {
-  background-color: $purple!important
+  background-color: $purple !important;
 }
 
 .rc-slider-handle {
-  border: solid 2px $purple!important;
+  border: solid 2px $purple !important;
   &:active {
-    box-shadow: 0 0 5px $purple!important
+    box-shadow: 0 0 5px $purple !important;
   }
+}
+
+.mySwiper {
+  height: 7%;
+  box-sizing: border-box;
+  padding: 10px 0;
+}
+.mySwiper2 {
+  height: 45%;
 }
