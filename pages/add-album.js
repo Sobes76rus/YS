@@ -1,5 +1,4 @@
 import { useState } from "react";
-import AuthContextProvider from "../contexts/AlbumsContext";
 import getConfig from "next/config";
 const { publicRuntimeConfig } = getConfig();
 
