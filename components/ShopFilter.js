@@ -3,7 +3,6 @@ import "rc-slider/assets/index.css";
 import Nouislider from "nouislider-react";
 import Select from "react-select";
 import {
-  Button,
   Col,
   Row,
   Form,
