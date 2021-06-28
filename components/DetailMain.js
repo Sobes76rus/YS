@@ -1,6 +1,5 @@
 import { Row, Col, Form, Button, ButtonGroup, Input } from "reactstrap";
 import { useState, useEffect } from "react";
-import Stars from "./Stars";
 import NumberFormat from "react-number-format";
 import { useRouter } from "next/router";
 
