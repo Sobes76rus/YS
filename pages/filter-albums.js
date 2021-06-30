@@ -29,6 +29,10 @@ function getCardsUrl(query) {
 
   const priceTagMore = query["priceMin"];
   const priceTagLess = query["priceMax"];
+  const slider2TagMax = query["slider2Max"];
+  const slider2TagMin = query["slider2Min"];
+  const slider3TagMax = query["slider3Max"];
+  const slider3TagMin = query["slider3Min"];
   const cityId = query["city.name"];
   const metroId = query["metro.name"];
   const uslugiTags = query["usligis.name"];
@@ -37,7 +41,19 @@ function getCardsUrl(query) {
     url.searchParams.append("price_gte", priceTagMore);
   }
   if (priceTagLess) {
-    url.searchParams.append("price_lt", priceTagLess);
+    url.searchParams.append("price_lte", priceTagLess);
+  }
+  if (slider2TagMax) {
+    url.searchParams.append("slider_2_lte", slider2TagMax);
+  }
+  if (slider2TagMin) {
+    url.searchParams.append("slider_2_gte", slider2TagMin);
+  }
+  if (slider3TagMax) {
+    url.searchParams.append("slider_3_lte", slider3TagMax);
+  }
+  if (slider3TagMin) {
+    url.searchParams.append("slider_3_gte", slider3TagMin);
   }
 
   if (cityId) {
@@ -70,11 +86,17 @@ const FilterAlbums = ({
   const metrosNameFilter = query["metro.name"];
   const usluginTagsFilter = query["usligis.name"];
   const price = [cardPhotos.map((card) => Number(card.price))];
+  const slider2Prop = [cardPhotos.map((card) => Number(card.slider_2))];
+  const slider3Prop = [cardPhotos.map((card) => Number(card.slider_3))];
   const secondEffectRef = useRef(false);
 
   const updateDeps = [
     query.priceMin,
     query.priceMax,
+    query.slider2Max,
+    query.slider2Min,
+    query.slider3Max,
+    query.slider3Min,
     citiesNameFilter,
     metrosNameFilter,
     usluginTagsFilter,
@@ -89,6 +111,7 @@ const FilterAlbums = ({
     const url = getCardsUrl(query);
 
     setLoading(true);
+    console.log(url);
     fetch(url)
       .then((r) => {
         if (r.ok) {
@@ -133,6 +156,8 @@ const FilterAlbums = ({
                 cities={cities}
                 metros={metros}
                 price={price}
+                slider_2={slider2Prop}
+                slider_3={slider3Prop}
               />
             </CardBody>
           </Card>

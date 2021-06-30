@@ -14,12 +14,28 @@ import {
 import Router, { useRouter } from "next/router";
 import _ from "lodash";
 
-const ShopFilter = ({ services, cities, price, cards: a }) => {
+const ShopFilter = ({
+  services,
+  cities,
+  price,
+  slider_2,
+  slider_3,
+  cards: a,
+}) => {
   const { query, push, pathname } = useRouter();
-  const min = Math.min(...price[0]);
-  const max = Math.max(...price[0]);
-  const priceMin = query.priceMin ? query.priceMin : min;
-  const priceMax = query.priceMax ? query.priceMax : max;
+  const minPrice = Math.min(...price[0]);
+  const maxPrice = Math.max(...price[0]);
+  const minSlider2 = Math.min(...slider_2[0]);
+  const maxSlider2 = Math.max(...slider_2[0]);
+  const minSlider3 = Math.min(...slider_3[0]);
+  const maxSlider3 = Math.max(...slider_3[0]);
+
+  const priceMin = query.priceMin ? query.priceMin : minPrice;
+  const priceMax = query.priceMax ? query.priceMax : maxPrice;
+  const slider2Min = query.slider2Min ? query.slider2Min : minSlider2;
+  const slider2Max = query.slider2Max ? query.slider2Max : maxSlider2;
+  const slider3Min = query.slider3Min ? query.slider3Min : minSlider3;
+  const slider3Max = query.slider3Max ? query.slider3Max : maxSlider3;
 
   const citiesNameFilter = query["city.name"];
   const metrosNameFilter = query["metro.name"];
@@ -55,11 +71,23 @@ const ShopFilter = ({ services, cities, price, cards: a }) => {
     await Router.push(nextUrl, nextUrl, { shallow: true });
   }
 
-  function onUpdate(render, handle, value, un, percent) {
-    console.log("render", query);
+  function onUpdatePrice(render, handle, value, un, percent) {
     changeFilter({
       priceMin: value[0].toFixed(0),
       priceMax: value[1].toFixed(0),
+    });
+  }
+  function onUpdateSlider2(render, handle, value, un, percent) {
+    console.log(value);
+    changeFilter({
+      slider2Min: value[0].toFixed(0),
+      slider2Max: value[1].toFixed(0),
+    });
+  }
+  function onUpdateSlider3(render, handle, value, un, percent) {
+    changeFilter({
+      slider3Min: value[0].toFixed(0),
+      slider3Max: value[1].toFixed(0),
     });
   }
 
@@ -94,14 +122,14 @@ const ShopFilter = ({ services, cities, price, cards: a }) => {
     <Row xs="3">
       <Col>
         <ListGroup>
-          <ListGroupItem className="border-0 p-0">
+          <ListGroupItem className="border-0 p-0 mb-3">
             <h3 className="sidebar-heading main">Цена за час</h3>
             <Nouislider
               className="w-100"
               key={2}
-              range={{ min, max }}
-              start={[min, max]}
-              onSlide={onUpdate}
+              range={{ min: minPrice, max: maxPrice }}
+              start={[minPrice, maxPrice]}
+              onSlide={onUpdatePrice}
               connect
             />
             <Form className="nouislider-values" onSubmit={onInput}>
@@ -117,16 +145,52 @@ const ShopFilter = ({ services, cities, price, cards: a }) => {
               </div>
             </Form>
           </ListGroupItem>
-          {/* <ListGroupItem className="border-0">
-            <h6 className="sidebar-heading d-none d-lg-block">Вторая</h6>
-            <PriceSlider />
+          <ListGroupItem className="border-0 p-0 mb-3">
+            <h3 className="sidebar-heading main">Слайдер 2</h3>
+            <Nouislider
+              className="w-100"
+              key={2}
+              range={{ min: minSlider2, max: maxSlider2 }}
+              start={[minSlider2, maxSlider2]}
+              onSlide={onUpdateSlider2}
+              connect
+            />
+            <Form className="nouislider-values" onSubmit={onInput}>
+              <div className="min d-flex align-items-center">
+                <p className="m-0 pr-2">от</p>
+                <div className="mr-2">
+                  <Input placeholder={slider2Min} />
+                </div>{" "}
+              </div>
+              <div className="max d-flex align-items-center">
+                <p className="m-0 pr-2">до</p>
+                <Input placeholder={slider2Max} />
+              </div>
+            </Form>
           </ListGroupItem>
-          <ListGroupItem className="border-0">
-            <h6 className="sidebar-heading d-none d-lg-block">
-              Минимальный заказ
-            </h6>
-            <PriceSlider />
-          </ListGroupItem> */}
+          <ListGroupItem className="border-0 p-0">
+            <h3 className="sidebar-heading main">Слайдер 3</h3>
+            <Nouislider
+              className="w-100"
+              key={2}
+              range={{ min: minSlider3, max: maxSlider3 }}
+              start={[minSlider3, maxSlider3]}
+              onSlide={onUpdateSlider3}
+              connect
+            />
+            <Form className="nouislider-values" onSubmit={onInput}>
+              <div className="min d-flex align-items-center">
+                <p className="m-0 pr-2">от</p>
+                <div className="mr-2">
+                  <Input placeholder={slider3Min} />
+                </div>{" "}
+              </div>
+              <div className="max d-flex align-items-center">
+                <p className="m-0 pr-2">до</p>
+                <Input placeholder={slider3Max} />
+              </div>
+            </Form>
+          </ListGroupItem>
         </ListGroup>
       </Col>
       <Col>
