@@ -62,7 +62,7 @@ export default function Detail(props) {
     <>
       <section className="product-details">
         <Container fluid>
-          <Row>
+          <Row className="w-100">
             <Col
               xs={{ size: 12, order: 1 }}
               lg={{ size: 6, order: 1 }}
@@ -125,7 +125,7 @@ export default function Detail(props) {
             <Col
               xs={{ size: 12, order: 2 }}
               lg={{ size: 6, order: 2 }}
-              xl="5"
+              xl="6"
               className="d-flex align-items-start pl-lg-5 mb-5 pb-0"
             >
               <div>

@@ -91,3 +91,14 @@ body {
 .mySwiper2 {
   height: 80%;
 }
+@media (max-width: 1300px) {
+  .detail-nav-link.nav-link {    
+     padding: 0.3rem;     
+ }
+ .flex-sm-row {
+   justify-content: center;
+ }
+ }
+
+
+

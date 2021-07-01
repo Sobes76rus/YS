@@ -46,7 +46,7 @@ const DetailTabs = ({ product }) => {
 
   return (
     <section className="mt-5">
-      <Container>
+      <Container className="p-0">
         <Nav pills className="flex-column flex-sm-row">
           <NavItem>
             <NavLink
