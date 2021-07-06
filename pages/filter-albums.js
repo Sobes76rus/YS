@@ -6,6 +6,7 @@ import {
   Button,
   CardBody,
   Card,
+  Jumbotron,
 } from "reactstrap";
 import { useRouter } from "next/router";
 import { useState, useContext, useEffect, useRef } from "react";
@@ -70,13 +71,14 @@ function getCardsUrl(query) {
 }
 
 const FilterAlbums = ({
+  ceoPages,
   services,
   cardPhotos,
   cities,
   metros,
   breadcrumbs,
 }) => {
-  const { query } = useRouter();
+  const { query, asPath } = useRouter();
 
   const [isOpen, setIsOpen] = useState(false);
   const [isLoading, setLoading] = useState(false);
@@ -111,7 +113,6 @@ const FilterAlbums = ({
     const url = getCardsUrl(query);
 
     setLoading(true);
-    console.log(url);
     fetch(url)
       .then((r) => {
         if (r.ok) {
@@ -165,6 +166,24 @@ const FilterAlbums = ({
       </Container>
 
       <Container className="px-0">
+        {ceoPages &&
+          ceoPages.map((page) => {
+            console.log(asPath);
+            `/filter-albums?${page.url_filter}` === asPath ? (
+              <Jumbotron fluid>
+                <Container fluid>
+                  <h1 className="display-3">Fluid jumbotron</h1>
+                  <p className="lead">
+                    This is a modified jumbotron that occupies the entire
+                    horizontal space of its parent.
+                  </p>
+                </Container>
+              </Jumbotron>
+            ) : (
+              <></>
+            );
+          })}
+
         <Row>
           <Col className="products-grid">
             {isLoading ? "loading" : <LayoutGrid cards={cards} />}
@@ -201,6 +220,9 @@ export async function getServerSideProps(ctx) {
   const metroRes = await fetch(`${publicRuntimeConfig.API_URL}/metros`);
   const metros = await metroRes.json();
 
+  const ceoPageRes = await fetch(`${publicRuntimeConfig.API_URL}/ceo-pages`);
+  const ceoPages = await ceoPageRes.json();
+
   if (ctx.query["metro.name"] && !ctx.query["city.name"]) {
     const newQuery = { ...ctx.query };
     delete newQuery["metro.name"];
@@ -233,6 +255,7 @@ export async function getServerSideProps(ctx) {
           },
         ],
       },
+      ceoPages,
       navigation,
       artists: artistsData,
       genres: genresData,
