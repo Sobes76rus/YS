@@ -166,29 +166,23 @@ const FilterAlbums = ({
       </Container>
 
       <Container className="px-0">
-        {ceoPages &&
-          ceoPages.map((page) => {
-            console.log(asPath);
-            `/filter-albums?${page.url_filter}` === asPath ? (
-              <Jumbotron fluid>
-                <Container fluid>
-                  <h1 className="display-3">Fluid jumbotron</h1>
-                  <p className="lead">
-                    This is a modified jumbotron that occupies the entire
-                    horizontal space of its parent.
-                  </p>
-                </Container>
-              </Jumbotron>
-            ) : (
-              <></>
-            );
-          })}
-
         <Row>
           <Col className="products-grid">
             {isLoading ? "loading" : <LayoutGrid cards={cards} />}
           </Col>
         </Row>
+        {ceoPages &&
+          ceoPages.map(
+            (page) =>
+              `/filter-albums?${page.url_filter}` === decodeURI(asPath) && (
+                <Jumbotron fluid className="bg-light">
+                  <Container fluid>
+                    <h3 className="display-5">{page.Title}</h3>
+                    <p className="lead">{page.Description}</p>
+                  </Container>
+                </Jumbotron>
+              )
+          )}
       </Container>
     </>
   );
