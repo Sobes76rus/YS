@@ -134,7 +134,12 @@ const FilterAlbums = ({
     <>
       <Hero title={breadcrumbs.title} breadcrumbs={breadcrumbs.breadcrumbs} />
       <Container className="d-flex flex-column align-items-center justify-content-center p-0 ">
-        <Button block onClick={toggle} className="btn-toggle-purple py-4">
+        <Button
+          block
+          onClick={toggle}
+          className="btn-toggle-purple py-4"
+          color="disabled"
+        >
           Фильтр
           <svg
             xmlns="http://www.w3.org/2000/svg"

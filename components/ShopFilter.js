@@ -11,7 +11,7 @@ import {
   CustomInput,
   Input,
   Collapse,
-  Dropdown,
+  Button,
 } from "reactstrap";
 import Router, { useRouter } from "next/router";
 import _ from "lodash";
@@ -248,13 +248,18 @@ const ShopFilter = ({
       <Col className="mb-3">
         {services.map((service, index) => (
           <Col className="filter_col" key={index}>
-            <Dropdown
-              color="primary"
+            <Button
+              className="btn-filter-prpl "
+              color="disabled"
               onClick={toggle}
               style={{ marginBottom: "1rem" }}
             >
               {service.group_name}
-            </Dropdown>
+
+              <svg className="svg-icon svg-icon-heavy align-middle">
+                <use xlinkHref="/icons/orion-svg-sprite.svg#heart-1"></use>
+              </svg>
+            </Button>
             <Collapse isOpen={isOpen} className="sidebar-heading main">
               {service.uslugis.map((usluga) => {
                 return (

@@ -20,6 +20,19 @@ body {
 .btn-purple {
   background-color: $purple;
 }
+.btn-filter-prpl  {
+  background-color: transparent;
+  color:  $purple; 
+  border-color: $purple; 
+  
+  
+  &:hover {
+    background-color: $purple;
+    color:$purple; 
+    background-color: #dac9f9;
+    border-color: #dac9f9;
+  }
+}
 .btn-toggle-purple {
   background-color: #dac9f9;
   margin-bottom: 1rem;

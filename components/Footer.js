@@ -48,11 +48,11 @@ const Footer = (props) => {
             </Link>
           </div>
         </Row>
-        <Row className="align-items-center justify-content-center">
+        {/* <Row className="align-items-center justify-content-center">
           <div className="col-md-6 text-center pt-2 text-light">
             <p className="mb-md-0">© 2021 Your company. All rights reserved.</p>
           </div>
-        </Row>
+        </Row> */}
       </Container>
     </div>
   );
