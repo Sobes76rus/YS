@@ -20,6 +20,20 @@ body {
 .btn-purple {
   background-color: $purple;
 }
+.btn-toggle-purple {
+  background-color: #dac9f9;
+  margin-bottom: 1rem;
+  border-radius: 0.75rem;
+  color: black;
+  border: none;
+  &:focus {
+    background-color: $purple;
+  }
+  &:hover {
+    background-color: $purple;
+  }
+}
+
 .link-purple {
   color: $purple;
 }
@@ -92,13 +106,10 @@ body {
   height: 80%;
 }
 @media (max-width: 1300px) {
-  .detail-nav-link.nav-link {    
-     padding: 0.3rem;     
- }
- .flex-sm-row {
-   justify-content: center;
- }
- }
-
-
-
+  .detail-nav-link.nav-link {
+    padding: 0.3rem;
+  }
+  .flex-sm-row {
+    justify-content: center;
+  }
+}

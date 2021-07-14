@@ -2,7 +2,7 @@ import { Container, Row, Col } from "reactstrap";
 import { useState } from "react";
 import SwiperCore, { Navigation, Pagination, Thumbs } from "swiper";
 import Breadcrumbs from "../../components/Breadcrumbs";
-
+import useWindowSize from "../../hooks/useWindowSize";
 import DetailTabs from "../../components/DetailTabs";
 import DetailMain from "../../components/DetailMain";
 import Image from "next/image";
@@ -58,11 +58,13 @@ export default function Detail(props) {
   const { query } = useRouter();
   const [thumbsSwiper, setThumbsSwiper] = useState(null);
   const { personsData, allCards, breadcrumbs } = props;
+  const windowSize = useWindowSize();
+  const isSlim = windowSize.width <= "992";
   return (
     <>
       <section className="product-details">
         <Container fluid>
-          <Row className="w-100">
+          <Row xs="3">
             <Col
               xs={{ size: 12, order: 1 }}
               lg={{ size: 6, order: 1 }}
@@ -70,18 +72,14 @@ export default function Detail(props) {
             >
               <Swiper
                 thumbs={{ swiper: thumbsSwiper }}
-                spaceBetween={10}
-                slidesPerView={4}
-                freeMode={true}
-                watchSlidesVisibility={true}
-                watchSlidesProgress={true}
+                slidesPerView={1}
                 className="detail-full mySwiper2"
                 pagination={{
                   clickable: true,
                   dynamicBullets: true,
                 }}
-                navigation
                 scrollbar
+                navigation
                 slidesPerView={1}
               >
                 {personsData.photo.map((image, index) => (
@@ -112,12 +110,6 @@ export default function Detail(props) {
                       width={image.width}
                       height="fill"
                     />
-                    {/* <div
-                      className="detail-full-item bg-cover"
-                      style={{
-                        backgroundImage: `url(${image.url})`,
-                      }}
-                    ></div> */}
                   </SwiperSlide>
                 ))}
               </Swiper>
@@ -126,11 +118,16 @@ export default function Detail(props) {
               xs={{ size: 12, order: 2 }}
               lg={{ size: 6, order: 2 }}
               xl="6"
-              className="d-flex align-items-start pl-lg-5 mb-5 pb-0"
+              lg="2"
+              className="flex align-items-start pl-lg-5 mb-5 pb-0"
             >
               <div>
-                <Breadcrumbs links={breadcrumbs} />
-                <DetailMain product={personsData} />
+                {!isSlim && <Breadcrumbs links={breadcrumbs} />}
+
+                <DetailMain
+                  className={`${isSlim && "width-100"}`}
+                  product={personsData}
+                />
                 <DetailTabs product={personsData} />
               </div>
             </Col>

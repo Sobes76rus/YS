@@ -1,4 +1,4 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import "rc-slider/assets/index.css";
 import Nouislider from "nouislider-react";
 import Select from "react-select";
@@ -10,6 +10,8 @@ import {
   ListGroup,
   CustomInput,
   Input,
+  Collapse,
+  Dropdown,
 } from "reactstrap";
 import Router, { useRouter } from "next/router";
 import _ from "lodash";
@@ -117,10 +119,12 @@ const ShopFilter = ({
   const onInput = (e) => {
     console.log(e);
   };
+  const [isOpen, setIsOpen] = useState(false);
+  const toggle = () => setIsOpen(!isOpen);
 
   return (
-    <Row xs="3">
-      <Col>
+    <Row xl="3" lg="3" xs="1">
+      <Col className="mb-3">
         <ListGroup>
           <ListGroupItem className="border-0 p-0 mb-3">
             <h3 className="sidebar-heading main">Цена за час</h3>
@@ -193,7 +197,7 @@ const ShopFilter = ({
           </ListGroupItem>
         </ListGroup>
       </Col>
-      <Col>
+      <Col className="mb-3">
         <h3 className="sidebar-heading main">Местоположение</h3>
 
         <Select
@@ -241,24 +245,32 @@ const ShopFilter = ({
         />
       </Col>
 
-      <Col>
+      <Col className="mb-3">
         {services.map((service, index) => (
           <Col className="filter_col" key={index}>
-            <h3 className="sidebar-heading main">{service.group_name}</h3>
-            {service.uslugis.map((usluga) => {
-              return (
-                <CustomInput
-                  type="checkbox"
-                  className="text-secondary"
-                  key={usluga.id}
-                  id={usluga.id}
-                  name={usluga.name}
-                  label={usluga.name}
-                  checked={usluginTagsFilter.includes(usluga.name)}
-                  onChange={debouncedHandleChange}
-                />
-              );
-            })}
+            <Dropdown
+              color="primary"
+              onClick={toggle}
+              style={{ marginBottom: "1rem" }}
+            >
+              {service.group_name}
+            </Dropdown>
+            <Collapse isOpen={isOpen} className="sidebar-heading main">
+              {service.uslugis.map((usluga) => {
+                return (
+                  <CustomInput
+                    type="checkbox"
+                    className="text-secondary"
+                    key={usluga.id}
+                    id={usluga.id}
+                    name={usluga.name}
+                    label={usluga.name}
+                    checked={usluginTagsFilter.includes(usluga.name)}
+                    onChange={debouncedHandleChange}
+                  />
+                );
+              })}
+            </Collapse>
           </Col>
         ))}
       </Col>

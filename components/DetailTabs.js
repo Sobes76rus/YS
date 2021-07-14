@@ -99,7 +99,7 @@ const DetailTabs = ({ product }) => {
         </Nav>
         <TabContent activeTab={activeTab} className="py-4">
           <TabPane tabId={1}>
-            <Row xs="2">
+            <Row xs="1" xl="2">
               <Col className="pb-4">
                 <h1 className="detail-tab-heading main">Параметры</h1>
                 <Table>

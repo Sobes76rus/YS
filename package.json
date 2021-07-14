@@ -34,12 +34,14 @@
     "react-magnifier": "^3.0.4",
     "react-number-format": "^4.6.0",
     "react-query": "^3.12.0",
+    "react-resize-detector": "^6.7.4",
     "react-responsive-masonry": "^2.1.2",
     "react-select": "^4.1.0",
     "react-stack-grid": "^0.7.1",
     "react-yandex-maps": "^4.6.0",
     "reactstrap": "^8.9.0",
     "sass": "^1.32.8",
+    "sass-migrator": "^1.5.1",
     "standard": "^16.0.3",
     "swiper": "^6.5.0"
   }

@@ -45,10 +45,10 @@ const Header = (props) => {
               <Link href="/" passHref>
                 <a className="py-1 navbar-brand">
                   <img
-                    src="https://cdn.worldvectorlogo.com/logos/next-js.svg"
+                    src="icons/31f503a2-cd0a-4697-92c2-6e16cf2a1ee8.png"
                     className="navbar-brand"
-                    width="50"
-                    height="44"
+                    width="45"
+                    height="50"
                     alt="..."
                   />
                 </a>
