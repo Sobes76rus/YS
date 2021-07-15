@@ -249,15 +249,19 @@ const ShopFilter = ({
         {services.map((service, index) => (
           <Col className="filter_col" key={index}>
             <Button
-              className="btn-filter-prpl "
+              className="btn-filter-prpl w-100 border-0"
               color="disabled"
               onClick={toggle}
               style={{ marginBottom: "1rem" }}
             >
               {service.group_name}
 
-              <svg className="svg-icon svg-icon-heavy align-middle">
-                <use xlinkHref="/icons/orion-svg-sprite.svg#heart-1"></use>
+              <svg className="svg-icon align-middle">
+                {isOpen ? (
+                  <use xlinkHref="/icons/orion-svg-sprite.svg#arrow-up-10"></use>
+                ) : (
+                  <use xlinkHref="/icons/orion-svg-sprite.svg#arrow-down-11"></use>
+                )}
               </svg>
             </Button>
             <Collapse isOpen={isOpen} className="sidebar-heading main">
