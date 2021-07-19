@@ -127,7 +127,7 @@ const ShopFilter = ({
       <Col className="mb-3">
         <ListGroup>
           <ListGroupItem className="border-0 p-0 mb-3">
-            <h3 className="sidebar-heading main">Цена за час</h3>
+            <h3 className="sidebar-heading main">Цена за час работы</h3>
             <Nouislider
               className="w-100"
               key={2}
