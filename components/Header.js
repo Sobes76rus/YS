@@ -45,7 +45,7 @@ const Header = (props) => {
               <Link href="/" passHref>
                 <a className="py-1 navbar-brand">
                   <img
-                    src="icons/31f503a2-cd0a-4697-92c2-6e16cf2a1ee8.png"
+                    src="icons/Your Seduction-05.png"
                     className="navbar-brand"
                     width="45"
                     height="50"
