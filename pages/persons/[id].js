@@ -47,6 +47,12 @@ export async function getServerSideProps(ctx) {
         },
         {
           name: "Все анкеты",
+          link: "/filter-albums",
+          linkClass: "link-purple",
+        },
+        {
+          name: personsData.name,
+
           active: true,
         },
       ],
@@ -55,7 +61,6 @@ export async function getServerSideProps(ctx) {
 }
 
 export default function Detail(props) {
-  const { query } = useRouter();
   const [thumbsSwiper, setThumbsSwiper] = useState(null);
   const { personsData, allCards, breadcrumbs } = props;
   const windowSize = useWindowSize();
@@ -85,7 +90,7 @@ export default function Detail(props) {
                 {personsData.photo.map((image, index) => (
                   <SwiperSlide key={index}>
                     <div
-                      className="detail-full-item bg-cover"
+                      className="h-100 bg-cover"
                       style={{
                         backgroundImage: `url(${image.url})`,
                       }}
@@ -103,12 +108,12 @@ export default function Detail(props) {
                 className="mySwiper"
               >
                 {personsData.photo.map((image, index) => (
-                  <SwiperSlide key={index}>
+                  <SwiperSlide key={index} style={{ cursor: "pointer" }}>
                     <Image
                       src={image.url}
                       alt="..."
                       width={image.width}
-                      height="fill"
+                      height={image.height}
                     />
                   </SwiperSlide>
                 ))}
@@ -135,7 +140,7 @@ export default function Detail(props) {
         </Container>
       </section>
 
-      <section className="my-5">
+      <section className="my-3">
         <div className="container">
           <header className="text-center">
             <h6 className="text-uppercase mb-5">Вам также могут понравиться</h6>

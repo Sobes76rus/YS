@@ -47,7 +47,7 @@ const Header = (props) => {
                   <img
                     src="icons/Your Seduction-05.png"
                     className="navbar-brand"
-                    width="45"
+                    width="43"
                     height="50"
                     alt="..."
                   />

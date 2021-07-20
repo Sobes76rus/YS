@@ -121,7 +121,7 @@ const Home = ({ randomAlbums, cardPhotos }) => {
         ))}
       </Swiper>
 
-      <div className="px-0 fill">
+      <div className="px-2 fill">
         <div className="h-50">
           <LayoutGrid cards={cardPhotos} />
         </div>
