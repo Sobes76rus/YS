@@ -75,7 +75,7 @@ const Home = ({ randomAlbums, cardPhotos }) => {
         {randomAlbums.map((slide, index) => (
           <SwiperSlide
             key={index}
-            className="mb-5 display-2 font-weight-bold text-serif bg-cover"
+            className="mb-5 display-2 bg-cover"
             style={{
               backgroundImage: `url(${slide.album_cover.url})`,
             }}
@@ -121,7 +121,7 @@ const Home = ({ randomAlbums, cardPhotos }) => {
         ))}
       </Swiper>
 
-      <div className="px-2 fill">
+      <div className="px-0 fill">
         <div className="h-50">
           <LayoutGrid cards={cardPhotos} />
         </div>

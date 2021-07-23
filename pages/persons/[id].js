@@ -69,11 +69,11 @@ export default function Detail(props) {
     <>
       <section className="product-details">
         <Container fluid>
-          <Row xs="3">
+          <Row xs="2">
             <Col
               xs={{ size: 12, order: 1 }}
               lg={{ size: 6, order: 1 }}
-              className="py-3"
+              className={`${isSlim && "vp50"} "py-3"`}
             >
               <Swiper
                 thumbs={{ swiper: thumbsSwiper }}
@@ -123,11 +123,10 @@ export default function Detail(props) {
               xs={{ size: 12, order: 2 }}
               lg={{ size: 6, order: 2 }}
               xl="6"
-              lg="2"
               className="flex align-items-start pl-lg-5 mb-5 pb-0"
             >
               <div>
-                {!isSlim && <Breadcrumbs links={breadcrumbs} />}
+                <Breadcrumbs links={breadcrumbs} />
 
                 <DetailMain
                   className={`${isSlim && "width-100"}`}

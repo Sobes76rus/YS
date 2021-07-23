@@ -20,15 +20,14 @@ body {
 .btn-purple {
   background-color: $purple;
 }
-.btn-filter-prpl  {
+.btn-filter-prpl {
   background-color: transparent;
-  color:  $purple; 
-  border-color: $purple; 
-  
-  
+  color: $purple;
+  border-color: $purple;
+
   &:hover {
     background-color: $purple;
-    color:$purple; 
+    color: $purple;
     background-color: #dac9f9;
     border-color: #dac9f9;
   }
@@ -112,7 +111,7 @@ body {
 
 .mySwiper {
   height: 20%;
-  
+
   padding: 10px 0;
 }
 .mySwiper2 {
@@ -125,4 +124,8 @@ body {
   .flex-sm-row {
     justify-content: center;
   }
+}
+
+.vp50 {
+  min-height: 50vh;
 }
