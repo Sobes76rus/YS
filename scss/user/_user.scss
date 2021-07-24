@@ -129,3 +129,8 @@ body {
 .vp50 {
   min-height: 50vh;
 }
+
+img.bg-contain {
+  object-fit: contain;
+  font-family: "object-fit: cover;";
+}

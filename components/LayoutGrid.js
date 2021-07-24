@@ -5,7 +5,6 @@ import useWindowSize from "../hooks/useWindowSize";
 export default function LayoutGrid({ cards }) {
   const windowSize = useWindowSize();
   const isSlim = windowSize.width <= "992";
-  console.log(windowSize.width);
 
   return (
     <ResponsiveMasonry

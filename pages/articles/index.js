@@ -19,6 +19,10 @@ export async function getStaticProps() {
   const navigation = await navRes.json();
   return {
     props: {
+      navbarHoverLight: true,
+      headerAbsolute: true,
+      bgHoverPurple: true,
+      fixedBottom: true,
       navigation,
       posts,
       title: "Блог",

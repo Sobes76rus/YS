@@ -33,38 +33,62 @@ const Header = (props) => {
               navbar
             >
               <Nav navbar>
-                {navigation &&
-                  navigation.map((item) => (
-                    <li className="nav-item" key={item._id}>
-                      <Link href={item.Slug}>
-                        <a className="nav-link main_text-color">{item.Title}</a>
+                {navigation && (
+                  <>
+                    <li className="nav-item" key={navigation[1]._id}>
+                      <Link href={navigation[1].Slug}>
+                        <a className="nav-link main_text-color">
+                          {navigation[1].Title}
+                        </a>
                       </Link>
                     </li>
-                  ))}
+                    <li className="nav-item" key={navigation[2]._id}>
+                      <Link href={navigation[2].Slug}>
+                        <a className="nav-link main_text-color">
+                          {navigation[2].Title}
+                        </a>
+                      </Link>
+                    </li>
+                    <li className="nav-item" key={navigation[0]._id}>
+                      <Link href={navigation[0].Slug}>
+                        <a className="nav-link main_text-color">
+                          {navigation[0].Title}
+                        </a>
+                      </Link>
+                    </li>
+                  </>
+                )}
               </Nav>
               <Link href="/" passHref>
-                <a className="py-1 navbar-brand">
-                  <img
-                    src="icons/Your Seduction-05.png"
+                <a className="py-0 navbar-brand">
+                  <h5 className="m-0">YOUR SEDUCTION</h5>
+                  {/* <img
+                    src="icons/Your Seduction-02.png"
                     className="navbar-brand"
                     width="43"
                     height="50"
                     alt="..."
-                  />
+                  /> */}
                 </a>
               </Link>
               <div className="d-flex justify-content-lg-end mt-1 mb-2 my-lg-0">
                 <div className="nav-item navbar-icon-link">
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="16"
-                    height="16"
-                    fill="currentColor"
-                    className="bi bi-envelope-fill"
-                    viewBox="0 0 16 16"
-                  >
-                    <path d="M.05 3.555A2 2 0 0 1 2 2h12a2 2 0 0 1 1.95 1.555L8 8.414.05 3.555zM0 4.697v7.104l5.803-3.558L0 4.697zM6.761 8.83l-6.57 4.027A2 2 0 0 0 2 14h12a2 2 0 0 0 1.808-1.144l-6.57-4.027L8 9.586l-1.239-.757zm3.436-.586L16 11.801V4.697l-5.803 3.546z" />
-                  </svg>
+                  <Link href="/contacts" passHref>
+                    <a className="py-1 navbar-brand">
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="16"
+                        height="16"
+                        fill={`${
+                          props.bgHoverPurple ? "currentColor" : "white"
+                        }`}
+                        className="bi bi-envelope-fill"
+                        viewBox="0 0 16 16"
+                      >
+                        <path d="M.05 3.555A2 2 0 0 1 2 2h12a2 2 0 0 1 1.95 1.555L8 8.414.05 3.555zM0 4.697v7.104l5.803-3.558L0 4.697zM6.761 8.83l-6.57 4.027A2 2 0 0 0 2 14h12a2 2 0 0 0 1.808-1.144l-6.57-4.027L8 9.586l-1.239-.757zm3.436-.586L16 11.801V4.697l-5.803 3.546z" />
+                      </svg>
+                    </a>
+                  </Link>
                 </div>
                 <div className="nav-item navbar-icon-link">
                   <svg

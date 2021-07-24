@@ -66,11 +66,13 @@ function getCardsUrl(query) {
   if (uslugiTags) {
     url.searchParams.append("uslugis.name", uslugiTags);
   }
+  url.searchParams.sort();
 
   return url.toString();
 }
 
 const FilterAlbums = ({
+  allCards,
   ceoPages,
   services,
   cardPhotos,
@@ -87,9 +89,9 @@ const FilterAlbums = ({
   const citiesNameFilter = query["city.name"];
   const metrosNameFilter = query["metro.name"];
   const usluginTagsFilter = query["usligis.name"];
-  const price = [cardPhotos.map((card) => Number(card.price))];
-  const slider2Prop = [cardPhotos.map((card) => Number(card.slider_2))];
-  const slider3Prop = [cardPhotos.map((card) => Number(card.slider_3))];
+  const price = [allCards.map((card) => Number(card.price))];
+  const slider2Prop = [allCards.map((card) => Number(card.slider_2))];
+  const slider3Prop = [allCards.map((card) => Number(card.slider_3))];
   const secondEffectRef = useRef(false);
 
   const updateDeps = [
@@ -121,6 +123,7 @@ const FilterAlbums = ({
         return Promise.reject(r);
       })
       .then((a) => {
+        console.log(url, a);
         setCards(a);
         setLoading(false);
       })
@@ -205,8 +208,13 @@ export async function getServerSideProps(ctx) {
   const navRes = await fetch(`${publicRuntimeConfig.API_URL}/navigations`);
   const navigation = await navRes.json();
 
-  const cardRes = await fetch(`${publicRuntimeConfig.API_URL}/card-lookbooks`);
+  const cardRes = await fetch(getCardsUrl(ctx.query));
   const cardPhotos = await cardRes.json();
+
+  const allCardsRes = await fetch(
+    `${publicRuntimeConfig.API_URL}/card-lookbooks`
+  );
+  const allCards = await allCardsRes.json();
 
   const serviceRes = await fetch(
     `${publicRuntimeConfig.API_URL}/uslugi-groups`
@@ -225,7 +233,10 @@ export async function getServerSideProps(ctx) {
   if (ctx.query["metro.name"] && !ctx.query["city.name"]) {
     const newQuery = { ...ctx.query };
     delete newQuery["metro.name"];
-    const queryString = new URLSearchParams(newQuery).toString();
+    let queryString = new URLSearchParams(newQuery);
+
+    queryString.sort();
+    queryString = queryString.toString();
 
     return {
       redirect: {
@@ -261,6 +272,7 @@ export async function getServerSideProps(ctx) {
       cities,
       metros,
       cardPhotos,
+      allCards,
       services,
     },
   };

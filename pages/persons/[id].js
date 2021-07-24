@@ -108,12 +108,19 @@ export default function Detail(props) {
                 className="mySwiper"
               >
                 {personsData.photo.map((image, index) => (
-                  <SwiperSlide key={index} style={{ cursor: "pointer" }}>
+                  <SwiperSlide
+                    key={index}
+                    style={{
+                      cursor: "pointer",
+                      objectFit: "contain",
+                      minHeight: "100%",
+                    }}
+                  >
                     <Image
                       src={image.url}
                       alt="..."
                       width={image.width}
-                      height={image.height}
+                      height="fill"
                     />
                   </SwiperSlide>
                 ))}

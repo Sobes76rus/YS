@@ -31,6 +31,7 @@ const ShopFilter = ({
   const maxSlider2 = Math.max(...slider_2[0]);
   const minSlider3 = Math.min(...slider_3[0]);
   const maxSlider3 = Math.max(...slider_3[0]);
+  //
 
   const priceMin = query.priceMin ? query.priceMin : minPrice;
   const priceMax = query.priceMax ? query.priceMax : maxPrice;
@@ -62,32 +63,63 @@ const ShopFilter = ({
   }, [query]);
 
   async function changeFilter(filter) {
+    const queryParams = new URLSearchParams();
+
+    // { x: [1,2], y: 2 } -> [['x', 1], ['y', 2]]
+    // [['x', 1], ['y', 2]]
+    // params = []
+    // append(x, 1)
+    // append(x, 2)
+    // [['x', 1], ['x', 2]] -> x=1&x=2
+    Object.entries(filter).forEach(([key, value]) => {
+      if (typeof value === "string" || typeof value === "number") {
+        queryParams.append(key, value);
+      }
+      if (Array.isArray(value)) {
+        value.forEach((v) => {
+          queryParams.append(key, v);
+        });
+      }
+    });
+
+    queryParams.sort();
+
     const nextUrl = {
       pathname,
-      query: {
-        ...queryRef.current,
-        ...filter,
-      },
+      query: queryParams.toString(),
     };
 
     await Router.push(nextUrl, nextUrl, { shallow: true });
   }
 
   function onUpdatePrice(render, handle, value, un, percent) {
-    changeFilter({
-      priceMin: value[0].toFixed(0),
-      priceMax: value[1].toFixed(0),
-    });
+    const newQuery = { ...queryRef.current };
+
+    if (value[0].toFixed(0) > minPrice) {
+      newQuery.priceMin = value[0].toFixed(0);
+    } else {
+      delete newQuery.priceMin;
+    }
+
+    if (value[1].toFixed(0) < maxPrice) {
+      newQuery.priceMax = value[1].toFixed(0);
+    } else {
+      delete newQuery.priceMax;
+    }
+
+    changeFilter(newQuery);
   }
   function onUpdateSlider2(render, handle, value, un, percent) {
     console.log(value);
     changeFilter({
+      ...queryRef.current,
       slider2Min: value[0].toFixed(0),
       slider2Max: value[1].toFixed(0),
     });
   }
   function onUpdateSlider3(render, handle, value, un, percent) {
     changeFilter({
+      ...queryRef.current,
       slider3Min: value[0].toFixed(0),
       slider3Max: value[1].toFixed(0),
     });
@@ -112,6 +144,7 @@ const ShopFilter = ({
     }
 
     changeFilter({
+      ...queryRef.current,
       ["usligis.name"]: u,
     });
   };
@@ -212,6 +245,7 @@ const ShopFilter = ({
           onChange={(values) => {
             if (values.length === 0 && metrosNameFilter) {
               changeFilter({
+                ...queryRef.current,
                 "city.name": [],
                 "metro.name": [],
               });
@@ -219,6 +253,7 @@ const ShopFilter = ({
             }
 
             changeFilter({
+              ...queryRef.current,
               "city.name": values.map(({ name }) => name),
             });
           }}
@@ -239,6 +274,7 @@ const ShopFilter = ({
           isDisabled={finalCities.length === 0 && true}
           onChange={(values) => {
             changeFilter({
+              ...queryRef.current,
               "metro.name": values.map(({ name }) => name),
             });
           }}

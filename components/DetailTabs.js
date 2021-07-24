@@ -93,7 +93,7 @@ const DetailTabs = ({ product }) => {
                 toggleTab(4);
               }}
             >
-              Смотреть на карте
+              Карта
             </NavLink>
           </NavItem>
         </Nav>
@@ -106,13 +106,13 @@ const DetailTabs = ({ product }) => {
                   <tbody>
                     <tr>
                       <th className="text-uppercase font-weight-normal pl-0">
-                        Возраст
+                        1 Параметр
                       </th>
                       <td className="text-muted">{product.city.name}</td>
                     </tr>
                     <tr>
                       <th className="text-uppercase font-weight-normal pl-0">
-                        Грудь
+                        2 Параметр
                       </th>
                       <td className={"text-muted"}>
                         {product.metros.map((metro) => metro.name)}
@@ -120,15 +120,15 @@ const DetailTabs = ({ product }) => {
                     </tr>
                     <tr>
                       <th className="text-uppercase font-weight-normal pl-0">
-                        Член
+                        3 Параметр
                       </th>
-                      <td className={"text-muted"}>25 см</td>
+                      <td className={"text-muted"}>что-то</td>
                     </tr>
                     <tr>
                       <th className="text-uppercase font-weight-normal pl-0">
-                        Рост
+                        4 Параметр
                       </th>
-                      <td className={"text-muted"}>170 см</td>
+                      <td className={"text-muted"}>что-то</td>
                     </tr>
                   </tbody>
                 </Table>
@@ -138,26 +138,6 @@ const DetailTabs = ({ product }) => {
           </TabPane>
           <TabPane tabId={2}>
             <Row>
-              {/* <Col>
-                <h1 className="detail-tab-heading main">Услуги</h1>
-                <Table>
-                  <tbody>
-                    <tr>
-                      <th className="font-weight-normal pl-0">
-                        <CustomInput
-                          type="checkbox"
-                          className="text-secondary"
-                          //       key={usluga.id}
-                          // id={usluga.id}
-                          name="Параметр 1"
-                          label="Принимаю заказы"
-                          defaultChecked={product.take_orders}
-                        />
-                      </th>
-                    </tr>
-                  </tbody>
-                </Table>
-              </Col> */}
               <Col>
                 <h1 className="detail-tab-heading main">Стоимость</h1>
                 <Table>
@@ -170,13 +150,13 @@ const DetailTabs = ({ product }) => {
                     </tr>
                     <tr>
                       <th className="text-uppercase font-weight-normal pl-0">
-                        2 ЧАСА
+                        1 ЧАС +
                       </th>
                       <td className="text-muted">{product.price} руб.</td>
                     </tr>
                     <tr>
                       <th className="text-uppercase font-weight-normal pl-0">
-                        НОЧЬ
+                        Полная работа
                       </th>
                       <td className="text-muted">{product.price} руб.</td>
                     </tr>

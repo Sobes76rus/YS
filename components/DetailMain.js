@@ -15,7 +15,7 @@ export default function DetailMain({ product }) {
     <>
       <div className="d-flex flex-column flex-sm-row align-items-sm-center justify-content-sm-between ">
         <h1 className="mb-4">{product.name}</h1>
-        <span className="text-muted text-uppercase link-purple">
+        <span className="text-muted text-capitalize link-purple">
           1 просмотр
         </span>
       </div>
@@ -65,7 +65,7 @@ export default function DetailMain({ product }) {
               <Button
                 outline
                 color="secondary"
-                className="mr-3 w-100"
+                className="mr-3 w-100 text-capitalize border-0"
                 size="sm"
                 key={index}
               >

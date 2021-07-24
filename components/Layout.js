@@ -38,7 +38,9 @@ const Layout = (pageProps) => {
       </Head>
       {!pageProps.hideHeader && <Header {...headerProps} />}
 
-      <main className="main pb-6">{pageProps.children}</main>
+      <main className={`main ${!pageProps.marginBottom && "pb-6"}`}>
+        {pageProps.children}
+      </main>
 
       {!pageProps.hideFooter && (
         <Footer navigation={navigation} {...footerProps} />

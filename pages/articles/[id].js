@@ -19,6 +19,11 @@ export async function getServerSideProps({ query }) {
     props: {
       navigation,
       post,
+      navbarHoverLight: true,
+      headerAbsolute: true,
+      bgHoverPurple: true,
+      fixedBottom: true,
+
       breadcrumbs: {
         title: "Блог",
         subtitle: "Блог",

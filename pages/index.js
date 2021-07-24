@@ -40,8 +40,8 @@ export async function getStaticProps() {
       },
       navigation,
       cardPhotos,
-      // albums,
-      randomAlbums,
+
+      albums,
       randomSix,
       navbarHoverLight: true,
       headerAbsolute: true,
@@ -52,7 +52,7 @@ export async function getStaticProps() {
   };
 }
 
-const Home = ({ randomAlbums, cardPhotos }) => {
+const Home = ({ albums, cardPhotos }) => {
   return (
     <>
       <Swiper
@@ -72,7 +72,7 @@ const Home = ({ randomAlbums, cardPhotos }) => {
           dynamicBullets: true,
         }}
       >
-        {randomAlbums.map((slide, index) => (
+        {albums.map((slide, index) => (
           <SwiperSlide
             key={index}
             className="mb-5 display-2 bg-cover"
@@ -121,7 +121,7 @@ const Home = ({ randomAlbums, cardPhotos }) => {
         ))}
       </Swiper>
 
-      <div className="px-0 fill">
+      <div className="px-3 fill">
         <div className="h-50">
           <LayoutGrid cards={cardPhotos} />
         </div>
