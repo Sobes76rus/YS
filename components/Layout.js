@@ -51,7 +51,7 @@ const Layout = (pageProps) => {
       )}
 
       <main
-        onClick={() => onCollapse()}
+        onClick={() => setCollapsed(false)}
         className={`main ${!pageProps.marginBottom && "pb-6"}`}
       >
         {pageProps.children}
