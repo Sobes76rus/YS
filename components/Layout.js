@@ -16,6 +16,12 @@ const Layout = (pageProps) => {
     fixedBottom: pageProps.fixedBottom,
   };
 
+  const [collapsed, setCollapsed] = useState(false);
+
+  const onCollapse = () => {
+    setCollapsed(!collapsed);
+  };
+
   return (
     <div
       style={{
@@ -34,11 +40,20 @@ const Layout = (pageProps) => {
           href="https://use.fontawesome.com/releases/v5.8.1/css/all.css"
           rel="stylesheet"
         />
-        <title>{pageProps.title} YS </title>
+        <title>{pageProps.title} </title>
       </Head>
-      {!pageProps.hideHeader && <Header {...headerProps} />}
+      {!pageProps.hideHeader && (
+        <Header
+          onCollapse={onCollapse}
+          collapsed={collapsed}
+          {...headerProps}
+        />
+      )}
 
-      <main className={`main ${!pageProps.marginBottom && "pb-6"}`}>
+      <main
+        onClick={() => onCollapse()}
+        className={`main ${!pageProps.marginBottom && "pb-6"}`}
+      >
         {pageProps.children}
       </main>
 

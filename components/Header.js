@@ -5,8 +5,8 @@ import Link from "next/link";
 import { Collapse, Navbar, NavbarToggler, Nav, Container } from "reactstrap";
 
 const Header = (props) => {
-  const { navigation } = props;
-  const [collapsed, setCollapsed] = useState(false);
+  const { navigation, collapsed, onCollapse } = props;
+
   const navbarRef = useRef(null);
 
   return (
@@ -16,13 +16,13 @@ const Header = (props) => {
       <div ref={navbarRef}>
         <Navbar
           expand="lg"
-          className={` bg-fixed-white navbar-fixed-light navbar navbar-expand-lg navbar-dark ${
+          className={`bg-fixed-white navbar-fixed-light navbar navbar-expand-lg navbar-dark ${
             props.navbarHoverLight ? "navbar-hover-light" : "navbar-light"
           } ${props.bgHoverPurple ? "bg-hover-purple" : "bg-purple"}`}
         >
           <Container fluid>
             <NavbarToggler
-              onClick={() => setCollapsed(!collapsed)}
+              onClick={(e) => onCollapse(e)}
               className="navbar-toggler-right"
             >
               <i className="fa fa-bars"></i>

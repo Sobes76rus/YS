@@ -250,9 +250,8 @@ export async function getServerSideProps(ctx) {
 
   return {
     props: {
+      title: "Все анкеты",
       breadcrumbs: {
-        title: "Все анкеты",
-        subtitle: "Все анкеты",
         breadcrumbs: [
           {
             name: "Домой",
