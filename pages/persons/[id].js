@@ -36,9 +36,13 @@ export async function getServerSideProps(ctx) {
 
   return {
     props: {
+      fixedBottom: true,
+
+      bgHoverPurple: true,
       allCards,
       personsData,
       navigation,
+      title: personsData.name,
       breadcrumbs: [
         {
           name: "Домой",
@@ -52,7 +56,6 @@ export async function getServerSideProps(ctx) {
         },
         {
           name: personsData.name,
-
           active: true,
         },
       ],
@@ -69,7 +72,7 @@ export default function Detail(props) {
     <>
       <section className="product-details">
         <Container fluid>
-          <Row xs="2">
+          <Row xs="2" className="min-vh-100">
             <Col
               xs={{ size: 12, order: 1 }}
               lg={{ size: 6, order: 1 }}
@@ -130,9 +133,9 @@ export default function Detail(props) {
               xs={{ size: 12, order: 2 }}
               lg={{ size: 6, order: 2 }}
               xl="6"
-              className="flex align-items-start pl-lg-5 mb-5 pb-0"
+              className="flex align-items-start pl-lg-5 mb-0 pb-0"
             >
-              <div>
+              <Container>
                 <Breadcrumbs links={breadcrumbs} />
 
                 <DetailMain
@@ -140,7 +143,7 @@ export default function Detail(props) {
                   product={personsData}
                 />
                 <DetailTabs product={personsData} />
-              </div>
+              </Container>
             </Col>
           </Row>
         </Container>

@@ -10,7 +10,6 @@ import {
   Table,
   Row,
   Col,
-  CustomInput,
 } from "reactstrap";
 
 import classnames from "classnames";
@@ -45,7 +44,7 @@ const DetailTabs = ({ product }) => {
   }, [product.city.name, product.metros[0].name]);
 
   return (
-    <section className="mt-5">
+    <section className="mt-0 h-25">
       <Container className="p-0">
         <Nav pills className="flex-column flex-sm-row">
           <NavItem>
@@ -167,7 +166,7 @@ const DetailTabs = ({ product }) => {
           </TabPane>
           <TabPane tabId={3}>
             <Row className="mb-5">
-              <Col lg="10" xl="9">
+              <Col lg="10" xl="9" className="h-100">
                 <Col>
                   <h1 className="detail-tab-heading main">Мнения</h1>
                 </Col>
