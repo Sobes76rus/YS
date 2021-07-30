@@ -61,14 +61,14 @@ const Header = (props) => {
               </Nav>
               <Link href="/" passHref>
                 <a className="py-0 navbar-brand">
-                  <h5 className="m-0">YOUR SEDUCTION</h5>
-                  {/* <img
-                    src="icons/Your Seduction-02.png"
+                  {/* <h5 className="m-0">YOUR SEDUCTION</h5> */}
+                  <img
+                    src="/icons/next-js-logo-8FCFF51DD2-seeklogo.com.png"
                     className="navbar-brand"
                     width="43"
                     height="50"
                     alt="..."
-                  /> */}
+                  />
                 </a>
               </Link>
               <div className="d-flex justify-content-lg-end mt-1 mb-2 my-lg-0">

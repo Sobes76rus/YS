@@ -37,7 +37,7 @@ export async function getServerSideProps(ctx) {
   return {
     props: {
       fixedBottom: true,
-
+      navbarHoverLight: true,
       bgHoverPurple: true,
       allCards,
       personsData,
@@ -72,7 +72,7 @@ export default function Detail(props) {
     <>
       <section className="product-details">
         <Container fluid>
-          <Row xs="2" className="min-vh-100">
+          <Row xs="2" className="min-height-60">
             <Col
               xs={{ size: 12, order: 1 }}
               lg={{ size: 6, order: 1 }}
@@ -115,7 +115,7 @@ export default function Detail(props) {
                     key={index}
                     style={{
                       cursor: "pointer",
-                      objectFit: "contain",
+                      objectFit: "cover",
                       minHeight: "100%",
                     }}
                   >
