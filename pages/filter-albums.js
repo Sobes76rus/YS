@@ -157,6 +157,7 @@ const FilterAlbums = ({
             />
           </svg>
         </Button>
+
         <Collapse className="w-100" isOpen={isOpen}>
           <Card className="border-0">
             <CardBody>
@@ -174,9 +175,10 @@ const FilterAlbums = ({
       </Container>
 
       <Container className="px-0">
+        <p>С учетом фильтров</p>
         <Row>
           <Col className="products-grid">
-            {isLoading ? "loading" : <LayoutGrid cards={cards} />}
+            <LayoutGrid cards={cards} />
           </Col>
         </Row>
         {ceoPages &&

@@ -1,4 +1,5 @@
 import React, { useState, useRef } from "react";
+import useWindowSize from "../hooks/useWindowSize";
 
 import Link from "next/link";
 
@@ -8,6 +9,8 @@ const Header = (props) => {
   const { navigation, collapsed, onCollapse } = props;
 
   const navbarRef = useRef(null);
+  const windowSize = useWindowSize();
+  const isSlim = windowSize.width <= "992";
 
   return (
     <header
@@ -37,7 +40,7 @@ const Header = (props) => {
                   <>
                     <li className="nav-item" key={navigation[1]._id}>
                       <Link href={navigation[1].Slug}>
-                        <a className="nav-link main_text-color">
+                        <a className="nav-link main_text-color ">
                           {navigation[1].Title}
                         </a>
                       </Link>
@@ -61,14 +64,14 @@ const Header = (props) => {
               </Nav>
               <Link href="/" passHref>
                 <a className="py-0 navbar-brand">
-                  {/* <h5 className="m-0">YOUR SEDUCTION</h5> */}
-                  <img
+                  {!isSlim && <h5 className="m-0">YOUR SEDUCTION</h5>}
+                  {/* <img
                     src="/icons/next-js-logo-8FCFF51DD2-seeklogo.com.png"
                     className="navbar-brand"
                     width="43"
                     height="50"
                     alt="..."
-                  />
+                  /> */}
                 </a>
               </Link>
               <div className="d-flex justify-content-lg-end mt-1 mb-2 my-lg-0">

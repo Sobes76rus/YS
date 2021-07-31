@@ -1,8 +1,6 @@
 import Link from "next/link";
-import Router from "next/router";
-import { Button, ModalBody, Modal, Row, Col } from "reactstrap";
+import { Button, ButtonGroup, ModalBody, Modal, Row, Col } from "reactstrap";
 import SwiperGallery from "../components/SwiperGallery";
-import Stars from "./Stars";
 
 const ModalQuickView = ({ isOpen, toggle, product }) => {
   return (
@@ -17,7 +15,7 @@ const ModalQuickView = ({ isOpen, toggle, product }) => {
           xmlns="http://www.w3.org/2000/svg"
           width="16"
           height="16"
-          fill="currentColor"
+          fill="#a279ef"
           className="w-100 h-100 svg-icon-light align-middle"
           viewBox="0 0 16 16"
         >
@@ -54,7 +52,7 @@ const ModalQuickView = ({ isOpen, toggle, product }) => {
                   className="mr-2 mb-0"
                   secondColor="gray-300"
                 /> */}
-                <span className="text-muted text-uppercase link-purple">
+                <span className="text-muted text-capitalize link-purple">
                   1 просмотр
                 </span>
               </div>
@@ -70,23 +68,25 @@ const ModalQuickView = ({ isOpen, toggle, product }) => {
             </p>
             <Col sm="6" lg="12" className="detail-option mb-4">
               <h6 className="detail-option-heading">Услуги</h6>
-              {product.uslugis.map((service, index) => (
-                <Link
-                  href={`/filter-albums/?usligis.tag=${service.tag}`}
-                  key={index}
-                  passHref
-                >
-                  <Button
-                    tag="a"
-                    outline
-                    color="secondary"
-                    className="mr-3"
-                    size="sm"
+              <ButtonGroup>
+                {product.uslugis.map((service, index) => (
+                  <Link
+                    href={`/filter-albums/?usligis.tag=${service.tag}`}
+                    key={index}
+                    passHref
                   >
-                    {service.name}
-                  </Button>
-                </Link>
-              ))}
+                    <Button
+                      tag="a"
+                      outline
+                      color="secondary"
+                      className=" align-self-center mr-3 w-100 text-capitalize border-0"
+                      size="sm"
+                    >
+                      {service.name}
+                    </Button>
+                  </Link>
+                ))}
+              </ButtonGroup>
             </Col>
           </Col>
         </Row>

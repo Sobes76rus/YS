@@ -89,7 +89,7 @@ const ShopFilter = ({
       query: queryParams.toString(),
     };
 
-    await Router.push(nextUrl, nextUrl, { shallow: true });
+    await Router.push(nextUrl, nextUrl, { shallow: true, scroll: false });
   }
 
   function onUpdatePrice(render, handle, value, un, percent) {
@@ -244,11 +244,10 @@ const ShopFilter = ({
           placeholder={"Город"}
           onChange={(values) => {
             if (values.length === 0 && metrosNameFilter) {
-              changeFilter({
-                ...queryRef.current,
-                "city.name": [],
-                "metro.name": [],
-              });
+              const query = { ...queryRef.current };
+              delete query["city.name"];
+              delete query["metro.name"];
+              changeFilter(query);
               return;
             }
 
@@ -260,7 +259,7 @@ const ShopFilter = ({
         />
         <Select
           className="mb-3"
-          defaultValue={
+          value={
             finalCities.length !== 0 && metrosNameFilter
               ? metros[0].filter(({ name }) => metrosNameFilter.includes(name))
               : []
@@ -281,9 +280,9 @@ const ShopFilter = ({
         />
       </Col>
 
-      <Col className="mb-3">
+      <Col className="mb-3 d-flex flex-column">
         {services.map((service, index) => (
-          <Col className="filter_col" key={index}>
+          <Col className="filter_col p-0" key={index}>
             <Button
               className="btn-filter-prpl w-100 border-0"
               color="disabled"
@@ -318,6 +317,7 @@ const ShopFilter = ({
             </Collapse>
           </Col>
         ))}
+        <Button className="btn-reset py-3">Rick Ross</Button>
       </Col>
     </Row>
   );

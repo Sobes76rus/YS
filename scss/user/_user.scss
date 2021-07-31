@@ -16,7 +16,9 @@ body {
   bottom: 0;
   width: 100%;
 }
-
+.svg-purple {
+  fill: $purple;
+}
 .btn-purple {
   background-color: $purple;
 }
@@ -154,4 +156,28 @@ img.bg-contain {
 
 .min-height-60 {
   min-height: 60rem;
+}
+
+.cursor-pointer {
+  cursor: pointer;
+}
+
+.btn-reset {
+  background-color: #dac9f9;
+
+  color: black;
+  border: none;
+  &:focus {
+    background-color: $purple;
+  }
+  &:hover {
+    background-color: $purple;
+  }
+}
+
+.text-contacts {
+  background-color: $purple;
+  color: $purple;
+  background-color: #dac9f9;
+  border-color: #dac9f9;
 }

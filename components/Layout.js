@@ -33,7 +33,7 @@ const Layout = (pageProps) => {
       <Head>
         <link
           rel="stylesheet"
-          href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&display=swap"
+          href="https://fonts.googleapis.com/css2?family=Oswald:wght@200;400&display=swap"
         />
         <link rel="icon" href="/img/favicon.png" />
         <link

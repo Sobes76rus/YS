@@ -1,8 +1,7 @@
 import React, { useState, useRef } from "react";
 import Image from "next/image";
 import Lightbox from "react-image-lightbox";
-
-import { Row, Col, Button } from "reactstrap";
+import { Row, Col, Button, Container } from "reactstrap";
 import { Swiper, SwiperSlide } from "swiper/react";
 
 const SwiperGallery = ({ data, vertical }) => {
@@ -33,8 +32,8 @@ const SwiperGallery = ({ data, vertical }) => {
 
   if (vertical) {
     sliderColumns = { xs: 12, md: 10 };
-    (sliderClass = "detail-carousel order-md-2"), (thumbsColumns = { md: 2 });
-    thumbsClass = "d-none d-md-block pr-0 order-md-1 align-self-center";
+    (sliderClass = "order-md-2 order-sm-1"), (thumbsColumns = { md: 4 });
+    thumbsClass = "d-flex flex-row pr-0 order-md-1 align-self-start vertical";
   }
 
   const sliderParams = {
@@ -50,26 +49,25 @@ const SwiperGallery = ({ data, vertical }) => {
     bodyOpen: {
       position: "fixed",
     },
+    navButtonNext: {
+      color: "black",
+    },
   };
   return (
-    <>
-      <Row>
+    <Container>
+      <Row className="d-flex flex-sm-column-reverse">
         <Col className={sliderClass} {...sliderColumns}>
           <Swiper {...sliderParams} ref={gallerySwiperRef}>
             {data.photo.map((slide, index) => {
               return (
                 <SwiperSlide key={index} className="align-self-center">
                   <Image
-                    className="img-fluid"
+                    onClick={() => onClick(index)}
+                    className="cursor-pointer"
                     src={slide.url}
                     width={slide.width}
                     height={slide.height}
                   />
-                  <Button color="expand" onClick={() => onClick(index)}>
-                    <svg className="svg-icon">
-                      <use xlinkHref="/icons/orion-svg-sprite.svg#expand-1"></use>
-                    </svg>
-                  </Button>
                 </SwiperSlide>
               );
             })}
@@ -111,10 +109,11 @@ const SwiperGallery = ({ data, vertical }) => {
             imageCaption={data.photo[activeImage].caption}
             enableZoom={false}
             reactModalStyle={customStyles}
+            className="btn-purple"
           />
         )}
       </Row>
-    </>
+    </Container>
   );
 };
 

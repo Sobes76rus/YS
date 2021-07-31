@@ -52,7 +52,8 @@ export async function getStaticProps() {
   };
 }
 
-const Home = ({ albums, cardPhotos }) => {
+const Home = (props) => {
+  const { albums, cardPhotos } = props;
   return (
     <>
       <Swiper
@@ -88,22 +89,29 @@ const Home = ({ albums, cardPhotos }) => {
                 data-swiper-parallax="-500"
               >
                 <Col>
-                  {slide.subtitle && (
-                    <p
-                      className={`subtitle letter-spacing-${
-                        props.columns ? 5 : 3
-                      } font-weight-light ${
-                        slide.subtitleclass ? slide.subtitleclass : ""
-                      }`}
-                    >
-                      {slide.subtitle}
-                    </p>
-                  )}
                   <h2
-                    className={slide.titleclass ? slide.titleclass : ""}
-                    style={{ lineHeight: "1" }}
+                    className={
+                      slide.titleclass ? slide.titleclass : "text-light "
+                    }
+                    style={{ lineHeight: "1.2" }}
                   >
-                    {slide.album_title}
+                    {slide.title}
+                  </h2>
+                  <h2
+                    className={
+                      slide.titleclass ? slide.titleclass : "text-light "
+                    }
+                    style={{ lineHeight: "1.2" }}
+                  >
+                    {slide.second_title}
+                  </h2>
+                  <h2
+                    className={
+                      slide.titleclass ? slide.titleclass : "text-light "
+                    }
+                    style={{ lineHeight: "1.2" }}
+                  >
+                    {slide.third_title}
                   </h2>
                   {slide.album_title && (
                     <p
@@ -111,7 +119,7 @@ const Home = ({ albums, cardPhotos }) => {
                         props.columns ? "text-muted" : "lead"
                       }  mb-5`}
                     >
-                      {slide.text}
+                      {/* {slide.text} */}
                     </p>
                   )}
                 </Col>

@@ -10,6 +10,7 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import getConfig from "next/config";
 import dynamic from "next/dynamic";
 import { useRouter } from "next/router";
+import SwiperGallery from "../../components/SwiperGallery";
 SwiperCore.use([Pagination, Navigation, Thumbs]);
 const SwiperProducts = dynamic(
   () => import("../../components/SwiperProducts"),
@@ -78,7 +79,8 @@ export default function Detail(props) {
               lg={{ size: 6, order: 1 }}
               className={`${isSlim && "vp50"} "py-3"`}
             >
-              <Swiper
+              <SwiperGallery data={personsData} vertical={true} />
+              {/* <Swiper
                 thumbs={{ swiper: thumbsSwiper }}
                 slidesPerView={1}
                 className="detail-full mySwiper2"
@@ -87,7 +89,7 @@ export default function Detail(props) {
                   dynamicBullets: true,
                 }}
                 scrollbar
-                navigation
+                navigation={!isSlim}
                 slidesPerView={1}
               >
                 {personsData.photo.map((image, index) => (
@@ -127,7 +129,7 @@ export default function Detail(props) {
                     />
                   </SwiperSlide>
                 ))}
-              </Swiper>
+              </Swiper> */}
             </Col>
             <Col
               xs={{ size: 12, order: 2 }}

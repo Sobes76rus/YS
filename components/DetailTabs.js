@@ -100,7 +100,6 @@ const DetailTabs = ({ product }) => {
           <TabPane tabId={1}>
             <Row xs="1" xl="2">
               <Col className="pb-4">
-                <h1 className="detail-tab-heading main">Параметры</h1>
                 <Table>
                   <tbody>
                     <tr>
@@ -132,13 +131,15 @@ const DetailTabs = ({ product }) => {
                   </tbody>
                 </Table>
               </Col>
-              <Col dangerouslySetInnerHTML={{ __html: product.opisanie }} />
+              <Col
+                className="text-muted"
+                dangerouslySetInnerHTML={{ __html: product.opisanie }}
+              />
             </Row>
           </TabPane>
           <TabPane tabId={2}>
             <Row>
               <Col>
-                <h1 className="detail-tab-heading main">Стоимость</h1>
                 <Table>
                   <tbody>
                     <tr>
@@ -167,9 +168,6 @@ const DetailTabs = ({ product }) => {
           <TabPane tabId={3}>
             <Row className="mb-5">
               <Col lg="10" xl="9" className="h-100">
-                <Col>
-                  <h1 className="detail-tab-heading main">Мнения</h1>
-                </Col>
                 {/* {product.reviews.map((review) => (
                   <Media key={review.author} className="review">
                     <div className="text-center mr-4 mr-xl-5">
@@ -201,7 +199,6 @@ const DetailTabs = ({ product }) => {
           </TabPane>
           <TabPane tabId={4}>
             <Col className="pb-4">
-              <h1 className="detail-tab-heading main">Местоположение</h1>
               <Table>
                 <tbody>
                   <tr>
