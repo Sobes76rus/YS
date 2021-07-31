@@ -5,6 +5,7 @@ import { Container, Row, Col, Nav, Navbar } from "reactstrap";
 
 const Footer = (props) => {
   const { navigation } = props;
+  console.log(navigation);
   return (
     <div
       className={`${props.fixedBottom && "fixed-bottom"} bg-purple text-muted`}

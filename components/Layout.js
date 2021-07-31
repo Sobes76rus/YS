@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 
 const Layout = (pageProps) => {
   const { navigation } = pageProps;
+  console.log(navigation);
   const [paddingTop, setPaddingTop] = useState(0);
   const headerProps = {
     navigation: pageProps.navigation,
@@ -13,6 +14,7 @@ const Layout = (pageProps) => {
     bgHoverPurple: pageProps.bgHoverPurple,
   };
   const footerProps = {
+    navigation: pageProps.navigation,
     fixedBottom: pageProps.fixedBottom,
   };
 
@@ -57,9 +59,7 @@ const Layout = (pageProps) => {
         {pageProps.children}
       </main>
 
-      {!pageProps.hideFooter && (
-        <Footer navigation={navigation} {...footerProps} />
-      )}
+      {!pageProps.hideFooter && <Footer {...footerProps} />}
     </div>
   );
 };
