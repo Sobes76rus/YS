@@ -1,17 +1,13 @@
 import { Container, Row, Col } from "reactstrap";
 import { useState } from "react";
-import SwiperCore, { Navigation, Pagination, Thumbs } from "swiper";
 import Breadcrumbs from "../../components/Breadcrumbs";
 import useWindowSize from "../../hooks/useWindowSize";
 import DetailTabs from "../../components/DetailTabs";
 import DetailMain from "../../components/DetailMain";
-import Image from "next/image";
-import { Swiper, SwiperSlide } from "swiper/react";
 import getConfig from "next/config";
 import dynamic from "next/dynamic";
-import { useRouter } from "next/router";
 import SwiperGallery from "../../components/SwiperGallery";
-SwiperCore.use([Pagination, Navigation, Thumbs]);
+
 const SwiperProducts = dynamic(
   () => import("../../components/SwiperProducts"),
   {
@@ -72,12 +68,12 @@ export default function Detail(props) {
   return (
     <>
       <section className="product-details">
-        <Container fluid>
-          <Row xs="2" className="min-height-60">
+        <Container>
+          <Row>
             <Col
               xs={{ size: 12, order: 1 }}
               lg={{ size: 6, order: 1 }}
-              className={`${isSlim && "vp50"} "py-3"`}
+              className={`${isSlim && "vp50"}`}
             >
               <SwiperGallery data={personsData} vertical={true} />
               {/* <Swiper
@@ -135,7 +131,7 @@ export default function Detail(props) {
               xs={{ size: 12, order: 2 }}
               lg={{ size: 6, order: 2 }}
               xl="6"
-              className="flex align-items-start pl-lg-5 mb-0 pb-0"
+              className="flex align-items-start pl-lg-0 mb-0 pb-0"
             >
               <Container>
                 <Breadcrumbs links={breadcrumbs} />
