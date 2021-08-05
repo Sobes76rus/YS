@@ -5,7 +5,7 @@ import { useEffect, useState } from "react";
 
 const Layout = (pageProps) => {
   const { navigation } = pageProps;
-  console.log(navigation);
+
   const [paddingTop, setPaddingTop] = useState(0);
   const headerProps = {
     navigation: pageProps.navigation,

@@ -6,7 +6,7 @@ const ModalQuickView = ({ isOpen, toggle, product }) => {
   return (
     <Modal isOpen={isOpen} toggle={toggle} size="xl" modalClassName="quickview">
       <button
-        className="close modal-close"
+        className="close modal-close bg-transparent"
         type="button"
         onClick={toggle}
         aria-label="Close"
@@ -24,7 +24,7 @@ const ModalQuickView = ({ isOpen, toggle, product }) => {
       </button>
 
       <ModalBody className="quickview-body">
-        <Row>
+        <Row className="p-3">
           <Col lg="6">
             <div className="detail-carousel">
               <SwiperGallery data={product} vertical={true} />

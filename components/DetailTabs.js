@@ -11,6 +11,7 @@ import {
   Row,
   Col,
 } from "reactstrap";
+import Disqus from "disqus-react";
 
 import classnames from "classnames";
 
@@ -42,6 +43,13 @@ const DetailTabs = ({ product }) => {
     console.log("after render");
     setNewLocation();
   }, [product.city.name, product.metros[0].name]);
+
+  const disqusShortname = "yourseduction";
+  const disqusConfig = {
+    url: "http://yourseduction.us",
+    identifier: "article-id",
+    title: "Title of Your Article",
+  };
 
   return (
     <section className="mt-0 h-25">
@@ -168,32 +176,10 @@ const DetailTabs = ({ product }) => {
           <TabPane tabId={3}>
             <Row className="mb-5">
               <Col lg="10" xl="9" className="h-100">
-                {/* {product.reviews.map((review) => (
-                  <Media key={review.author} className="review">
-                    <div className="text-center mr-4 mr-xl-5">
-                      <img
-                        className="review-image"
-                        src={review.avatar}
-                        alt={review.author}
-                      />
-                      <span className="text-uppercase text-muted">
-                        {review.date}
-                      </span>
-                    </div>
-                    <Media body>
-                      <h5 className="mt-2 mb-1">{review.author}</h5>
-                      <div className="mb-2">
-                        <Stars
-                          stars={review.stars}
-                          color="warning"
-                          secondColor="gray-200"
-                          starClass="fa-xs"
-                        />
-                      </div>
-                      <p className="text-muted">{review.text}</p>
-                    </Media>
-                  </Media>
-                ))} */}
+                <Disqus.DiscussionEmbed
+                  shortname={disqusShortname}
+                  config={disqusConfig}
+                />
               </Col>
             </Row>
           </TabPane>

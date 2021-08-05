@@ -2,12 +2,16 @@ import React, { useState } from "react";
 import { CardImg } from "reactstrap";
 import Link from "next/link";
 import ModalQuickView from "../components/ModalQuickView";
-import Image from "./CustomImage";
+
+import useWindowSize from "../hooks/useWindowSize";
 
 const Product = ({ card, masonry, ...props }) => {
   const [quickView, setQuickView] = useState(false);
 
   let loading = props.loading || "lazy";
+  const windowSize = useWindowSize();
+
+  const isSlim = windowSize.width <= "992";
 
   return (
     <>
@@ -23,24 +27,26 @@ const Product = ({ card, masonry, ...props }) => {
             <Link href="/persons/[id]" as={`/persons/${card.id}/`}>
               <a className="product-hover-overlay-link" />
             </Link>
-            <div className="product-hover-overlay-buttons">
-              <Link href="/persons/[id]" as={`/persons/${card.id}/`}>
-                <a className="btn btn-purple btn-buy">
-                  <i className="fa-search fa" />
-                  <span className="btn-buy-label ml-2">Смотреть</span>
-                </a>
-              </Link>
-              {!props.onlyViewButton && (
-                <a
-                  className="btn btn-purple btn-product-right"
-                  onClick={() => {
-                    setQuickView(!quickView);
-                  }}
-                >
-                  <i className="fa fa-expand-arrows-alt" />
-                </a>
-              )}
-            </div>
+            {!isSlim && (
+              <div className="product-hover-overlay-buttons">
+                <Link href="/persons/[id]" as={`/persons/${card.id}/`}>
+                  <a className="btn btn-purple btn-buy">
+                    <i className="fa-search fa" />
+                    <span className="btn-buy-label ml-2">Смотреть</span>
+                  </a>
+                </Link>
+                {!props.onlyViewButton && (
+                  <a
+                    className="btn btn-purple btn-product-right"
+                    onClick={() => {
+                      setQuickView(!quickView);
+                    }}
+                  >
+                    <i className="fa fa-expand-arrows-alt" />
+                  </a>
+                )}
+              </div>
+            )}
           </div>
         </div>
         <div className="py-1">

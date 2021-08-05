@@ -176,8 +176,8 @@ const SwiperGallery = ({ data, vertical }) => {
   if (vertical) {
     sliderColumns = { xs: 10, md: 10 };
     (sliderClass = "detail-carousel px-0 order-md-1"),
-      (thumbsColumns = { md: 2, xs: 4 });
-    thumbsClass = "d-flex flex-row px-0 order-md-2";
+      (thumbsColumns = { md: 4, xs: 4 });
+    thumbsClass = "d-flex flex-row px-0 order-md-2 ";
   }
 
   const sliderParams = {
@@ -223,17 +223,18 @@ const SwiperGallery = ({ data, vertical }) => {
         </Col>
 
         <Col className={thumbsClass} {...thumbsColumns}>
-          {data.photo.map((item, index) => (
-            <button
-              key={index}
-              onClick={() => slideTo(index)}
-              className={`detail-thumb-item mb-3 ${
-                activeSlide === index ? "active" : ""
-              }`}
-            >
-              <img className="img-fluid" src={item.url} alt={item.alt} />
-            </button>
-          ))}
+          {data.photo.length > 1 &&
+            data.photo.map((item, index) => (
+              <button
+                key={index}
+                onClick={() => slideTo(index)}
+                className={`detail-thumb-item mb-1 mr-1 ${
+                  activeSlide === index ? "active" : ""
+                }`}
+              >
+                <img className="img-fluid" src={item.url} alt={item.alt} />
+              </button>
+            ))}
         </Col>
 
         {lightBoxOpen && (
@@ -257,7 +258,6 @@ const SwiperGallery = ({ data, vertical }) => {
             imageCaption={data.photo[activeImage].caption}
             enableZoom={false}
             reactModalStyle={customStyles}
-            className="btn-purple"
           />
         )}
       </Row>

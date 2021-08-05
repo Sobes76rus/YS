@@ -5,13 +5,15 @@ import { Container, Row, Col, Nav, Navbar } from "reactstrap";
 
 const Footer = (props) => {
   const { navigation } = props;
-  console.log(navigation);
+
   return (
     <div
-      className={`${props.fixedBottom && "fixed-bottom"} bg-purple text-muted`}
+      className={`${
+        props.fixedBottom && "fixed-bottom"
+      } bg-purple text-muted z-index-10 `}
     >
       <Container className="container">
-        <Row className="align-items-center justify-content-center">
+        <Row className="align-items-center justify-content-center ">
           <Navbar
             expand="lg"
             className={` p-0 fs-2  ${
