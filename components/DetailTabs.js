@@ -47,8 +47,8 @@ const DetailTabs = ({ product }) => {
   const disqusShortname = "https-yourseduction-us-2";
   const disqusConfig = {
     url: "http://yourseduction.us",
-    identifier: "article-id",
-    title: "Title of Your Article",
+    identifier: product.id,
+    title: product.name,
   };
 
   return (
