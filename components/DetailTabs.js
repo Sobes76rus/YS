@@ -44,7 +44,7 @@ const DetailTabs = ({ product }) => {
     setNewLocation();
   }, [product.city.name, product.metros[0].name]);
 
-  const disqusShortname = "yourseduction";
+  const disqusShortname = "https-yourseduction-us-2";
   const disqusConfig = {
     url: "http://yourseduction.us",
     identifier: "article-id",
