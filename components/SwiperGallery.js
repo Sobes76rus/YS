@@ -201,7 +201,7 @@ const SwiperGallery = ({ data, vertical }) => {
 
   return (
     <>
-      <Row className="flex-column align-items-start">
+      <Row className="flex-column align-items-center">
         <Col className={sliderClass} {...sliderColumns}>
           <Swiper {...sliderParams} ref={gallerySwiperRef}>
             {data.photo.map((item, index) => (
