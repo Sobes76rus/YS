@@ -6,7 +6,7 @@ import Product from "./Product";
 SwiperCore.use([Pagination, Navigation]);
 const SwiperProducts = ({ products, ...props }) => {
   const sliderParams = {
-    slidesPerView: 4,
+    slidesPerView: 3,
     spaceBetween: 20,
     loop: true,
     centeredSlides: true,
