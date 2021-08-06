@@ -134,7 +134,7 @@ const FilterAlbums = ({
   }, updateDeps);
 
   return (
-    <>
+    <Container>
       <Hero title={breadcrumbs.title} breadcrumbs={breadcrumbs.breadcrumbs} />
       <Container className="d-flex flex-column align-items-center justify-content-center p-0 ">
         <Button
@@ -194,7 +194,7 @@ const FilterAlbums = ({
               )
           )}
       </Container>
-    </>
+    </Container>
   );
 };
 
