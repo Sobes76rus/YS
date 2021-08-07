@@ -14,7 +14,7 @@ export async function getStaticProps() {
   const navigation = await navRes.json();
   return {
     props: {
-      fixedBottom: true,
+      
       marginBottom: true,
       navbarHoverLight: true,
       headerAbsolute: true,
@@ -50,7 +50,7 @@ const Contacts = (props) => {
   const { contactsPhotos } = props;
 
   return (
-    <>
+    <Container fluid className="p-0">
       <section className="mh-full-screen dark-overlay py-7 d-flex align-items-center justify-content-center">
         <Image
           className="bg-contain"
@@ -101,7 +101,7 @@ const Contacts = (props) => {
                 </p>
               </Col>
             </Row>
-            <Row className="mb-5">
+            <Row >
               <Col md="4" className="text-center text-md-left">
                 <svg className="svg-icon svg-icon-light text-primary w-3rem h-3rem mb-3 ">
                   <use
@@ -132,7 +132,7 @@ const Contacts = (props) => {
           </Container>
         </div>
       </section>
-    </>
+    </Container>
   );
 };
 

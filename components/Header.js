@@ -75,7 +75,7 @@ const Header = (props) => {
                 </a>
               </Link>
               <div className="d-flex justify-content-lg-end mt-1 mb-2 my-lg-0">
-                <div className="nav-item navbar-icon-link">
+                <div onClick={(e) => onCollapse(e)} className="nav-item navbar-icon-link">
                   <Link href="/contacts" passHref>
                     <a className="py-1 navbar-brand">
                       <svg
@@ -93,7 +93,7 @@ const Header = (props) => {
                     </a>
                   </Link>
                 </div>
-                <div className="nav-item navbar-icon-link">
+                <div onClick={(e) => onCollapse(e)} className="nav-item navbar-icon-link">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     width="16"
