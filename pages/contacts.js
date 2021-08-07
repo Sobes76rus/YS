@@ -18,6 +18,7 @@ export async function getStaticProps() {
       navbarHoverLight: true,
       headerAbsolute: true,
       bgHoverPurple: true,
+      marginBottom: true,
       contactsPhotos,
       navigation,
       title: "Контакты",
@@ -58,10 +59,10 @@ const Contacts = (props) => {
           layout="fill"
         />
         <div className="overlay-content w-100">
-          <Container fluid>
+          <Container>
             <Row>
               <Col xl="6" className="text-white">
-                <h6 className="text-uppercase text-white letter-spacing-5 mb-3">
+                <h6 className="text-uppercase text-white letter-spacing-5">
                   РАБОТА ДЛЯ ТРАНССЕКСУАЛОК
                 </h6>
 
