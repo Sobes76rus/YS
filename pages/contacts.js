@@ -59,7 +59,7 @@ const Contacts = (props) => {
           layout="fill"
         />
         <div className="overlay-content w-100">
-          <Container>
+          <Container fluid>
             <Row>
               <Col xl="6" className="text-white">
                 <h6 className="text-uppercase text-white letter-spacing-5 mb-3">
