@@ -1,4 +1,4 @@
-import { Row, Col, Form, Button, ButtonGroup, Container } from "reactstrap";
+import { Row, Col, Form, Button, ButtonGroup, Input } from "reactstrap";
 import { useState, useEffect } from "react";
 import NumberFormat from "react-number-format";
 import { useRouter } from "next/router";
@@ -37,7 +37,6 @@ export default function DetailMain({ product }) {
         <Col sm="6" lg="12" xl="6" className="detail-option mb-4">
           <Button
             active={showNumber}
-            
             outline
             className="align-items-center mb-5 p-0"
             color="link"
@@ -46,9 +45,12 @@ export default function DetailMain({ product }) {
             {showNumber ? (
               <NumberFormat
                 renderText={(value) => (
-                  <h6 className="link-purple font-weight-bold m-0 p-0">{value}</h6>
+                  <h6 className="font-weight-bold m-0 p-0" >
+                  <a className="link-purple" href="tel:123-456-7890">+7(985)115-1447</a>  
+                  </h6>                
                 )}
-                displayType={"text"}
+                displayType="text"
+                type="tel"
                 format="+7 (###) ###-##-##"
                 mask="_"
                 value={Math.random()}
