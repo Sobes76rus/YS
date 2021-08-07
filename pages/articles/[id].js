@@ -56,17 +56,16 @@ export default function Blog(props) {
   };
 
   return (
-    <>
-      <Hero
+    <Container>
+      <section className="py-6 d-flex align-items-center justify-content-center">         
+        <Container>        
+          <Row>
+            <Col xl="10" className="mx-auto">
+            <Hero
         title={post[0].title}
         breadcrumbs={props.breadcrumbs.breadcrumbs}
         {...heroProps}
       />
-
-      <section className="pb-5">
-        <Container>
-          <Row>
-            <Col xl="10" className="mx-auto">
               <Image
                 src={post[0].img.url}
                 alt=""
@@ -96,6 +95,6 @@ export default function Blog(props) {
           </Row> */}
         </Container>
       </section>
-    </>
+    </Container>
   );
 }
