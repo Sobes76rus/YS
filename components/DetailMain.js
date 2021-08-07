@@ -46,7 +46,7 @@ export default function DetailMain({ product }) {
               <NumberFormat
                 renderText={(value) => (
                   <h6 className="font-weight-bold m-0 p-0" >
-                  <a className="link-purple" href="tel:+7(985)115-1447">+7(985)115-1447</a>  
+                  <a className="link-purple" href="tel:+7(965)246-9191">+7(965)246-9191</a>  
                   </h6>                
                 )}
                 displayType="text"
