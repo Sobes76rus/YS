@@ -38,21 +38,21 @@ const Header = (props) => {
               <Nav navbar>
                 {navigation && (
                   <>
-                    <li className="nav-item" key={navigation[1]._id}>
+                    <li className="nav-item" onClick={(e) => onCollapse(e)} key={navigation[1]._id}>
                       <Link href={navigation[1].Slug}>
                         <a className="nav-link main_text-color ">
                           {navigation[1].Title}
                         </a>
                       </Link>
                     </li>
-                    <li className="nav-item" key={navigation[2]._id}>
+                    <li className="nav-item" onClick={(e) => onCollapse(e)} key={navigation[2]._id}>
                       <Link href={navigation[2].Slug}>
                         <a className="nav-link main_text-color">
                           {navigation[2].Title}
                         </a>
                       </Link>
                     </li>
-                    <li className="nav-item" key={navigation[0]._id}>
+                    <li className="nav-item" onClick={(e) => onCollapse(e)} key={navigation[0]._id}>
                       <Link href={navigation[0].Slug}>
                         <a className="nav-link main_text-color">
                           {navigation[0].Title}
