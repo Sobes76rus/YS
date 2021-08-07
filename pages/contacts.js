@@ -14,8 +14,7 @@ export async function getStaticProps() {
   const navigation = await navRes.json();
   return {
     props: {
-      
-      marginBottom: true,
+      fixedBottom: true,      
       navbarHoverLight: true,
       headerAbsolute: true,
       bgHoverPurple: true,

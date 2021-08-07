@@ -10,7 +10,7 @@ const Footer = (props) => {
     <div
       className={`${
         props.fixedBottom && "fixed-bottom"
-      } bg-purple text-muted z-index-10 `}
+      } bg-purple text-muted z-index-30 `}
     >
       <Container className="container">
         <Row className="align-items-center justify-content-center ">
