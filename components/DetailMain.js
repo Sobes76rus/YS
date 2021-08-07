@@ -13,7 +13,7 @@ export default function DetailMain({ product }) {
 
   return (
     <>
-      <div className="d-flex flex-column flex-sm-row align-items-sm-center justify-content-sm-between ">
+      <div className="d-flex flex-column flex-sm-row align-items-sm-center justify-content-sm-between">
         <h1 className="mb-4">{product.name}</h1>
         <span className="text-muted text-capitalize link-purple">
           1 просмотр
