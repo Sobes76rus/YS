@@ -37,7 +37,7 @@ export default function DetailMain({ product }) {
         <Col sm="6" lg="12" xl="6" className="detail-option mb-4">
           <Button
             active={showNumber}
-            disabled={showNumber}
+            
             outline
             className="align-items-center mb-5 p-0"
             color="link"
@@ -46,13 +46,14 @@ export default function DetailMain({ product }) {
             {showNumber ? (
               <NumberFormat
                 renderText={(value) => (
-                  <h6 className="link-purple font-weight-bold m-0">{value}</h6>
+                  <h6 className="link-purple font-weight-bold m-0 p-0">{value}</h6>
                 )}
                 displayType={"text"}
                 format="+7 (###) ###-##-##"
                 mask="_"
                 value={Math.random()}
               />
+              
             ) : (
               <h6 className="p-0 m-0 font-weight-bold link-purple">
                 Показать телефон

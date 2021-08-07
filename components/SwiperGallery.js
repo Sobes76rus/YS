@@ -206,7 +206,7 @@ const SwiperGallery = ({ data, vertical }) => {
           <Swiper {...sliderParams} ref={gallerySwiperRef}>
             {data.photo.map((item, index) => (
               <SwiperSlide
-                className="align-self-center "
+                className="align-self-center"
                 key={index}
                 onClick={() => onClick(index)}
               >
