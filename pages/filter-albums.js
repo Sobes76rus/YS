@@ -251,7 +251,14 @@ export async function getServerSideProps(ctx) {
   }
 
   return {
+    
     props: {
+      // title: `${ceoPages &&
+      //   ceoPages.map(
+      //     (page, index) => `/filter-albums?${page.url_filter}` === decodeURI(ctx.resolvedUrl) ? page.title : "Все анкеты"
+      //   )}`,
+        
+        
       title: "Все анкеты",
       breadcrumbs: {
         breadcrumbs: [
