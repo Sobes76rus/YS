@@ -71,15 +71,16 @@ function getCardsUrl(query) {
   return url.toString();
 }
 
-const FilterAlbums = ({
-  allCards,
-  ceoPages,
-  services,
-  cardPhotos,
-  cities,
-  metros,
-  breadcrumbs,
-}) => {
+const FilterAlbums = (props) => {
+  const {
+    allCards,
+    ceoPages,
+    services,
+    cardPhotos,
+    cities,
+    metros,
+    breadcrumbs,
+  } = props;
   const { query, asPath } = useRouter();
 
   const [isOpen, setIsOpen] = useState(false);
@@ -251,15 +252,16 @@ export async function getServerSideProps(ctx) {
   }
 
   return {
-    
     props: {
-      // title: `${ceoPages &&
-      //   ceoPages.map(
-      //     (page, index) => `/filter-albums?${page.url_filter}` === decodeURI(ctx.resolvedUrl) ? page.title : "Все анкеты"
-      //   )}`,
-        
-        
-      title: "Все анкеты",
+      title: `${
+        ceoPages &&
+        ceoPages.map((page) =>
+          `/filter-albums?${page.url_filter}` === decodeURI(ctx.resolvedUrl)
+            ? `${page.Title}`
+            : "Все анкеты"
+        )
+      }`,
+
       breadcrumbs: {
         breadcrumbs: [
           {
