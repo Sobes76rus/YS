@@ -30,10 +30,10 @@ function getCardsUrl(query) {
 
   const priceTagMore = query["priceMin"];
   const priceTagLess = query["priceMax"];
-  const slider2TagMax = query["slider2Max"];
-  const slider2TagMin = query["slider2Min"];
-  const slider3TagMax = query["slider3Max"];
-  const slider3TagMin = query["slider3Min"];
+  const dickSizeMax = query["dickMax"];
+  const dickSizeMin = query["dickMin"];
+  const beastSizeMax = query["breastMax"];
+  const breastSizeMin = query["breastMin"];
   const cityId = query["city.name"];
   const metroId = query["metro.name"];
   const uslugiTags = query["usligis.name"];
@@ -44,17 +44,17 @@ function getCardsUrl(query) {
   if (priceTagLess) {
     url.searchParams.append("price_lte", priceTagLess);
   }
-  if (slider2TagMax) {
-    url.searchParams.append("slider_2_lte", slider2TagMax);
+  if (dickSizeMax) {
+    url.searchParams.append("dick_size_lte", dickSizeMax);
   }
-  if (slider2TagMin) {
-    url.searchParams.append("slider_2_gte", slider2TagMin);
+  if (dickSizeMin) {
+    url.searchParams.append("dick_size_gte", dickSizeMin);
   }
-  if (slider3TagMax) {
-    url.searchParams.append("slider_3_lte", slider3TagMax);
+  if (beastSizeMax) {
+    url.searchParams.append("breast_size_lte", beastSizeMax);
   }
-  if (slider3TagMin) {
-    url.searchParams.append("slider_3_gte", slider3TagMin);
+  if (breastSizeMin) {
+    url.searchParams.append("breast_size_gte", breastSizeMin);
   }
 
   if (cityId) {
@@ -91,17 +91,17 @@ const FilterAlbums = (props) => {
   const metrosNameFilter = query["metro.name"];
   const usluginTagsFilter = query["usligis.name"];
   const price = [allCards.map((card) => Number(card.price))];
-  const slider2Prop = [allCards.map((card) => Number(card.slider_2))];
-  const slider3Prop = [allCards.map((card) => Number(card.slider_3))];
+  const dickSizeProp = [allCards.map((card) => Number(card.dick_size))];
+  const breastSizeProp = [allCards.map((card) => Number(card.breast_size))];
   const secondEffectRef = useRef(false);
 
   const updateDeps = [
     query.priceMin,
     query.priceMax,
-    query.slider2Max,
-    query.slider2Min,
-    query.slider3Max,
-    query.slider3Min,
+    query.dickMax,
+    query.dickMin,
+    query.breastMax,
+    query.breastMin,
     citiesNameFilter,
     metrosNameFilter,
     usluginTagsFilter,
@@ -124,7 +124,6 @@ const FilterAlbums = (props) => {
         return Promise.reject(r);
       })
       .then((a) => {
-        
         setCards(a);
         setLoading(false);
       })
@@ -167,8 +166,8 @@ const FilterAlbums = (props) => {
                 cities={cities}
                 metros={metros}
                 price={price}
-                slider_2={slider2Prop}
-                slider_3={slider3Prop}
+                dickSize={dickSizeProp}
+                breastSize={breastSizeProp}
               />
             </CardBody>
           </Card>
