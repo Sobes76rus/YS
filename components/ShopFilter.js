@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import "rc-slider/assets/index.css";
 import Nouislider from "nouislider-react";
 import Select from "react-select";
+import Services from "../components/Services";
 import {
   Col,
   Row,
@@ -64,13 +65,6 @@ const ShopFilter = ({
 
   async function changeFilter(filter) {
     const queryParams = new URLSearchParams();
-
-    // { x: [1,2], y: 2 } -> [['x', 1], ['y', 2]]
-    // [['x', 1], ['y', 2]]
-    // params = []
-    // append(x, 1)
-    // append(x, 2)
-    // [['x', 1], ['x', 2]] -> x=1&x=2
     Object.entries(filter).forEach(([key, value]) => {
       if (typeof value === "string" || typeof value === "number") {
         queryParams.append(key, value);
@@ -110,7 +104,7 @@ const ShopFilter = ({
     changeFilter(newQuery);
   }
   function onUpdateSlider2(render, handle, value, un, percent) {
-    console.log(value);
+    
     changeFilter({
       ...queryRef.current,
       slider2Min: value[0].toFixed(0),
@@ -149,12 +143,6 @@ const ShopFilter = ({
     });
   };
 
-  const onInput = (e) => {
-    console.log(e);
-  };
-  const [isOpen, setIsOpen] = useState(false);
-  const toggle = () => setIsOpen(!isOpen);
-
   return (
     <Row xl="3" lg="3" xs="1">
       <Col className="mb-3">
@@ -165,11 +153,11 @@ const ShopFilter = ({
               className="w-100"
               key={2}
               range={{ min: minPrice, max: maxPrice }}
-              start={[minPrice, maxPrice]}
+              start={[priceMin, priceMax]}
               onSlide={onUpdatePrice}
               connect
             />
-            <Form className="nouislider-values" onSubmit={onInput}>
+            <Form className="nouislider-values">
               <div className="min d-flex align-items-center">
                 <p className="m-0 pr-2">от</p>
                 <div className="mr-2">
@@ -192,7 +180,7 @@ const ShopFilter = ({
               onSlide={onUpdateSlider2}
               connect
             />
-            <Form className="nouislider-values" onSubmit={onInput}>
+            <Form className="nouislider-values">
               <div className="min d-flex align-items-center">
                 <p className="m-0 pr-2">от</p>
                 <div className="mr-2">
@@ -215,7 +203,7 @@ const ShopFilter = ({
               onSlide={onUpdateSlider3}
               connect
             />
-            <Form className="nouislider-values" onSubmit={onInput}>
+            <Form className="nouislider-values">
               <div className="min d-flex align-items-center">
                 <p className="m-0 pr-2">от</p>
                 <div className="mr-2">
@@ -235,7 +223,7 @@ const ShopFilter = ({
 
         <Select
           className="mb-3 link-purple"
-          defaultValue={finalCities}
+          value={finalCities}
           getOptionLabel={(option) => option.name}
           getOptionValue={(option) => option.id}
           options={cities}
@@ -282,42 +270,10 @@ const ShopFilter = ({
 
       <Col className="mb-3 d-flex flex-column">
         {services.map((service, index) => (
-          <Col className="filter_col p-0" key={index}>
-            <Button
-              className="btn-filter-prpl w-100 border-0"
-              color="disabled"
-              onClick={toggle}
-              style={{ marginBottom: "1rem" }}
-            >
-              {service.group_name}
-
-              <svg className="svg-icon align-middle">
-                {isOpen ? (
-                  <use xlinkHref="/icons/orion-svg-sprite.svg#arrow-up-10"></use>
-                ) : (
-                  <use xlinkHref="/icons/orion-svg-sprite.svg#arrow-down-11"></use>
-                )}
-              </svg>
-            </Button>
-            <Collapse isOpen={isOpen} className="sidebar-heading main">
-              {service.uslugis.map((usluga) => {
-                return (
-                  <CustomInput
-                    type="checkbox"
-                    className="text-secondary"
-                    key={usluga.id}
-                    id={usluga.id}
-                    name={usluga.name}
-                    label={usluga.name}
-                    checked={usluginTagsFilter.includes(usluga.name)}
-                    onChange={debouncedHandleChange}
-                  />
-                );
-              })}
-            </Collapse>
-          </Col>
+          <Services service={service} usluginTagsFilter={usluginTagsFilter} debouncedHandleChange={debouncedHandleChange} key={index}/>
         ))}
-        <Button className="btn-reset py-3">Rick Ross</Button>
+        
+        <Button onClick={() => changeFilter(queryRef)} className="btn-reset py-3">Rick Ross</Button>
       </Col>
     </Row>
   );

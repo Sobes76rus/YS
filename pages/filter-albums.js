@@ -124,7 +124,7 @@ const FilterAlbums = (props) => {
         return Promise.reject(r);
       })
       .then((a) => {
-        console.log(url, a);
+        
         setCards(a);
         setLoading(false);
       })
