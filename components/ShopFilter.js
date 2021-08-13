@@ -21,25 +21,25 @@ const ShopFilter = ({
   services,
   cities,
   price,
-  slider_2,
-  slider_3,
+  dickSize,
+  breastSize,
   cards: a,
 }) => {
   const { query, push, pathname } = useRouter();
   const minPrice = Math.min(...price[0]);
   const maxPrice = Math.max(...price[0]);
-  const minSlider2 = Math.min(...slider_2[0]);
-  const maxSlider2 = Math.max(...slider_2[0]);
-  const minSlider3 = Math.min(...slider_3[0]);
-  const maxSlider3 = Math.max(...slider_3[0]);
+  const minDick = Math.min(...dickSize[0]);
+  const maxDick = Math.max(...dickSize[0]);
+  const minBreast = Math.min(...breastSize[0]);
+  const maxBreast = Math.max(...breastSize[0]);
   //
 
   const priceMin = query.priceMin ? query.priceMin : minPrice;
   const priceMax = query.priceMax ? query.priceMax : maxPrice;
-  const slider2Min = query.slider2Min ? query.slider2Min : minSlider2;
-  const slider2Max = query.slider2Max ? query.slider2Max : maxSlider2;
-  const slider3Min = query.slider3Min ? query.slider3Min : minSlider3;
-  const slider3Max = query.slider3Max ? query.slider3Max : maxSlider3;
+  const dickMin = query.dickMin ? query.dickMin : minDick;
+  const dickMax = query.dickMax ? query.dickMax : maxDick;
+  const breastMin = query.breastMin ? query.breastMin : minBreast;
+  const breastMax = query.breastMax ? query.breastMax : maxBreast;
 
   const citiesNameFilter = query["city.name"];
   const metrosNameFilter = query["metro.name"];
@@ -103,20 +103,39 @@ const ShopFilter = ({
 
     changeFilter(newQuery);
   }
-  function onUpdateSlider2(render, handle, value, un, percent) {
-    
-    changeFilter({
-      ...queryRef.current,
-      slider2Min: value[0].toFixed(0),
-      slider2Max: value[1].toFixed(0),
-    });
+  function onUpdateDickSlider(render, handle, value, un, percent) {
+    const newQuery = { ...queryRef.current };
+
+    if (value[0].toFixed(0) > minDick) {
+      newQuery.dickMin = value[0].toFixed(0);
+    } else {
+      delete newQuery.dickMin;
+    }
+
+    if (value[1].toFixed(0) < maxDick) {
+      newQuery.dickMax = value[1].toFixed(0);
+    } else {
+      delete newQuery.dickMax;
+    }
+
+    changeFilter(newQuery);
   }
-  function onUpdateSlider3(render, handle, value, un, percent) {
-    changeFilter({
-      ...queryRef.current,
-      slider3Min: value[0].toFixed(0),
-      slider3Max: value[1].toFixed(0),
-    });
+  function onUpdateBreastSlider(render, handle, value, un, percent) {
+    const newQuery = { ...queryRef.current };
+
+    if (value[0].toFixed(0) > minBreast) {
+      newQuery.breastMin = value[0].toFixed(0);
+    } else {
+      delete newQuery.breastMin;
+    }
+
+    if (value[1].toFixed(0) < maxBreast) {
+      newQuery.breastMax = value[1].toFixed(0);
+    } else {
+      delete newQuery.breastMax;
+    }
+
+    changeFilter(newQuery);
   }
 
   const debouncedHandleChange = (evt) => {
@@ -148,7 +167,7 @@ const ShopFilter = ({
       <Col className="mb-3">
         <ListGroup>
           <ListGroupItem className="border-0 p-0 mb-3">
-            <h3 className="sidebar-heading main">Цена за час работы</h3>
+            <h3 className="sidebar-heading main">Цена за час</h3>
             <Nouislider
               className="w-100"
               key={2}
@@ -156,6 +175,7 @@ const ShopFilter = ({
               start={[priceMin, priceMax]}
               onSlide={onUpdatePrice}
               connect
+              step={500}
             />
             <Form className="nouislider-values">
               <div className="min d-flex align-items-center">
@@ -171,48 +191,50 @@ const ShopFilter = ({
             </Form>
           </ListGroupItem>
           <ListGroupItem className="border-0 p-0 mb-3">
-            <h3 className="sidebar-heading main">Слайдер 2</h3>
+            <h3 className="sidebar-heading main">Длина члена</h3>
             <Nouislider
               className="w-100"
               key={2}
-              range={{ min: minSlider2, max: maxSlider2 }}
-              start={[minSlider2, maxSlider2]}
-              onSlide={onUpdateSlider2}
+              range={{ min: minDick, max: maxDick }}
+              start={[dickMin, dickMax]}
+              onSlide={onUpdateDickSlider}
               connect
+              step={5}
             />
             <Form className="nouislider-values">
               <div className="min d-flex align-items-center">
                 <p className="m-0 pr-2">от</p>
                 <div className="mr-2">
-                  <Input placeholder={slider2Min} />
+                  <Input placeholder={dickMin} />
                 </div>{" "}
               </div>
               <div className="max d-flex align-items-center">
                 <p className="m-0 pr-2">до</p>
-                <Input placeholder={slider2Max} />
+                <Input placeholder={dickMax} />
               </div>
             </Form>
           </ListGroupItem>
           <ListGroupItem className="border-0 p-0">
-            <h3 className="sidebar-heading main">Слайдер 3</h3>
+            <h3 className="sidebar-heading main">Размер груди</h3>
             <Nouislider
               className="w-100"
               key={2}
-              range={{ min: minSlider3, max: maxSlider3 }}
-              start={[minSlider3, maxSlider3]}
-              onSlide={onUpdateSlider3}
+              range={{ min: minBreast, max: maxBreast }}
+              start={[breastMin, breastMax]}
+              onSlide={onUpdateBreastSlider}
               connect
+              step={1}
             />
             <Form className="nouislider-values">
               <div className="min d-flex align-items-center">
                 <p className="m-0 pr-2">от</p>
                 <div className="mr-2">
-                  <Input placeholder={slider3Min} />
+                  <Input placeholder={breastMin} />
                 </div>{" "}
               </div>
               <div className="max d-flex align-items-center">
                 <p className="m-0 pr-2">до</p>
-                <Input placeholder={slider3Max} />
+                <Input placeholder={breastMax} />
               </div>
             </Form>
           </ListGroupItem>
@@ -269,11 +291,23 @@ const ShopFilter = ({
       </Col>
 
       <Col className="mb-3 d-flex flex-column">
-        {services.map((service, index) => (
-          <Services service={service} usluginTagsFilter={usluginTagsFilter} debouncedHandleChange={debouncedHandleChange} key={index}/>
-        ))}
-        
-        <Button onClick={() => changeFilter(queryRef)} className="btn-reset py-3">Rick Ross</Button>
+        {services
+          .sort((a, b) => a.Sort - b.Sort)
+          .map((service, index) => (
+            <Services
+              service={service}
+              usluginTagsFilter={usluginTagsFilter}
+              debouncedHandleChange={debouncedHandleChange}
+              key={index}
+            />
+          ))}
+
+        <Button
+          onClick={() => changeFilter(queryRef)}
+          className="btn-reset py-3"
+        >
+          Сбросить
+        </Button>
       </Col>
     </Row>
   );
