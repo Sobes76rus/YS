@@ -1,5 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import { YMaps, Map, Placemark } from "react-yandex-maps";
+import { useRouter } from "next/router";
 import {
   Container,
   TabContent,
@@ -16,7 +17,8 @@ import Disqus from "disqus-react";
 import classnames from "classnames";
 
 const DetailTabs = ({ product }) => {
-  console.log(product)
+  const { query } = useRouter();
+ 
   const [activeTab, setActiveTab] = useState(1);
   const [coords, setCoords] = useState();
   const mapsRef = useRef();
@@ -47,7 +49,7 @@ const DetailTabs = ({ product }) => {
 
   const disqusShortname = "https-yourseduction-us-2";
   const disqusConfig = {
-    url: `https://yourseduction.us/persons/${product.id}`,
+    url: `https://yourseduction.us/persons/${query}`,
     identifier: product.id,
     title: product.name,
   };
