@@ -8,6 +8,7 @@ import {
   Card,
   Jumbotron,
 } from "reactstrap";
+
 import { useRouter } from "next/router";
 import { useState, useContext, useEffect, useRef } from "react";
 import getConfig from "next/config";
@@ -26,6 +27,7 @@ const LayoutGrid = dynamic(() => import("../components/LayoutGrid"), {
 const { publicRuntimeConfig } = getConfig();
 
 function getCardsUrl(query) {
+  
   const url = new URL(`${publicRuntimeConfig.API_URL}/card-lookbooks`);
 
   const priceTagMore = query["priceMin"];
@@ -249,13 +251,13 @@ export async function getServerSideProps(ctx) {
       },
     };
   }
-
+ 
   return {
     props: {
       title: `${
         ceoPages &&
-        ceoPages.map((page) =>
-          `/filter-albums?${page.url_filter}` === decodeURI(ctx.resolvedUrl)
+        ceoPages.map((page) => 
+          `/filter-albums?${page.url_filter}` === decodeURI(ctx.resolvedUrl).replace(/\s/g, '+')
             ? `${page.Title}`
             : "Все анкеты"
         )

@@ -17,6 +17,7 @@ const SwiperProducts = dynamic(
 );
 
 export async function getServerSideProps(ctx) {
+  
   const { publicRuntimeConfig } = getConfig();
   const { id } = ctx.query;
   const navRes = await fetch(`${publicRuntimeConfig.API_URL}/navigations`);
@@ -61,6 +62,7 @@ export async function getServerSideProps(ctx) {
 }
 
 export default function Detail(props) {
+  
   const [thumbsSwiper, setThumbsSwiper] = useState(null);
   const { personsData, allCards, breadcrumbs } = props;
   const windowSize = useWindowSize();
