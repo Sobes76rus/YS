@@ -27,7 +27,6 @@ const LayoutGrid = dynamic(() => import("../components/LayoutGrid"), {
 const { publicRuntimeConfig } = getConfig();
 
 function getCardsUrl(query) {
-  
   const url = new URL(`${publicRuntimeConfig.API_URL}/card-lookbooks`);
 
   const priceTagMore = query["priceMin"];
@@ -251,13 +250,14 @@ export async function getServerSideProps(ctx) {
       },
     };
   }
- 
+
   return {
     props: {
       title: `${
         ceoPages &&
-        ceoPages.map((page) => 
-          `/filter-albums?${page.url_filter}` === decodeURI(ctx.resolvedUrl).replace(/\s/g, '+')
+        ceoPages.map((page) =>
+          `/filter-albums?${page.url_filter}` ===
+          decodeURI(ctx.resolvedUrl).replace(/\s/g, "+")
             ? `${page.Title}`
             : "Все анкеты"
         )
@@ -285,6 +285,7 @@ export async function getServerSideProps(ctx) {
       cardPhotos,
       allCards,
       services,
+      fixedBottom: true,
     },
   };
 }

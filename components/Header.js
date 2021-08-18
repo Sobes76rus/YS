@@ -6,12 +6,12 @@ import Link from "next/link";
 import { Collapse, Navbar, NavbarToggler, Nav, Container } from "reactstrap";
 
 const Header = (props) => {
-  const { navigation, collapsed, onCollapse } = props;
+  const { navigation, collapsed, onCollapse, services } = props;
 
   const navbarRef = useRef(null);
   const windowSize = useWindowSize();
   const isSlim = windowSize.width <= "992";
-
+  console.log(services);
   return (
     <header
       className={`header ${props.headerAbsolute ? "header-absolute" : ""}`}
@@ -38,21 +38,59 @@ const Header = (props) => {
               <Nav navbar>
                 {navigation && (
                   <>
-                    <li className="nav-item" onClick={(e) => onCollapse(e)} key={navigation[1]._id}>
+                    <li
+                      className="nav-item"
+                      onClick={(e) => onCollapse(e)}
+                      key={navigation[1]._id}
+                    >
                       <Link href={navigation[1].Slug}>
                         <a className="nav-link main_text-color ">
                           {navigation[1].Title}
                         </a>
                       </Link>
                     </li>
-                    <li className="nav-item" onClick={(e) => onCollapse(e)} key={navigation[2]._id}>
+                    <li
+                      className="nav-item dropdown"
+                      onClick={(e) => onCollapse(e)}
+                      key={navigation[2]._id}
+                    >
                       <Link href={navigation[2].Slug}>
-                        <a className="nav-link main_text-color">
+                        <a
+                          className="nav-link  dropdown-toggle main_text-color"
+                          data-bs-toggle="dropdown"
+                        >
                           {navigation[2].Title}
                         </a>
                       </Link>
+                      <ul className="dropdown-menu">
+                        {services
+                          .sort((a, b) => a.Sort - b.Sort)
+                          .map((service) => (
+                            <li key={service.id}>
+                              {/* <ul className="btn-group dropend">
+                                {service.uslugis.map((subService) => {
+                                  console.log(subService);
+                                  return (
+                                    <Link
+                                      href={subService.tag}
+                                      key={subService.id}
+                                    >
+                                      <a className="nav-link main_text-color ">
+                                        {subService.name}
+                                      </a>
+                                    </Link>
+                                  );
+                                })}
+                              </ul> */}
+                            </li>
+                          ))}
+                      </ul>
                     </li>
-                    <li className="nav-item" onClick={(e) => onCollapse(e)} key={navigation[0]._id}>
+                    <li
+                      className="nav-item"
+                      onClick={(e) => onCollapse(e)}
+                      key={navigation[0]._id}
+                    >
                       <Link href={navigation[0].Slug}>
                         <a className="nav-link main_text-color">
                           {navigation[0].Title}
@@ -75,7 +113,10 @@ const Header = (props) => {
                 </a>
               </Link>
               <div className="d-flex justify-content-lg-end mt-1 mb-2 my-lg-0">
-                <div onClick={(e) => onCollapse(e)} className="nav-item navbar-icon-link">
+                <div
+                  onClick={(e) => onCollapse(e)}
+                  className="nav-item navbar-icon-link"
+                >
                   <Link href="/contacts" passHref>
                     <a className="py-1 navbar-brand">
                       <svg
@@ -93,7 +134,10 @@ const Header = (props) => {
                     </a>
                   </Link>
                 </div>
-                <div onClick={(e) => onCollapse(e)} className="nav-item navbar-icon-link">
+                <div
+                  onClick={(e) => onCollapse(e)}
+                  className="nav-item navbar-icon-link"
+                >
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     width="16"

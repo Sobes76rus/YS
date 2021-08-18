@@ -25,6 +25,11 @@ export async function getStaticProps() {
   const navigation = await navRes.json();
   const cardRes = await fetch(`${publicRuntimeConfig.API_URL}/card-lookbooks`);
   const cardPhotos = await cardRes.json();
+  const servicesRes = await fetch(
+    `${publicRuntimeConfig.API_URL}/uslugi-groups`
+  );
+
+  const services = await servicesRes.json();
 
   const randomThree = (a, n) =>
     a.sort(() => Math.random() - Math.random()).slice(0, n);
@@ -40,7 +45,7 @@ export async function getStaticProps() {
       },
       navigation,
       cardPhotos,
-
+      services,
       albums,
       randomSix,
       navbarHoverLight: true,
@@ -54,6 +59,7 @@ export async function getStaticProps() {
 
 const Home = (props) => {
   const { albums, cardPhotos } = props;
+
   return (
     <>
       <Swiper

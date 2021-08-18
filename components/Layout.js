@@ -4,10 +4,9 @@ import Footer from "./Footer";
 import { useEffect, useState } from "react";
 
 const Layout = (pageProps) => {
-  const { navigation } = pageProps;
-
   const [paddingTop, setPaddingTop] = useState(0);
   const headerProps = {
+    services: pageProps.services,
     navigation: pageProps.navigation,
     headerAbsolute: pageProps.headerAbsolute,
     navbarHoverLight: pageProps.navbarHoverLight,
