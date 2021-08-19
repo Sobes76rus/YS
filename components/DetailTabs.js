@@ -12,7 +12,8 @@ import {
   Row,
   Col,
 } from "reactstrap";
-import Disqus from "disqus-react";
+import DisqusComments from "../components/DisqusComments"
+
 
 import classnames from "classnames";
 
@@ -46,13 +47,6 @@ const DetailTabs = ({ product }) => {
     console.log("after render");
     setNewLocation();
   }, [product.city.name, product.metros[0].name]);
-
-  const disqusShortname = "https-yourseduction-us-2";
-  const disqusConfig = {
-    url: `https://yourseduction.us/persons/${query}`,
-    identifier: product.id,
-    title: product.name,
-  };
 
   return (
     <section className="mt-0 h-25">
@@ -179,10 +173,7 @@ const DetailTabs = ({ product }) => {
           <TabPane tabId={3}>
             <Row className="mb-5">
               <Col lg="10" xl="9" className="h-100">
-                <Disqus.DiscussionEmbed
-                  shortname={disqusShortname}
-                  config={disqusConfig}
-                />
+                <DisqusComments product={product} query={query}/>
               </Col>
             </Row>
           </TabPane>
