@@ -36,7 +36,7 @@ const Header = (props) => {
         >
           <Container fluid>
             <NavbarToggler
-              onClick={(e) => onCollapse(e)}
+              onClick={(e) => isSlim && onCollapse(e)}
               className="navbar-toggler-right"
             >
               <i className="fa fa-bars"></i>
@@ -51,7 +51,7 @@ const Header = (props) => {
                   <>
                     <li
                       className="nav-item"
-                      onClick={(e) => onCollapse(e)}
+                      onClick={(e) => isSlim && onCollapse(e)}
                       key={navigation[1]._id}
                     >
                       <Link href={navigation[1].Slug}>
@@ -62,7 +62,7 @@ const Header = (props) => {
                     </li>
                     <li
                       className="nav-item"
-                      onClick={(e) => onCollapse(e)}
+                      onClick={(e) => isSlim && onCollapse(e)}
                       key={navigation[2]._id}
                     >
                       <Link href={navigation[2].Slug}>
@@ -73,7 +73,7 @@ const Header = (props) => {
                     </li>
                     <li
                       className="nav-item"
-                      onClick={(e) => onCollapse(e)}
+                      onClick={(e) => isSlim && onCollapse(e)}
                       key={navigation[0]._id}
                     >
                       <Link href={navigation[0].Slug}>
@@ -122,7 +122,7 @@ const Header = (props) => {
               </Link>
               <div className="d-flex justify-content-lg-end mt-1 mb-2 my-lg-0">
                 <div
-                  onClick={(e) => onCollapse(e)}
+                  onClick={(e) => isSlim && onCollapse(e)}
                   className="nav-item navbar-icon-link"
                 >
                   <Link href="/contacts" passHref>
@@ -143,7 +143,7 @@ const Header = (props) => {
                   </Link>
                 </div>
                 <div
-                  onClick={(e) => onCollapse(e)}
+                  onClick={(e) => isSlim && onCollapse(e)}
                   className="nav-item navbar-icon-link"
                 >
                   <svg
