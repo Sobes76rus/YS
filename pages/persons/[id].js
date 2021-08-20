@@ -17,11 +17,14 @@ const SwiperProducts = dynamic(
 );
 
 export async function getServerSideProps(ctx) {
-  
   const { publicRuntimeConfig } = getConfig();
   const { id } = ctx.query;
   const navRes = await fetch(`${publicRuntimeConfig.API_URL}/navigations`);
   const navigation = await navRes.json();
+  const servicesRes = await fetch(
+    `${publicRuntimeConfig.API_URL}/uslugi-groups`
+  );
+  const services = await servicesRes.json();
   const allCardsFetch = await fetch(
     `${publicRuntimeConfig.API_URL}/card-lookbooks/`
   );
@@ -38,6 +41,7 @@ export async function getServerSideProps(ctx) {
       navbarHoverLight: true,
       bgHoverPurple: true,
       allCards,
+      services,
       personsData,
       navigation,
       title: personsData.name,
@@ -62,7 +66,6 @@ export async function getServerSideProps(ctx) {
 }
 
 export default function Detail(props) {
-  
   const [thumbsSwiper, setThumbsSwiper] = useState(null);
   const { personsData, allCards, breadcrumbs } = props;
   const windowSize = useWindowSize();
@@ -75,59 +78,9 @@ export default function Detail(props) {
             <Col
               xs={{ size: 12, order: 1 }}
               lg={{ size: 6, order: 1 }}
-              className={`${isSlim && "vp50"}`}
+              className={`${isSlim && "vp50"} align-self-center`}
             >
               <SwiperGallery data={personsData} vertical={true} />
-              {/* <Swiper
-                thumbs={{ swiper: thumbsSwiper }}
-                slidesPerView={1}
-                className="detail-full mySwiper2"
-                pagination={{
-                  clickable: true,
-                  dynamicBullets: true,
-                }}
-                scrollbar
-                navigation={!isSlim}
-                slidesPerView={1}
-              >
-                {personsData.photo.map((image, index) => (
-                  <SwiperSlide key={index}>
-                    <div
-                      className="h-100 bg-cover"
-                      style={{
-                        backgroundImage: `url(${image.url})`,
-                      }}
-                    ></div>
-                  </SwiperSlide>
-                ))}
-              </Swiper>
-              <Swiper
-                onSwiper={setThumbsSwiper}
-                spaceBetween={10}
-                slidesPerView={4}
-                freeMode={true}
-                watchSlidesVisibility={true}
-                watchSlidesProgress={true}
-                className="mySwiper"
-              >
-                {personsData.photo.map((image, index) => (
-                  <SwiperSlide
-                    key={index}
-                    style={{
-                      cursor: "pointer",
-                      objectFit: "cover",
-                      minHeight: "100%",
-                    }}
-                  >
-                    <Image
-                      src={image.url}
-                      alt="..."
-                      width={image.width}
-                      height="fill"
-                    />
-                  </SwiperSlide>
-                ))}
-              </Swiper> */}
             </Col>
             <Col
               xs={{ size: 12, order: 2 }}

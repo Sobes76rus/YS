@@ -2,7 +2,7 @@ import { Row, Col, Form, Button, ButtonGroup, Input } from "reactstrap";
 import { useState, useEffect } from "react";
 import NumberFormat from "react-number-format";
 import { useRouter } from "next/router";
-
+import Link from "next/link";
 export default function DetailMain({ product }) {
   const { query } = useRouter();
   const [showNumber, setShowNumber] = useState(false);
@@ -45,9 +45,11 @@ export default function DetailMain({ product }) {
             {showNumber ? (
               <NumberFormat
                 renderText={(value) => (
-                  <h6 className="font-weight-bold m-0 p-0" >
-                  <a className="link-purple" href="tel:+7(965)246-9191">+7(965)246-9191</a>  
-                  </h6>                
+                  <h6 className="font-weight-bold m-0 p-0">
+                    <a className="link-purple" href="tel:+7(965)246-9191">
+                      +7(965)246-9191
+                    </a>
+                  </h6>
                 )}
                 displayType="text"
                 type="tel"
@@ -55,7 +57,6 @@ export default function DetailMain({ product }) {
                 mask="_"
                 value={Math.random()}
               />
-              
             ) : (
               <h6 className="p-0 m-0 font-weight-bold link-purple">
                 Показать телефон
@@ -65,15 +66,21 @@ export default function DetailMain({ product }) {
           <h6 className="detail-option-heading mb-3">Услуги</h6>
           <ButtonGroup>
             {product.uslugis.map((service, index) => (
-              <Button
-                outline
-                color="secondary"
-                className="mr-3 w-100 text-capitalize border-0"
-                size="sm"
-                key={index}
+              <Link
+                as={`/${service.tag}/`}
+                href={"/[categorie]"}
+                key={service.id}
               >
-                {service.name}
-              </Button>
+                <Button
+                  outline
+                  color="secondary"
+                  className="mr-3 w-100 text-capitalize border-0"
+                  size="sm"
+                  key={index}
+                >
+                  {service.name}
+                </Button>
+              </Link>
             ))}
           </ButtonGroup>
         </Col>

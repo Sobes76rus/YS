@@ -1,17 +1,28 @@
 import React, { useState, useRef } from "react";
 import useWindowSize from "../hooks/useWindowSize";
-
+import DropDownRight from "./DropDownRight";
 import Link from "next/link";
 
-import { Collapse, Navbar, NavbarToggler, Nav, Container } from "reactstrap";
+import {
+  Collapse,
+  Navbar,
+  NavbarToggler,
+  Nav,
+  Container,
+  Dropdown,
+  DropdownMenu,
+  DropdownToggle,
+  DropdownItem,
+} from "reactstrap";
 
 const Header = (props) => {
   const { navigation, collapsed, onCollapse, services } = props;
-
+  const [dropdownOpen, setDropdownOpen] = useState(false);
+  const toggle = () => setDropdownOpen((prevState) => !prevState);
   const navbarRef = useRef(null);
   const windowSize = useWindowSize();
   const isSlim = windowSize.width <= "992";
-  console.log(services);
+
   return (
     <header
       className={`header ${props.headerAbsolute ? "header-absolute" : ""}`}
@@ -50,41 +61,15 @@ const Header = (props) => {
                       </Link>
                     </li>
                     <li
-                      className="nav-item dropdown"
+                      className="nav-item"
                       onClick={(e) => onCollapse(e)}
                       key={navigation[2]._id}
                     >
                       <Link href={navigation[2].Slug}>
-                        <a
-                          className="nav-link  dropdown-toggle main_text-color"
-                          data-bs-toggle="dropdown"
-                        >
+                        <a className="nav-link main_text-color ">
                           {navigation[2].Title}
                         </a>
                       </Link>
-                      <ul className="dropdown-menu">
-                        {services
-                          .sort((a, b) => a.Sort - b.Sort)
-                          .map((service) => (
-                            <li key={service.id}>
-                              {/* <ul className="btn-group dropend">
-                                {service.uslugis.map((subService) => {
-                                  console.log(subService);
-                                  return (
-                                    <Link
-                                      href={subService.tag}
-                                      key={subService.id}
-                                    >
-                                      <a className="nav-link main_text-color ">
-                                        {subService.name}
-                                      </a>
-                                    </Link>
-                                  );
-                                })}
-                              </ul> */}
-                            </li>
-                          ))}
-                      </ul>
                     </li>
                     <li
                       className="nav-item"
@@ -97,19 +82,42 @@ const Header = (props) => {
                         </a>
                       </Link>
                     </li>
+                    <Dropdown
+                      className="nav-link main_text-color cursor-pointer"
+                      isOpen={dropdownOpen}
+                      toggle={toggle}
+                    >
+                      <DropdownToggle
+                        caret
+                        tag="span"
+                        data-toggle="dropdown"
+                        aria-expanded={dropdownOpen}
+                      >
+                        {navigation[3].Title}
+                      </DropdownToggle>
+                      <DropdownMenu>
+                        {services
+                          .sort((a, b) => a.Sort - b.Sort)
+                          .map((service) => (
+                            <DropDownRight
+                              direction="right"
+                              toggle={toggle}
+                              service={service}
+                              key={service.id}
+                            />
+                          ))}
+                      </DropdownMenu>
+                    </Dropdown>
+                    <li
+                      className="nav-link main_text-color"
+                      key={navigation[3]._id}
+                    ></li>
                   </>
                 )}
               </Nav>
               <Link href="/" passHref>
                 <a className="py-0 navbar-brand">
                   {!isSlim && <h5 className="m-0">YOUR SEDUCTION</h5>}
-                  {/* <img
-                    src="/icons/next-js-logo-8FCFF51DD2-seeklogo.com.png"
-                    className="navbar-brand"
-                    width="43"
-                    height="50"
-                    alt="..."
-                  /> */}
                 </a>
               </Link>
               <div className="d-flex justify-content-lg-end mt-1 mb-2 my-lg-0">

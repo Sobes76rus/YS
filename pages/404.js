@@ -10,6 +10,11 @@ export async function getStaticProps() {
 
   const navRes = await fetch(`${publicRuntimeConfig.API_URL}/navigations`);
   const navigation = await navRes.json();
+  const servicesRes = await fetch(
+    `${publicRuntimeConfig.API_URL}/uslugi-groups`
+  );
+
+  const services = await servicesRes.json();
   return {
     props: {
       nav: {
@@ -19,6 +24,7 @@ export async function getStaticProps() {
         color: "transparent",
       },
       navigation,
+      services,
       headerAbsolute: true,
       title: "404",
     },

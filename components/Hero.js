@@ -6,7 +6,7 @@ import { Container, Row, Col } from "reactstrap";
 const Hero = ({ children, ...props }) => {
   return (
     <section className="hero">
-      <Container fluid>
+      <Container className="p-0">
         {props.breadcrumbs && (
           <Breadcrumbs className="text-left" links={props.breadcrumbs} />
         )}

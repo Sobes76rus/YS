@@ -9,6 +9,10 @@ export async function getServerSideProps({ query }) {
   const { publicRuntimeConfig } = getConfig();
   const navRes = await fetch(`${publicRuntimeConfig.API_URL}/navigations`);
   const navigation = await navRes.json();
+  const servicesRes = await fetch(
+    `${publicRuntimeConfig.API_URL}/uslugi-groups`
+  );
+  const services = await servicesRes.json();
 
   const postRes = await fetch(
     `${publicRuntimeConfig.API_URL}/posts/?slug=${postSlug}`
@@ -18,6 +22,7 @@ export async function getServerSideProps({ query }) {
   return {
     props: {
       navigation,
+      services,
       post,
       navbarHoverLight: true,
       headerAbsolute: true,
@@ -57,15 +62,15 @@ export default function Blog(props) {
 
   return (
     <Container>
-      <section className="py-6 d-flex align-items-center justify-content-center">         
-        <Container>        
+      <section className="py-6 d-flex align-items-center justify-content-center">
+        <Container>
           <Row>
             <Col xl="10" className="mx-auto">
-            <Hero
-        title={post[0].title}
-        breadcrumbs={props.breadcrumbs.breadcrumbs}
-        {...heroProps}
-      />
+              <Hero
+                title={post[0].title}
+                breadcrumbs={props.breadcrumbs.breadcrumbs}
+                {...heroProps}
+              />
               <Image
                 src={post[0].img.url}
                 alt=""
@@ -98,6 +103,3 @@ export default function Blog(props) {
     </Container>
   );
 }
-
-
-

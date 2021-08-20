@@ -34,7 +34,8 @@ body {
     border-color: #dac9f9;
   }
 }
-.btn-toggle-purple {
+.btn-toggle-purple  {
+  
   background-color: #dac9f9;
   margin-bottom: 1rem;
   border-radius: 0.75rem;
@@ -45,7 +46,8 @@ body {
   }
   &:hover {
     background-color: $purple;
-  }
+  }  
+  
 }
 
 .link-purple {

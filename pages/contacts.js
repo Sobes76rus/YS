@@ -1,5 +1,4 @@
 import getConfig from "next/config";
-import Breadcrumbs from "../components/Breadcrumbs";
 import Link from "next/link";
 import Image from "../components/CustomImage";
 import { Container, Row, Col } from "reactstrap";
@@ -12,15 +11,20 @@ export async function getStaticProps() {
   const contactsPhotos = await contactsPhotosRes.json();
   const navRes = await fetch(`${publicRuntimeConfig.API_URL}/navigations`);
   const navigation = await navRes.json();
+  const servicesRes = await fetch(
+    `${publicRuntimeConfig.API_URL}/uslugi-groups`
+  );
+  const services = await servicesRes.json();
   return {
     props: {
-      fixedBottom: true,      
+      fixedBottom: true,
       navbarHoverLight: true,
       headerAbsolute: true,
       bgHoverPurple: true,
       marginBottom: true,
       contactsPhotos,
       navigation,
+      services,
       title: "Контакты",
       breadcrumbs: {
         title: "Контакты",
@@ -101,7 +105,7 @@ const Contacts = (props) => {
                 </p>
               </Col>
             </Row>
-            <Row >
+            <Row>
               <Col md="4" className="text-center text-md-left">
                 <svg className="svg-icon svg-icon-light text-primary w-3rem h-3rem mb-3 ">
                   <use
