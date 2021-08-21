@@ -134,6 +134,9 @@ const FilterAlbums = (props) => {
       });
   }, updateDeps);
 
+  const randomCards = (a, n) =>
+    a.sort(() => Math.random() - Math.random()).slice(0, n);
+  randomCards(cards, 100);
   return (
     <Container>
       <Hero title={breadcrumbs.title} breadcrumbs={breadcrumbs.breadcrumbs} />

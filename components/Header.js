@@ -115,16 +115,19 @@ const Header = (props) => {
                   </>
                 )}
               </Nav>
-              <Link href="/" passHref>
-                <a className="py-0 navbar-brand">
-                  {!isSlim && <h5 className="m-0">YOUR SEDUCTION</h5>}
-                </a>
-              </Link>
+
               <div className="d-flex justify-content-lg-end mt-1 mb-2 my-lg-0">
                 <div
                   onClick={(e) => isSlim && onCollapse(e)}
                   className="nav-item navbar-icon-link"
                 >
+                  <Link href="/" passHref>
+                    <a className="py-0 navbar-brand">
+                      {!isSlim && (
+                        <h5 className="m-0 mx-1 pt-1">YOUR SEDUCTION</h5>
+                      )}
+                    </a>
+                  </Link>
                   <Link href="/contacts" passHref>
                     <a className="py-1 navbar-brand">
                       <svg

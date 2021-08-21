@@ -11,22 +11,28 @@ export default function DropDownRight(props) {
   const { service, toggle } = props;
   const [btnDropright, setBtnDropright] = useState(false);
   const dropdownRightToggle = () => {
-    setBtnDropright((prevState) => !prevState)
-    
-  }
+    setBtnDropright((prevState) => !prevState);
+  };
   return (
     <Dropdown {...props} isOpen={btnDropright} toggle={dropdownRightToggle}>
       <DropdownToggle
         caret
         color="disabled"
-        className="w-100 btn-toggle-purple m-0 rounded-0"
+        className="w-100 btn-toggle-purple m-0 rounded-0 text-left"
       >
         {service.group_name}
       </DropdownToggle>
       <DropdownMenu>
         {service.uslugis.map((subService) => (
-          <Link as={`/${subService.tag}/`} href={"/[categorie]"} key={subService.id}  >
-            <DropdownItem onClick={toggle} className="w-100 btn-toggle-purple m-0 rounded-0" >
+          <Link
+            as={`/${subService.tag}/`}
+            href={"/[categorie]"}
+            key={subService.id}
+          >
+            <DropdownItem
+              onClick={toggle}
+              className="w-100 btn-toggle-purple m-0 rounded-0"
+            >
               {subService.name}
             </DropdownItem>
           </Link>

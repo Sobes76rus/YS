@@ -58,7 +58,7 @@ const Product = ({ card, masonry, ...props }) => {
               <a className="text-dark">{card.name}</a>
             </Link>
           </h3>
-          <span className="text-muted">{card.price}</span>
+          <span className="text-muted">{card.price} &#8381;</span>
         </div>
       </div>
       {props.showQuickView !== false && (

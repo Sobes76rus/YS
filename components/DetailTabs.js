@@ -12,14 +12,13 @@ import {
   Row,
   Col,
 } from "reactstrap";
-import DisqusComments from "../components/DisqusComments"
-
+import DisqusComments from "../components/DisqusComments";
 
 import classnames from "classnames";
 
 const DetailTabs = ({ product }) => {
   const { query } = useRouter();
- 
+
   const [activeTab, setActiveTab] = useState(1);
   const [coords, setCoords] = useState();
   const mapsRef = useRef();
@@ -47,6 +46,7 @@ const DetailTabs = ({ product }) => {
     console.log("after render");
     setNewLocation();
   }, [product.city.name, product.metros[0].name]);
+  console.log(product);
 
   return (
     <section className="mt-0 h-25">
@@ -109,29 +109,28 @@ const DetailTabs = ({ product }) => {
                   <tbody>
                     <tr>
                       <th className="text-uppercase font-weight-normal pl-0">
-                        1 Параметр
+                        Возраст
                       </th>
-                      <td className="text-muted">{product.city.name}</td>
+                      <td className="text-muted">{product.age}</td>
+                    </tr>
+
+                    <tr>
+                      <th className="text-uppercase font-weight-normal pl-0">
+                        Грудь
+                      </th>
+                      <td className={"text-muted"}>{product.breast_size}</td>
                     </tr>
                     <tr>
                       <th className="text-uppercase font-weight-normal pl-0">
-                        2 Параметр
+                        Член
                       </th>
-                      <td className={"text-muted"}>
-                        {product.metros.map((metro) => metro.name)}
-                      </td>
+                      <td className={"text-muted"}>{product.dick_size}</td>
                     </tr>
                     <tr>
                       <th className="text-uppercase font-weight-normal pl-0">
-                        3 Параметр
+                        Рост
                       </th>
-                      <td className={"text-muted"}>что-то</td>
-                    </tr>
-                    <tr>
-                      <th className="text-uppercase font-weight-normal pl-0">
-                        4 Параметр
-                      </th>
-                      <td className={"text-muted"}>что-то</td>
+                      <td className={"text-muted"}>{product.height}</td>
                     </tr>
                   </tbody>
                 </Table>
@@ -151,19 +150,19 @@ const DetailTabs = ({ product }) => {
                       <th className="text-uppercase font-weight-normal pl-0">
                         1 ЧАС
                       </th>
-                      <td className="text-muted">{product.price} руб.</td>
+                      <td className="text-muted">{product.price} &#8381;</td>
                     </tr>
                     <tr>
                       <th className="text-uppercase font-weight-normal pl-0">
-                        1 ЧАС +
+                        2 ЧАСА
                       </th>
-                      <td className="text-muted">{product.price} руб.</td>
+                      <td className="text-muted">{product.price} &#8381;</td>
                     </tr>
                     <tr>
                       <th className="text-uppercase font-weight-normal pl-0">
-                        Полная работа
+                        НОЧЬ
                       </th>
-                      <td className="text-muted">{product.price} руб.</td>
+                      <td className="text-muted">{product.price} &#8381;</td>
                     </tr>
                   </tbody>
                 </Table>
@@ -173,7 +172,7 @@ const DetailTabs = ({ product }) => {
           <TabPane tabId={3}>
             <Row className="mb-5">
               <Col lg="10" xl="9" className="h-100">
-                <DisqusComments product={product} query={query}/>
+                <DisqusComments product={product} query={query} />
               </Col>
             </Row>
           </TabPane>
