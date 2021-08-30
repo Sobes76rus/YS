@@ -7,8 +7,16 @@ import {
 import { useState } from "react";
 import Link from "next/link";
 
+import useWindowSize from "../hooks/useWindowSize";
+
 export default function DropDownRight(props) {
-  const { service, toggle } = props;
+  const windowSize = useWindowSize();
+  const isSlim = windowSize.width <= "992";
+  const { service, toggle, onCollapse } = props;
+  const onToggle = function () {
+    toggle();
+    onCollapse();
+  };
   const [btnDropright, setBtnDropright] = useState(false);
   const dropdownRightToggle = () => {
     setBtnDropright((prevState) => !prevState);
@@ -18,11 +26,11 @@ export default function DropDownRight(props) {
       <DropdownToggle
         caret
         color="disabled"
-        className="w-100 btn-toggle-purple m-0 rounded-0 text-left"
+        className="w-100 btn-toggle-purple m-0 rounded-0 text-left top-50"
       >
         {service.group_name}
       </DropdownToggle>
-      <DropdownMenu>
+      <DropdownMenu className={`${isSlim ? "mt-5 ml-7" : ""}`}>
         {service.uslugis.map((subService) => (
           <Link
             as={`/${subService.tag}/`}
@@ -30,7 +38,7 @@ export default function DropDownRight(props) {
             key={subService.id}
           >
             <DropdownItem
-              onClick={toggle}
+              onClick={onToggle}
               className="w-100 btn-toggle-purple m-0 rounded-0"
             >
               {subService.name}

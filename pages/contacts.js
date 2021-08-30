@@ -93,7 +93,7 @@ const Contacts = (props) => {
                   Мы поможем Вам в проведении профессиональных фотосессий для
                   разных целей. Если Вы хотите заказать профессиональную
                   фото-сессию, отправьте нам сообщение на эл. адрес:{" "}
-                  <Link href="your.seduction.us@protonmail.com">
+                  <Link href="mailto:your.seduction.us@protonmail.com">
                     <a className="text-contacts">
                       your.seduction.us@protonmail.com
                     </a>

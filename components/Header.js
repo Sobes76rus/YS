@@ -100,6 +100,7 @@ const Header = (props) => {
                           .sort((a, b) => a.Sort - b.Sort)
                           .map((service) => (
                             <DropDownRight
+                              onCollapse={onCollapse}
                               direction="right"
                               toggle={toggle}
                               service={service}
