@@ -83,7 +83,7 @@ const Contacts = (props) => {
                   <br />
                   Если Вы хотите разместить вашу анкету на нашем сайте,
                   отправьте нам сообщение на эл. адрес:{" "}
-                  <Link href="your.seduction.us@protonmail.com">
+                  <Link href="mailto:your.seduction.us@protonmail.com">
                     <a className="text-contacts">
                       your.seduction.us@protonmail.com
                     </a>
@@ -126,7 +126,7 @@ const Contacts = (props) => {
                 </svg>
                 <h4 className="ff-base text-white">Почта</h4>
 
-                <Link href="your.seduction.us@protonmail.com">
+                <Link href="mailto:your.seduction.us@protonmail.com">
                   <a className="text-contacts">
                     your.seduction.us@protonmail.com
                   </a>
