@@ -12,10 +12,10 @@ import useWindowSize from "../hooks/useWindowSize";
 export default function DropDownRight(props) {
   const windowSize = useWindowSize();
   const isSlim = windowSize.width <= "992";
-  const { service, toggle, onCollapse } = props;
+  const { service, toggle } = props;
+
   const onToggle = function () {
     toggle();
-    onCollapse();
   };
   const [btnDropright, setBtnDropright] = useState(false);
   const dropdownRightToggle = () => {

@@ -30,7 +30,7 @@ export async function getStaticProps() {
   );
 
   const services = await servicesRes.json();
-  
+
   const randomThree = (a, n) =>
     a.sort(() => Math.random() - Math.random()).slice(0, n);
 
@@ -54,6 +54,7 @@ export async function getStaticProps() {
       fixedBottom: true,
       title: "Homepage",
     },
+    revalidate: 60,
   };
 }
 
