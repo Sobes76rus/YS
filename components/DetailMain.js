@@ -44,10 +44,10 @@ export default function DetailMain({ product }) {
           >
             {showNumber ? (
               <NumberFormat
-                renderText={(value) => (
+                renderText={() => (
                   <h6 className="font-weight-bold m-0 p-0">
-                    <a className="link-purple" href="tel:+7(965)246-9191">
-                      +7(965)246-9191
+                    <a className="link-purple" href={`tel:${product.phone}`}>
+                      {product.phone}
                     </a>
                   </h6>
                 )}
