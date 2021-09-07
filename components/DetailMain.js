@@ -34,7 +34,7 @@ export default function DetailMain({ product }) {
       {/* <p className="mb-4 text-muted">{product.description.short}</p> */}
 
       <Row>
-        <Col sm="6" lg="12" xl="6" className="detail-option mb-4">
+        <Col sm="12" lg="12" xl="12" className="detail-option mb-4">
           <Button
             active={showNumber}
             outline
@@ -64,7 +64,7 @@ export default function DetailMain({ product }) {
             )}
           </Button>
           <h6 className="detail-option-heading mb-3">Услуги</h6>
-          <ButtonGroup>
+          <ButtonGroup className="flex-wrap">
             {product.uslugis.map((service, index) => (
               <Link
                 as={`/${service.tag}/`}
@@ -74,8 +74,7 @@ export default function DetailMain({ product }) {
                 <Button
                   outline
                   color="secondary"
-                  className="mr-3 w-100 text-capitalize border-0"
-                  size="sm"
+                  className="mr-3 text-capitalize border-0 profile"
                   key={index}
                 >
                   {service.name}
