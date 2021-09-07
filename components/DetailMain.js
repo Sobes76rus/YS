@@ -74,7 +74,7 @@ export default function DetailMain({ product }) {
                 <Button
                   outline
                   color="secondary"
-                  className="mr-3 text-capitalize border-0 profile"
+                  className="mr-3 text-capitalize border-0"
                   key={index}
                 >
                   {service.name}
