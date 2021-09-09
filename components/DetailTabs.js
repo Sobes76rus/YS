@@ -46,7 +46,6 @@ const DetailTabs = ({ product }) => {
     console.log("after render");
     setNewLocation();
   }, [product.city.name, product.metros[0].name]);
-  console.log(product);
 
   return (
     <section className="mt-0 h-25">

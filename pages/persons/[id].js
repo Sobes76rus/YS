@@ -1,9 +1,10 @@
 import { Container, Row, Col } from "reactstrap";
-import { useState } from "react";
+
 import Breadcrumbs from "../../components/Breadcrumbs";
 import useWindowSize from "../../hooks/useWindowSize";
 import DetailTabs from "../../components/DetailTabs";
 import DetailMain from "../../components/DetailMain";
+import ButtonsTab from "../../components/ButtonsTab";
 import getConfig from "next/config";
 import dynamic from "next/dynamic";
 import SwiperGallery from "../../components/SwiperGallery";
@@ -66,7 +67,6 @@ export async function getServerSideProps(ctx) {
 }
 
 export default function Detail(props) {
-  const [thumbsSwiper, setThumbsSwiper] = useState(null);
   const { personsData, allCards, breadcrumbs } = props;
   const windowSize = useWindowSize();
   const isSlim = windowSize.width <= "992";
@@ -90,12 +90,13 @@ export default function Detail(props) {
             >
               <Container>
                 <Breadcrumbs links={breadcrumbs} />
-
                 <DetailMain
                   className={`${isSlim && "width-100"}`}
                   product={personsData}
                 />
                 <DetailTabs product={personsData} />
+
+                <ButtonsTab product={personsData} />
               </Container>
             </Col>
           </Row>

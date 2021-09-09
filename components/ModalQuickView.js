@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { Button, ButtonGroup, ModalBody, Modal, Row, Col } from "reactstrap";
 import SwiperGallery from "../components/SwiperGallery";
+import ButtonsTab from "./ButtonsTab";
 
 const ModalQuickView = ({ isOpen, toggle, product }) => {
   return (
@@ -61,25 +62,8 @@ const ModalQuickView = ({ isOpen, toggle, product }) => {
               className="mb-4 text-muted"
               dangerouslySetInnerHTML={{ __html: product.opisanie }}
             ></p>
-            <Col sm="6" lg="12" className="detail-option mb-4">
-              <h6 className="detail-option-heading">Услуги</h6>
-              <ButtonGroup className="flex-wrap ">
-                {product.uslugis.map((service, index) => (
-                  <Link
-                    href={`/filter-albums/?usligis.tag=${service.tag}`}
-                    key={index}
-                    passHref
-                  >
-                    <Button
-                      outline
-                      color="secondary"
-                      className="text-capitalize border-0"
-                    >
-                      {service.name}
-                    </Button>
-                  </Link>
-                ))}
-              </ButtonGroup>
+            <Col className="detail-option mb-4 p-0">
+              <ButtonsTab isPreOpen product={product} />
             </Col>
           </Col>
         </Row>

@@ -20,18 +20,11 @@ export default function DetailMain({ product }) {
         </span>
       </div>
       <div className="d-flex flex-column flex-sm-row align-items-sm-center justify-content-sm-between mb-5 ">
-        {/* <div className="h4 font-weight-light mb-0 mb-sm-0 mr-5">
-          {product.price} руб
-        </div> */}
-
         <div className="h4 font-weight-light mb-0 mb-sm-0 mr-5"></div>
         <div className="d-flex align-items-center">
-          <span className="text-muted text-uppercase text-sm mt-1">
-            {/* {product.reviewscount} reviews */}
-          </span>
+          <span className="text-muted text-uppercase text-sm mt-1"></span>
         </div>
       </div>
-      {/* <p className="mb-4 text-muted">{product.description.short}</p> */}
 
       <Row>
         <Col sm="12" lg="12" xl="12" className="detail-option mb-4">
@@ -63,25 +56,6 @@ export default function DetailMain({ product }) {
               </h6>
             )}
           </Button>
-          <h6 className="detail-option-heading mb-3">Услуги</h6>
-          <ButtonGroup className="flex-wrap">
-            {product.uslugis.map((service, index) => (
-              <Link
-                as={`/${service.tag}/`}
-                href={"/[categorie]"}
-                key={service.id}
-              >
-                <Button
-                  outline
-                  color="secondary"
-                  className="mr-3 text-capitalize border-0"
-                  key={index}
-                >
-                  {service.name}
-                </Button>
-              </Link>
-            ))}
-          </ButtonGroup>
         </Col>
       </Row>
     </>
