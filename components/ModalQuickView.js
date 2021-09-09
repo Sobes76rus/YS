@@ -57,15 +57,10 @@ const ModalQuickView = ({ isOpen, toggle, product }) => {
                 </span>
               </div>
             </div>
-            <p className="mb-4 text-muted">
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-              eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
-              enim ad minim veniam, quis nostrud exercitation ullamco laboris
-              nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in
-              reprehenderit in voluptate velit esse cillum dolore eu fugiat
-              nulla pariatur. Excepteur sint occaecat cupidatat non proident,
-              sunt in culpa qui officia deserunt mollit anim id est laborum.
-            </p>
+            <p
+              className="mb-4 text-muted"
+              dangerouslySetInnerHTML={{ __html: product.opisanie }}
+            ></p>
             <Col sm="6" lg="12" className="detail-option mb-4">
               <h6 className="detail-option-heading">Услуги</h6>
               <ButtonGroup>
