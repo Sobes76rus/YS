@@ -63,7 +63,7 @@ const ModalQuickView = ({ isOpen, toggle, product }) => {
             ></p>
             <Col sm="6" lg="12" className="detail-option mb-4">
               <h6 className="detail-option-heading">Услуги</h6>
-              <ButtonGroup>
+              <ButtonGroup className="flex-wrap ">
                 {product.uslugis.map((service, index) => (
                   <Link
                     href={`/filter-albums/?usligis.tag=${service.tag}`}
@@ -71,11 +71,9 @@ const ModalQuickView = ({ isOpen, toggle, product }) => {
                     passHref
                   >
                     <Button
-                      tag="a"
                       outline
                       color="secondary"
-                      className=" align-self-center mr-3 w-100 text-capitalize border-0"
-                      size="sm"
+                      className="text-capitalize border-0"
                     >
                       {service.name}
                     </Button>
