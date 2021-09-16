@@ -56,7 +56,7 @@ export const getStaticProps = async (ctx) => {
       cards,
       categorie: categorie[0],
       fixedBottom: true,
-      title: categorie[0].name,
+      title: categorie[0].name ? categorie[0].name : categorie[0].title,
       breadcrumbs: {
         breadcrumbs: [
           {
@@ -78,11 +78,7 @@ const Categorie = ({ categorie, breadcrumbs, cards }) => (
   <Container>
     <Hero title={breadcrumbs.title} breadcrumbs={breadcrumbs.breadcrumbs} />
     <Container className="px-0">
-      {cards.length ? (
-        <h3 className="">{categorie.name}</h3>
-      ) : (
-        <p>Анкет не найдено</p>
-      )}
+      {cards.length ? <h1>{categorie.name}</h1> : <p>Анкет не найдено</p>}
 
       <Row>
         <Col className="products-grid">
