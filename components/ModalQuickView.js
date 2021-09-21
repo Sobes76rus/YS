@@ -53,9 +53,9 @@ const ModalQuickView = ({ isOpen, toggle, product }) => {
                   className="mr-2 mb-0"
                   secondColor="gray-300"
                 /> */}
-                <span className="text-muted text-capitalize link-purple">
+                {/* <span className="text-muted text-capitalize link-purple">
                   1 просмотр
-                </span>
+                </span> */}
               </div>
             </div>
             <p
