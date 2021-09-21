@@ -15,9 +15,9 @@ export default function DetailMain({ product }) {
     <>
       <div className="d-flex flex-column flex-sm-row align-items-sm-center justify-content-sm-between">
         <h1 className="mb-4">{product.name}</h1>
-        <span className="text-muted text-capitalize link-purple">
+        {/* <span className="text-muted text-capitalize link-purple">
           1 просмотр
-        </span>
+        </span> */}
       </div>
       <div className="d-flex flex-column flex-sm-row align-items-sm-center justify-content-sm-between mb-5 ">
         <div className="h4 font-weight-light mb-0 mb-sm-0 mr-5"></div>
