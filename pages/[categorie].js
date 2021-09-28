@@ -49,6 +49,7 @@ export const getStaticProps = async (ctx) => {
     `${publicRuntimeConfig.API_URL}/card-lookbooks?uslugis.tag=${ctx.params.categorie}`
   );
   const cards = await cardsRes.json();
+
   return {
     props: {
       navigation,
@@ -56,7 +57,7 @@ export const getStaticProps = async (ctx) => {
       cards,
       categorie: categorie[0],
       fixedBottom: true,
-      title: categorie[0].name ? categorie[0].name : categorie[0].title,
+      title: categorie[0].title ? categorie[0].title : categorie[0].name,
       breadcrumbs: {
         breadcrumbs: [
           {

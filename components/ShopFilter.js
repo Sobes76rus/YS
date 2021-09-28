@@ -138,6 +138,26 @@ const ShopFilter = ({
     changeFilter(newQuery);
   }
 
+  const debounceSliderMax = (evt, queryParam, income) => {
+    const newQuery = { ...queryRef.current };
+    if (parseFloat(evt.target.value).toFixed(0) < income) {
+      newQuery[queryParam] = evt.target.value;
+    } else {
+      delete newQuery[queryParam];
+    }
+    changeFilter(newQuery);
+  };
+
+  const debounceSliderMin = (evt, queryParam, income) => {
+    const newQuery = { ...queryRef.current };
+    if (parseFloat(evt.target.value).toFixed(0) > income) {
+      newQuery[queryParam] = evt.target.value;
+    } else {
+      delete newQuery[queryParam];
+    }
+    changeFilter(newQuery);
+  };
+
   const debouncedHandleChange = (evt) => {
     const u = [];
 
@@ -181,12 +201,22 @@ const ShopFilter = ({
               <div className="min d-flex align-items-center">
                 <p className="m-0 pr-2">от</p>
                 <div className="mr-2">
-                  <Input placeholder={priceMin} />
+                  <Input
+                    placeholder={priceMin}
+                    onChange={_.debounce((e) =>
+                      debounceSliderMin(e, "priceMin", minPrice)
+                    )}
+                  />
                 </div>{" "}
               </div>
               <div className="max d-flex align-items-center">
                 <p className="m-0 pr-2">до</p>
-                <Input placeholder={priceMax} />
+                <Input
+                  placeholder={priceMax}
+                  onChange={_.debounce((e) =>
+                    debounceSliderMax(e, "priceMax", maxPrice)
+                  )}
+                />
               </div>
             </Form>
           </ListGroupItem>
@@ -205,12 +235,22 @@ const ShopFilter = ({
               <div className="min d-flex align-items-center">
                 <p className="m-0 pr-2">от</p>
                 <div className="mr-2">
-                  <Input placeholder={dickMin} />
+                  <Input
+                    placeholder={dickMin}
+                    onChange={_.debounce((e) =>
+                      debounceSliderMin(e, "dickMin", minDick)
+                    )}
+                  />
                 </div>{" "}
               </div>
               <div className="max d-flex align-items-center">
                 <p className="m-0 pr-2">до</p>
-                <Input placeholder={dickMax} />
+                <Input
+                  placeholder={dickMax}
+                  onChange={_.debounce((e) =>
+                    debounceSliderMax(e, "dickMax", maxDick)
+                  )}
+                />
               </div>
             </Form>
           </ListGroupItem>
@@ -229,12 +269,22 @@ const ShopFilter = ({
               <div className="min d-flex align-items-center">
                 <p className="m-0 pr-2">от</p>
                 <div className="mr-2">
-                  <Input placeholder={breastMin} />
+                  <Input
+                    placeholder={breastMin}
+                    onChange={_.debounce((e) =>
+                      debounceSliderMin(e, "breastMin", minBreast)
+                    )}
+                  />
                 </div>{" "}
               </div>
               <div className="max d-flex align-items-center">
                 <p className="m-0 pr-2">до</p>
-                <Input placeholder={breastMax} />
+                <Input
+                  placeholder={breastMax}
+                  onChange={_.debounce((e) =>
+                    debounceSliderMax(e, "breastMax", maxBreast)
+                  )}
+                />
               </div>
             </Form>
           </ListGroupItem>
