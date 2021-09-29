@@ -202,6 +202,7 @@ const ShopFilter = ({
                 <p className="m-0 pr-2">от</p>
                 <div className="mr-2">
                   <Input
+                    type="number"
                     placeholder={priceMin}
                     onChange={_.debounce((e) =>
                       debounceSliderMin(e, "priceMin", minPrice)
@@ -212,6 +213,7 @@ const ShopFilter = ({
               <div className="max d-flex align-items-center">
                 <p className="m-0 pr-2">до</p>
                 <Input
+                  type="number"
                   placeholder={priceMax}
                   onChange={_.debounce((e) =>
                     debounceSliderMax(e, "priceMax", maxPrice)
@@ -236,6 +238,7 @@ const ShopFilter = ({
                 <p className="m-0 pr-2">от</p>
                 <div className="mr-2">
                   <Input
+                    type="number"
                     placeholder={dickMin}
                     onChange={_.debounce((e) =>
                       debounceSliderMin(e, "dickMin", minDick)
@@ -246,6 +249,7 @@ const ShopFilter = ({
               <div className="max d-flex align-items-center">
                 <p className="m-0 pr-2">до</p>
                 <Input
+                  type="number"
                   placeholder={dickMax}
                   onChange={_.debounce((e) =>
                     debounceSliderMax(e, "dickMax", maxDick)
@@ -270,6 +274,7 @@ const ShopFilter = ({
                 <p className="m-0 pr-2">от</p>
                 <div className="mr-2">
                   <Input
+                    type="number"
                     placeholder={breastMin}
                     onChange={_.debounce((e) =>
                       debounceSliderMin(e, "breastMin", minBreast)
@@ -280,6 +285,7 @@ const ShopFilter = ({
               <div className="max d-flex align-items-center">
                 <p className="m-0 pr-2">до</p>
                 <Input
+                  type="number"
                   placeholder={breastMax}
                   onChange={_.debounce((e) =>
                     debounceSliderMax(e, "breastMax", maxBreast)
