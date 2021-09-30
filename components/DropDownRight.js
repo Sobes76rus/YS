@@ -37,12 +37,14 @@ export default function DropDownRight(props) {
             href={"/[categorie]"}
             key={subService.id}
           >
-            <DropdownItem
-              onClick={onToggle}
-              className="w-100 btn-toggle-purple m-0 rounded-0"
-            >
-              {subService.name}
-            </DropdownItem>
+            <a className="text-decoration-none">
+              <DropdownItem
+                onClick={onToggle}
+                className="w-100 btn-toggle-purple m-0 rounded-0"
+              >
+                {subService.name}
+              </DropdownItem>
+            </a>
           </Link>
         ))}
       </DropdownMenu>
