@@ -52,7 +52,7 @@ export async function getStaticProps() {
       headerAbsolute: true,
       bgHoverPurple: true,
       fixedBottom: true,
-      title: "Homepage",
+      title: "Транссексуалы города Москвы",
     },
     revalidate: 60,
   };
