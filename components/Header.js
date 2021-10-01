@@ -1,6 +1,7 @@
 import React, { useState, useRef } from "react";
 import useWindowSize from "../hooks/useWindowSize";
-import DropDownRight from "./DropDownRight";
+import DropDownRightServices from "./DropDownRightServices";
+import DropDownRightFastFilters from "./DropDownRightFastFilters";
 import Link from "next/link";
 
 import {
@@ -16,9 +17,13 @@ import {
 } from "reactstrap";
 
 const Header = (props) => {
-  const { navigation, collapsed, onCollapse, services } = props;
-  const [dropdownOpen, setDropdownOpen] = useState(false);
-  const toggle = () => setDropdownOpen((prevState) => !prevState);
+  const { navigation, collapsed, onCollapse, services, ceoPages } = props;
+  const [dropdownOpenCategories, setDropdownOpenCategories] = useState(false);
+  const [dropdownOpenFastFilters, setDropdownOpenFastFilters] = useState(false);
+  const toggleCategoties = () =>
+    setDropdownOpenCategories((prevState) => !prevState);
+  const toggleFastFilters = () =>
+    setDropdownOpenFastFilters((prevState) => !prevState);
   const navbarRef = useRef(null);
   const windowSize = useWindowSize();
   const isSlim = windowSize.width <= "992";
@@ -84,14 +89,14 @@ const Header = (props) => {
                     </li>
                     <Dropdown
                       className="nav-link main_text-color cursor-pointer"
-                      isOpen={dropdownOpen}
-                      toggle={toggle}
+                      isOpen={dropdownOpenCategories}
+                      toggle={toggleCategoties}
                     >
                       <DropdownToggle
                         caret
                         tag="span"
                         data-toggle="dropdown"
-                        aria-expanded={dropdownOpen}
+                        aria-expanded={dropdownOpenCategories}
                       >
                         {navigation[3].Title}
                       </DropdownToggle>
@@ -99,19 +104,39 @@ const Header = (props) => {
                         {services
                           .sort((a, b) => a.Sort - b.Sort)
                           .map((service) => (
-                            <DropDownRight
+                            <DropDownRightServices
                               direction="right"
-                              toggle={toggle}
+                              toggle={toggleCategoties}
                               service={service}
                               key={service.id}
                             />
                           ))}
                       </DropdownMenu>
                     </Dropdown>
-                    <li
-                      className="nav-link main_text-color"
-                      key={navigation[3]._id}
-                    ></li>
+                    <Dropdown
+                      className="nav-link main_text-color cursor-pointer"
+                      isOpen={dropdownOpenFastFilters}
+                      toggle={toggleFastFilters}
+                    >
+                      <DropdownToggle
+                        caret
+                        tag="span"
+                        data-toggle="dropdown"
+                        aria-expanded={dropdownOpenFastFilters}
+                      >
+                        {navigation[4].Title}
+                      </DropdownToggle>
+                      <DropdownMenu>
+                        {ceoPages.map((page) => (
+                          <DropDownRightFastFilters
+                            direction="right"
+                            toggle={toggleFastFilters}
+                            page={page}
+                            key={page.id}
+                          />
+                        ))}
+                      </DropdownMenu>
+                    </Dropdown>
                   </>
                 )}
               </Nav>

@@ -30,13 +30,15 @@ export async function getStaticProps() {
   );
 
   const services = await servicesRes.json();
+  const ceoPagesRes = await fetch(`${publicRuntimeConfig.API_URL}/ceo-pages`);
+
+  const ceoPages = await ceoPagesRes.json();
 
   const randomThree = (a, n) =>
     a.sort(() => Math.random() - Math.random()).slice(0, n);
 
   const randomAlbums = randomThree(albums, 3);
   const randomSix = randomThree(cardPhotos, 8);
-
   return {
     props: {
       nav: {
@@ -46,6 +48,7 @@ export async function getStaticProps() {
       navigation,
       cardPhotos,
       services,
+      ceoPages,
       albums,
       randomSix,
       navbarHoverLight: true,

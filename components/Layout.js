@@ -7,6 +7,7 @@ const Layout = (pageProps) => {
   const [paddingTop, setPaddingTop] = useState(0);
   const headerProps = {
     services: pageProps.services,
+    ceoPages: pageProps.ceoPages,
     navigation: pageProps.navigation,
     headerAbsolute: pageProps.headerAbsolute,
     navbarHoverLight: pageProps.navbarHoverLight,

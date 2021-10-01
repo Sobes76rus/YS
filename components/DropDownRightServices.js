@@ -9,7 +9,7 @@ import Link from "next/link";
 
 import useWindowSize from "../hooks/useWindowSize";
 
-export default function DropDownRight(props) {
+export default function DropDownRightServices(props) {
   const windowSize = useWindowSize();
   const isSlim = windowSize.width <= "992";
   const { service, toggle } = props;
