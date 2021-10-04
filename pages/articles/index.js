@@ -21,6 +21,9 @@ export async function getStaticProps() {
     `${publicRuntimeConfig.API_URL}/uslugi-groups`
   );
   const services = await servicesRes.json();
+  const ceoPagesRes = await fetch(`${publicRuntimeConfig.API_URL}/ceo-pages`);
+  const ceoPages = await ceoPagesRes.json();
+
   return {
     props: {
       navbarHoverLight: true,
@@ -30,6 +33,7 @@ export async function getStaticProps() {
       navigation,
       posts,
       services,
+      ceoPages,
       title: "Блог",
     },
   };
