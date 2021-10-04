@@ -7,7 +7,8 @@ import { Container, Button } from "reactstrap";
 
 export async function getStaticProps() {
   const { publicRuntimeConfig } = getConfig();
-
+  const ceoPagesRes = await fetch(`${publicRuntimeConfig.API_URL}/ceo-pages`);
+  const ceoPages = await ceoPagesRes.json();
   const navRes = await fetch(`${publicRuntimeConfig.API_URL}/navigations`);
   const navigation = await navRes.json();
   const servicesRes = await fetch(
@@ -24,6 +25,7 @@ export async function getStaticProps() {
         color: "transparent",
       },
       navigation,
+      ceoPages,
       services,
       headerAbsolute: true,
       title: "404",

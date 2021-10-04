@@ -9,6 +9,8 @@ export async function getStaticProps() {
     `${publicRuntimeConfig.API_URL}/contacts-photos`
   );
   const contactsPhotos = await contactsPhotosRes.json();
+  const ceoPagesRes = await fetch(`${publicRuntimeConfig.API_URL}/ceo-pages`);
+  const ceoPages = await ceoPagesRes.json();
   const navRes = await fetch(`${publicRuntimeConfig.API_URL}/navigations`);
   const navigation = await navRes.json();
   const servicesRes = await fetch(
@@ -25,6 +27,7 @@ export async function getStaticProps() {
       contactsPhotos,
       navigation,
       services,
+      ceoPages,
       title: "Контакты",
       breadcrumbs: {
         title: "Контакты",

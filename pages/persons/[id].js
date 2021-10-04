@@ -26,6 +26,8 @@ export async function getServerSideProps(ctx) {
     `${publicRuntimeConfig.API_URL}/uslugi-groups`
   );
   const services = await servicesRes.json();
+  const ceoPagesRes = await fetch(`${publicRuntimeConfig.API_URL}/ceo-pages`);
+  const ceoPages = await ceoPagesRes.json();
   const allCardsFetch = await fetch(
     `${publicRuntimeConfig.API_URL}/card-lookbooks/`
   );
@@ -43,6 +45,7 @@ export async function getServerSideProps(ctx) {
       bgHoverPurple: true,
       allCards,
       services,
+      ceoPages,
       personsData,
       navigation,
       title: personsData.name,

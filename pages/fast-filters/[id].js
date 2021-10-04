@@ -48,7 +48,7 @@ export const getStaticProps = async (ctx) => {
     `${publicRuntimeConfig.API_URL}/card-lookbooks?uslugis.tag=${ctx.params.categorie}`
   );
   const cards = await cardsRes.json();
-  console.log(ceoPages);
+
   return {
     props: {
       navigation,
