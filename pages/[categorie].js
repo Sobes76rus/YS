@@ -37,6 +37,8 @@ export const getStaticProps = async (ctx) => {
   const { publicRuntimeConfig } = getConfig();
   const navRes = await fetch(`${publicRuntimeConfig.API_URL}/navigations`);
   const navigation = await navRes.json();
+  const ceoPagesRes = await fetch(`${publicRuntimeConfig.API_URL}/ceo-pages`);
+  const ceoPages = await ceoPagesRes.json();
   const servicesRes = await fetch(
     `${publicRuntimeConfig.API_URL}/uslugi-groups`
   );
@@ -55,6 +57,7 @@ export const getStaticProps = async (ctx) => {
       navigation,
       services,
       cards,
+      ceoPages,
       categorie: categorie[0],
       fixedBottom: true,
       title: categorie[0].title ? categorie[0].title : categorie[0].name,
