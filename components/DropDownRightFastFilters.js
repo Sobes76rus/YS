@@ -13,7 +13,7 @@ export default function DropDownRightServices(props) {
   const windowSize = useWindowSize();
   const isSlim = windowSize.width <= "992";
   const { page, toggle } = props;
-  console.log(page);
+
   const onToggle = function () {
     toggle();
   };
@@ -21,10 +21,14 @@ export default function DropDownRightServices(props) {
   const dropdownRightToggle = () => {
     setBtnDropright((prevState) => !prevState);
   };
-  console.log(page);
+
   return (
     <Dropdown {...props} isOpen={btnDropright} toggle={dropdownRightToggle}>
-      <Link as={`/${page.tag}/`} href={"/[categorie]"} key={page.id}>
+      <Link
+        as={`/fast-filters/${page.tag}/`}
+        href={"/fast-filters/[id]"}
+        key={page.id}
+      >
         <a className="text-decoration-none">
           <DropdownItem
             color="disabled"
