@@ -33,6 +33,22 @@ const Layout = (pageProps) => {
       className="mt-auto"
     >
       <Head>
+        <meta
+          name="description"
+          content={`${
+            pageProps.description ? pageProps.description : "Description"
+          }`}
+          key="description"
+        />
+        {/* <meta
+          property="og:description"
+          content={`${
+            pageProps.description ? pageProps.description : "Description"
+          }`}
+          key="description"
+        /> */}
+        <meta property="title" content={pageProps.title} key="title" />
+
         <link
           rel="stylesheet"
           href="https://fonts.googleapis.com/css2?family=Oswald:wght@200;400&display=swap"

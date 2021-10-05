@@ -53,9 +53,10 @@ export const getStaticProps = async (ctx) => {
     `${publicRuntimeConfig.API_URL}/uslugi-groups`
   );
   const services = await servicesRes.json();
-
+  console.log(ceoPage[0].Description);
   return {
     props: {
+      description: ceoPage[0].Description,
       navigation,
       services,
       cards,
