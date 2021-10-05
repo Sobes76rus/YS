@@ -40,6 +40,7 @@ const Layout = (pageProps) => {
           }`}
           key="description"
         />
+        <meta name="yandex-verification" content="f1aaafcf455ede6c" />
         {/* <meta
           property="og:description"
           content={`${
