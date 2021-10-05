@@ -11,6 +11,7 @@ import {
 } from "reactstrap";
 import dynamic from "next/dynamic";
 import Hero from "../../components/Hero";
+import getCardsUrl from "../side-effects/getCardsUrl";
 
 const LayoutGrid = dynamic(() => import("../../components/LayoutGrid"), {
   ssr: false,
@@ -40,14 +41,18 @@ export const getStaticProps = async (ctx) => {
   const navigation = await navRes.json();
   const ceoPagesRes = await fetch(`${publicRuntimeConfig.API_URL}/ceo-pages`);
   const ceoPages = await ceoPagesRes.json();
+  const ceoPageRes = await fetch(
+    `${publicRuntimeConfig.API_URL}/ceo-pages?tag=${ctx.params.id}`
+  );
+  const ceoPage = await ceoPageRes.json();
+  const cardsRes = await fetch(getCardsUrl(ceoPage[0].url_filter));
+
+  const cards = await cardsRes.json();
+
   const servicesRes = await fetch(
     `${publicRuntimeConfig.API_URL}/uslugi-groups`
   );
   const services = await servicesRes.json();
-  const cardsRes = await fetch(
-    `${publicRuntimeConfig.API_URL}/card-lookbooks?uslugis.tag=${ctx.params.categorie}`
-  );
-  const cards = await cardsRes.json();
 
   return {
     props: {
@@ -55,8 +60,9 @@ export const getStaticProps = async (ctx) => {
       services,
       cards,
       ceoPages,
+      ceoPage: ceoPage[0],
       fixedBottom: true,
-      title: ceoPages[0].Title,
+      title: ceoPage[0].Title,
       breadcrumbs: {
         breadcrumbs: [
           {
@@ -75,17 +81,17 @@ export const getStaticProps = async (ctx) => {
   };
 };
 
-const FastFilters = ({ ceoPages, breadcrumbs, cards }) => (
+const FastFilters = ({ ceoPage, breadcrumbs, cards }) => (
   <Container>
     <Hero title={breadcrumbs.title} breadcrumbs={breadcrumbs.breadcrumbs} />
-    {/* <Container className="px-0">
-      {cards.length ? <h1>{categorie.name}</h1> : <p>Анкет не найдено</p>}
+    <Container className="px-0">
+      {cards.length ? <h1>{ceoPage.Title}</h1> : <p>Анкет не найдено</p>}
       <Row>
         <Col className="products-grid">
           <LayoutGrid cards={cards} />
         </Col>
       </Row>
-    </Container> */}
+    </Container>
   </Container>
 );
 export default FastFilters;

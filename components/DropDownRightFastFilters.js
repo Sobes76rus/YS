@@ -31,6 +31,7 @@ export default function DropDownRightServices(props) {
       >
         <a className="text-decoration-none">
           <DropdownItem
+            onClick={onToggle}
             color="disabled"
             className="w-100 btn-toggle-purple m-0 rounded-0 text-left top-50"
           >

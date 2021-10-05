@@ -18,7 +18,7 @@ import {
 
 const Header = (props) => {
   const { navigation, collapsed, onCollapse, services, ceoPages } = props;
-  console.log(ceoPages);
+
   const [dropdownOpenCategories, setDropdownOpenCategories] = useState(false);
   const [dropdownOpenFastFilters, setDropdownOpenFastFilters] = useState(false);
   const toggleCategoties = () =>
