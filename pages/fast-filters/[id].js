@@ -11,7 +11,7 @@ import {
 } from "reactstrap";
 import dynamic from "next/dynamic";
 import Hero from "../../components/Hero";
-import getCardsUrl from "../side-effects/getCardsUrl";
+import getCardsUrl from "../../side-effects/getCardsUrl";
 
 const LayoutGrid = dynamic(() => import("../../components/LayoutGrid"), {
   ssr: false,

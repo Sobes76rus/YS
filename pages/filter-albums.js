@@ -15,7 +15,7 @@ import getConfig from "next/config";
 
 import Hero from "../components/Hero";
 import ShopFilter from "../components/ShopFilter";
-import getCardsUrl from "./side-effects/getCardsUrl";
+import getCardsUrl from "../side-effects/getCardsUrl";
 import "rc-slider/assets/index.css";
 import _ from "lodash";
 import dynamic from "next/dynamic";
