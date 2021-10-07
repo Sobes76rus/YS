@@ -13,7 +13,7 @@ import dynamic from "next/dynamic";
 import Hero from "../../components/Hero";
 
 const LayoutGrid = dynamic(() => import("../../components/LayoutGrid"), {
-  ssr: false,
+  ssr: true,
   loading: () => <>Loading...</>,
 });
 
@@ -74,7 +74,7 @@ export const getStaticProps = async (ctx) => {
           },
         ],
       },
-      revalidate: 60,
+      revalidate: 1,
     },
   };
 };
