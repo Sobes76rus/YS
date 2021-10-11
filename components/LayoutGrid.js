@@ -25,7 +25,7 @@ export default function LayoutGrid({ cards }) {
     //   </Masonry>
     // </ResponsiveMasonry>
     <Container fluid style={{ marginTop: "50px" }}>
-      <Row xs="4">
+      <Row xs="2" lg="3" xl="4">
         {cards.map((value) => (
           <Col key={value.id} style={{ alignSelf: "center" }}>
             <div style={{ marginTop: "-30px" }}>
