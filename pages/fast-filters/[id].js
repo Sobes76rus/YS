@@ -12,11 +12,12 @@ import {
 import dynamic from "next/dynamic";
 import Hero from "../../components/Hero";
 import getCardsUrl from "../../side-effects/getCardsUrl";
+import LayoutGrid from "../../components/LayoutGrid";
 
-const LayoutGrid = dynamic(() => import("../../components/LayoutGrid"), {
-  ssr: false,
-  loading: () => <>Loading...</>,
-});
+// const LayoutGrid = dynamic(() => import("../../components/LayoutGrid"), {
+//   ssr: false,
+//   loading: () => <>Loading...</>,
+// });
 
 export const getStaticPaths = async () => {
   const { publicRuntimeConfig } = getConfig();

@@ -8,14 +8,15 @@ import ButtonsTab from "../../components/ButtonsTab";
 import getConfig from "next/config";
 import dynamic from "next/dynamic";
 import SwiperGallery from "../../components/SwiperGallery";
+import SwiperProducts from "../../components/SwiperProducts";
 
-const SwiperProducts = dynamic(
-  () => import("../../components/SwiperProducts"),
-  {
-    ssr: false,
-    loading: () => <>Loading...</>,
-  }
-);
+// const SwiperProducts = dynamic(
+//   () => import("../../components/SwiperProducts"),
+//   {
+//     ssr: false,
+//     loading: () => <>Loading...</>,
+//   }
+// );
 
 export async function getServerSideProps(ctx) {
   const { publicRuntimeConfig } = getConfig();

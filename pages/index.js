@@ -9,11 +9,12 @@ import SwiperCore, {
 import dynamic from "next/dynamic";
 import { Swiper, SwiperSlide } from "swiper/react";
 import getConfig from "next/config";
+import LayoutGrid from "../components/LayoutGrid";
 
-const LayoutGrid = dynamic(() => import("../components/LayoutGrid"), {
-  ssr: false,
-  loading: () => <>Loading...</>,
-});
+// const LayoutGrid = dynamic(() => import("../components/LayoutGrid"), {
+//   ssr: false,
+//   loading: () => <>Loading...</>,
+// });
 
 SwiperCore.use([Navigation, Pagination, Scrollbar, Autoplay, Parallax]);
 

@@ -19,11 +19,12 @@ import getCardsUrl from "../side-effects/getCardsUrl";
 import "rc-slider/assets/index.css";
 import _ from "lodash";
 import dynamic from "next/dynamic";
+import LayoutGrid from "../components/LayoutGrid";
 
-const LayoutGrid = dynamic(() => import("../components/LayoutGrid"), {
-  ssr: false,
-  loading: () => <>Loading...</>,
-});
+// const LayoutGrid = dynamic(() => import("../components/LayoutGrid"), {
+//   ssr: false,
+//   loading: () => <>Loading...</>,
+// });
 
 const FilterAlbums = (props) => {
   const {
