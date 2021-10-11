@@ -11,11 +11,12 @@ import {
 } from "reactstrap";
 import dynamic from "next/dynamic";
 import Hero from "../../components/Hero";
+import LayoutGrid from "../../components/LayoutGrid";
 
-const LayoutGrid = dynamic(() => import("../../components/LayoutGrid"), {
-  ssr: true,
-  loading: () => <>Loading...</>,
-});
+// const LayoutGrid = dynamic(() => import("../../components/LayoutGrid"), {
+//   ssr: true,
+//   loading: () => <>Loading...</>,
+// });
 
 export const getStaticPaths = async () => {
   const { publicRuntimeConfig } = getConfig();
