@@ -108,6 +108,29 @@ const DetailTabs = ({ product }) => {
                   <tbody>
                     <tr>
                       <th className="text-uppercase font-weight-normal pl-0">
+                        Цвет волос
+                      </th>
+                      <td className={"text-muted"}>
+                        {product.hair
+                          ? (() => {
+                              switch (product.hair) {
+                                case "blonde":
+                                  return "Блондинка";
+                                case "brunette":
+                                  return "Брюнетка";
+                                case "red":
+                                  return "Рыжая";
+                                case "brown":
+                                  return "Шатенка";
+                                default:
+                                  return "";
+                              }
+                            })()
+                          : ""}
+                      </td>
+                    </tr>
+                    <tr>
+                      <th className="text-uppercase font-weight-normal pl-0">
                         Возраст
                       </th>
                       <td className="text-muted">{product.age}</td>
@@ -121,9 +144,17 @@ const DetailTabs = ({ product }) => {
                     </tr>
                     <tr>
                       <th className="text-uppercase font-weight-normal pl-0">
-                        Член
+                        Длина члена
                       </th>
                       <td className={"text-muted"}>{product.dick_size}</td>
+                    </tr>
+                    <tr>
+                      <th className="text-uppercase font-weight-normal pl-0">
+                        Диаметр члена
+                      </th>
+                      <td className={"text-muted"}>
+                        {product.dick_round ? product.dick_round : ""}
+                      </td>
                     </tr>
                     <tr>
                       <th className="text-uppercase font-weight-normal pl-0">

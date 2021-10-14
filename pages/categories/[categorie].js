@@ -61,6 +61,7 @@ export const getStaticProps = async (ctx) => {
       ceoPages,
       categorie: categorie[0],
       fixedBottom: true,
+      description: categorie[0].description,
       title: categorie[0].title ? categorie[0].title : categorie[0].name,
       breadcrumbs: {
         breadcrumbs: [

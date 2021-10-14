@@ -294,6 +294,42 @@ const ShopFilter = ({
               </div>
             </Form>
           </ListGroupItem>
+          {/* <ListGroupItem className="border-0 p-0">
+            <h3 className="sidebar-heading main">Диаметр члена</h3>
+            <Nouislider
+              className="w-100"
+              key={2}
+              range={{ min: 0, max: 10 }}
+              start={[0, 10]}
+              // onSlide={onUpdateBreastSlider}
+              connect
+              step={1}
+            />
+            <Form className="nouislider-values">
+              <div className="min d-flex align-items-center">
+                <p className="m-0 pr-2">от</p>
+                <div className="mr-2">
+                  <Input
+                    type="number"
+                    placeholder={breastMin}
+                    onChange={_.debounce((e) =>
+                      debounceSliderMin(e, "breastMin", minBreast)
+                    )}
+                  />
+                </div>{" "}
+              </div>
+              <div className="max d-flex align-items-center">
+                <p className="m-0 pr-2">до</p>
+                <Input
+                  type="number"
+                  placeholder={breastMax}
+                  onChange={_.debounce((e) =>
+                    debounceSliderMax(e, "breastMax", maxBreast)
+                  )}
+                />
+              </div>
+            </Form>
+          </ListGroupItem> */}
         </ListGroup>
       </Col>
       <Col className="mb-3">
