@@ -25,7 +25,7 @@ export const getStaticPaths = async () => {
 
   const paths = uslugi.map((item) => {
     return {
-      params: { categorie: item.tag, fastFilter: item.tag },
+      params: { categorie: item.tag },
     };
   });
   return {

@@ -10,9 +10,12 @@ export default function getCardsUrl(query) {
   const dickSizeMin = query["dickMin"];
   const beastSizeMax = query["breastMax"];
   const breastSizeMin = query["breastMin"];
+  const dickRoundMax = query["dickRoundMax"];
+  const dickRoundMin = query["dickRoundMin"];
   const cityId = query["city.name"];
   const metroId = query["metro.name"];
   const uslugiTags = query["usligis.name"];
+  const hairTag = query["hair"];
 
   if (priceTagMore) {
     url.searchParams.append("price_gte", priceTagMore);
@@ -25,6 +28,12 @@ export default function getCardsUrl(query) {
   }
   if (dickSizeMin) {
     url.searchParams.append("dick_size_gte", dickSizeMin);
+  }
+  if (dickRoundMax) {
+    url.searchParams.append("dick_round_lte", dickRoundMax);
+  }
+  if (dickRoundMin) {
+    url.searchParams.append("dick_round_gte", dickRoundMin);
   }
   if (beastSizeMax) {
     url.searchParams.append("breast_size_lte", beastSizeMax);
@@ -41,6 +50,9 @@ export default function getCardsUrl(query) {
   }
   if (uslugiTags) {
     url.searchParams.append("uslugis.name", uslugiTags);
+  }
+  if (hairTag) {
+    url.searchParams.append("hair", hairTag);
   }
   url.searchParams.sort();
 

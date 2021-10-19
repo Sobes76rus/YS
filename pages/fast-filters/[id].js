@@ -1,14 +1,5 @@
 import getConfig from "next/config";
-import {
-  Container,
-  Row,
-  Col,
-  Collapse,
-  Button,
-  CardBody,
-  Card,
-  Jumbotron,
-} from "reactstrap";
+import { Container, Row, Col } from "reactstrap";
 import dynamic from "next/dynamic";
 import Hero from "../../components/Hero";
 import getCardsUrl from "../../side-effects/getCardsUrl";
@@ -46,15 +37,24 @@ export const getStaticProps = async (ctx) => {
     `${publicRuntimeConfig.API_URL}/ceo-pages?tag=${ctx.params.id}`
   );
   const ceoPage = await ceoPageRes.json();
-  const cardsRes = await fetch(getCardsUrl(ceoPage[0].url_filter));
+
+  const query = JSON.parse(
+    '{"' +
+      decodeURI(
+        ceoPage[0].url_filter.replace(/&/g, '","').replace(/=/g, '":"')
+      ) +
+      '"}'
+  );
+
+  const cardsRes = await fetch(getCardsUrl(query));
 
   const cards = await cardsRes.json();
-
+  // console.log(getCardsUrl(query));
   const servicesRes = await fetch(
     `${publicRuntimeConfig.API_URL}/uslugi-groups`
   );
   const services = await servicesRes.json();
-  console.log(ceoPage[0].Description);
+
   return {
     props: {
       description: ceoPage[0].Description,

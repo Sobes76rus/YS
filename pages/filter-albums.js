@@ -37,7 +37,7 @@ const FilterAlbums = (props) => {
     breadcrumbs,
   } = props;
   const { query, asPath } = useRouter();
-
+  console.log(query);
   const [isOpen, setIsOpen] = useState(false);
   const [isLoading, setLoading] = useState(false);
   const [cards, setCards] = useState(cardPhotos);
