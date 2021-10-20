@@ -73,7 +73,7 @@ export const getStaticProps = async (ctx) => {
             linkClass: "link-purple",
           },
           {
-            name: `${ceoPages[0].Title}`,
+            name: `${ceoPage[0].Title}`,
             active: true,
           },
         ],
@@ -87,7 +87,11 @@ const FastFilters = ({ ceoPage, breadcrumbs, cards }) => (
   <Container>
     <Hero title={breadcrumbs.title} breadcrumbs={breadcrumbs.breadcrumbs} />
     <Container className="px-0">
-      {cards.length ? <h1>{ceoPage.h1 ? ceoPage.h1 : ceoPage.Title}</h1> : <p>Анкет не найдено</p>}
+      {cards.length ? (
+        <h1>{ceoPage.h1 ? ceoPage.h1 : ceoPage.Title}</h1>
+      ) : (
+        <p>Анкет не найдено</p>
+      )}
       <Row>
         <Col className="products-grid">
           <LayoutGrid cards={cards} />
