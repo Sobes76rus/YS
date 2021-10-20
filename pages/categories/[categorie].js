@@ -85,7 +85,7 @@ const Categorie = ({ categorie, breadcrumbs, cards }) => (
   <Container>
     <Hero title={breadcrumbs.title} breadcrumbs={breadcrumbs.breadcrumbs} />
     <Container className="px-0">
-      {cards.length ? <h1>{categorie.name}</h1> : <p>Анкет не найдено</p>}
+      {cards.length ? <h1>{categorie.h1 ? categorie.h1 : categorie.name}</h1> : <p>Анкет не найдено</p>}
 
       <Row>
         <Col className="products-grid">
