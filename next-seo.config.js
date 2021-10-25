@@ -1,15 +1,11 @@
 export default {
-  title: "Next Albums",
-  description: "Database of albums created with Next.js and Strapi",
+  title: "Транссексуалы города Москвы",
+  description:
+    "Объявления настоящих Трансов и транссексуалок Москвы, огромное количество объявлений для знакомств с большим выбором откровенных фотографий",
   openGraph: {
     type: "website",
     locale: "en_IE",
-    url: "https://www.nextalbums.test",
-    site_name: "Next Albums",
-  },
-  twitter: {
-    handle: "@george_isaev",
-    site: "@ys",
-    cardType: "summary_large_image",
+    url: "https://yourseduction.us",
+    site_name: "Your Seduction",
   },
 };
