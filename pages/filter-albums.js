@@ -91,7 +91,9 @@ const FilterAlbums = (props) => {
   const randomCards = (a, n) =>
     a.sort(() => Math.random() - Math.random()).slice(0, n);
   randomCards(cards, 100);
-  return (
+  return isLoading ? (
+    "loading..."
+  ) : (
     <Container>
       <Hero title={breadcrumbs.title} breadcrumbs={breadcrumbs.breadcrumbs} />
       <Container className="d-flex flex-column align-items-center justify-content-center p-0 ">
