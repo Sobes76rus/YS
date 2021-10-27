@@ -197,11 +197,13 @@ img.bg-contain {
     line-height: 1.5;
 }
 
-.spinner {
-  margin-left: 50%;
+.spinner {  
   margin-top: 10%;
   color: $purple;
   width: 5rem;
   height: 5rem
+}
 
+.main-text-align {
+  text-align: center;
 }

@@ -4,6 +4,8 @@ import Footer from "./Footer";
 import { useEffect, useState } from "react";
 
 const Layout = (pageProps) => {
+  const { isLoading } = pageProps;
+
   const [paddingTop, setPaddingTop] = useState(0);
   const headerProps = {
     services: pageProps.services,
@@ -74,7 +76,9 @@ const Layout = (pageProps) => {
 
       <main
         onClick={() => setCollapsed(false)}
-        className={`main ${!pageProps.marginBottom && "pb-6"}`}
+        className={`main ${isLoading && "main-text-align"} ${
+          !pageProps.marginBottom && "pb-6"
+        }`}
       >
         {pageProps.children}
       </main>

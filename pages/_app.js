@@ -3,7 +3,6 @@ import Layout from "../components/Layout";
 import { DefaultSeo } from "next-seo";
 import SEO from "../next-seo.config";
 import ContextWrapper from "../contexts/ContextWrapper";
-import NextNprogress from "nextjs-progressbar";
 import NProgress from "nprogress";
 import { Spinner } from "reactstrap";
 import "nprogress/nprogress.css";
@@ -40,14 +39,7 @@ function MyApp({ Component, pageProps }) {
     <>
       <DefaultSeo {...SEO} />
       <ContextWrapper>
-        <Layout layout={Component.layout} {...pageProps}>
-          {/* <NextNprogress
-            color="#dac9f9"
-            startPosition={0.3}
-            stopDelayMs={200}
-            height={10}
-            showOnShallow={true}
-          /> */}
+        <Layout layout={Component.layout} isLoading={isLoading} {...pageProps}>
           {isLoading ? (
             <Spinner className="spinner" />
           ) : (
