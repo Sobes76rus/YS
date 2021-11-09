@@ -150,7 +150,9 @@ const Header = (props) => {
                   <Link href="/" passHref>
                     <a className="py-0 navbar-brand">
                       {!isSlim && (
-                        <h5 className="m-0 mx-1 pt-1">YOUR SEDUCTION</h5>
+                        <p className="m-0 mx-1 pt-1 font-weight-bold">
+                          YOUR SEDUCTION
+                        </p>
                       )}
                     </a>
                   </Link>

@@ -46,6 +46,7 @@ const DetailTabs = ({ product }) => {
     console.log("after render");
     setNewLocation();
   }, [product.city.name, product.metros[0].name]);
+  console.log(product);
 
   return (
     <section className="mt-0 h-25">
@@ -180,19 +181,26 @@ const DetailTabs = ({ product }) => {
                       <th className="text-uppercase font-weight-normal pl-0">
                         1 ЧАС
                       </th>
-                      <td className="text-muted">{product.price} &#8381;</td>
+                      <td className="text-muted">
+                        {product.price ? product.price : ""} &#8381;
+                      </td>
                     </tr>
                     <tr>
                       <th className="text-uppercase font-weight-normal pl-0">
                         2 ЧАСА
                       </th>
-                      <td className="text-muted">{product.price} &#8381;</td>
+                      <td className="text-muted">
+                        {product.price_2_hour ? product.price_2_hour : ""}{" "}
+                        &#8381;
+                      </td>
                     </tr>
                     <tr>
                       <th className="text-uppercase font-weight-normal pl-0">
                         НОЧЬ
                       </th>
-                      <td className="text-muted">{product.price} &#8381;</td>
+                      <td className="text-muted">
+                        {product.price_night ? product.price_night : ""} &#8381;
+                      </td>
                     </tr>
                   </tbody>
                 </Table>

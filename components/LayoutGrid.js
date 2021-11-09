@@ -28,7 +28,7 @@ export default function LayoutGrid({ cards }) {
       <Row xs="2" lg="3" xl="4">
         {cards.map((value) => (
           <Col key={value.id} style={{ alignSelf: "flex-start" }}>
-            <div style={{ marginTop: "-30px" }}>
+            <div style={{ marginTop: "-15px" }}>
               {isSlim ? (
                 <Product card={value} onlyViewButton />
               ) : (

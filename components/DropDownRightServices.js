@@ -30,7 +30,7 @@ export default function DropDownRightServices(props) {
       >
         {service.group_name}
       </DropdownToggle>
-      <DropdownMenu className={`${isSlim ? "mt-5 ml-7" : ""}`}>
+      <DropdownMenu>
         {service.uslugis.map((subService) => (
           <Link
             as={`/categories/${subService.tag}/`}
