@@ -10,6 +10,7 @@ import "../scss/style.default.scss";
 import "react-image-lightbox/style.css";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
+import { YMInitializer } from "react-yandex-metrika";
 
 function MyApp({ Component, pageProps }) {
   const router = useRouter();
@@ -39,6 +40,16 @@ function MyApp({ Component, pageProps }) {
     <>
       <DefaultSeo {...SEO} />
       <ContextWrapper>
+        <YMInitializer
+          accounts={[55422358]}
+          options={{
+            defer: true,
+            clickmap: true,
+            trackLinks: true,
+            accurateTrackBounce: true,
+          }}
+          version="2"
+        />
         <Layout layout={Component.layout} isLoading={isLoading} {...pageProps}>
           {isLoading ? (
             <Spinner className="spinner" />

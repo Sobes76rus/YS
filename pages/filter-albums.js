@@ -193,6 +193,11 @@ export async function getServerSideProps(ctx) {
   const ceoPageRes = await fetch(`${publicRuntimeConfig.API_URL}/ceo-pages`);
   const ceoPages = await ceoPageRes.json();
 
+  const ceoPagesGroupsRes = await fetch(
+    `${publicRuntimeConfig.API_URL}/ceo-pages-groups`
+  );
+  const ceoPagesGroups = await ceoPagesGroupsRes.json();
+
   if (ctx.query["metro.name"] && !ctx.query["city.name"]) {
     const newQuery = { ...ctx.query };
     delete newQuery["metro.name"];
@@ -237,6 +242,7 @@ export async function getServerSideProps(ctx) {
         ],
       },
       ceoPages,
+      ceoPagesGroups,
       navigation,
       artists: artistsData,
       genres: genresData,

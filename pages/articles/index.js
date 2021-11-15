@@ -23,6 +23,10 @@ export async function getStaticProps() {
   const services = await servicesRes.json();
   const ceoPagesRes = await fetch(`${publicRuntimeConfig.API_URL}/ceo-pages`);
   const ceoPages = await ceoPagesRes.json();
+  const ceoPagesGroupsRes = await fetch(
+    `${publicRuntimeConfig.API_URL}/ceo-pages-groups`
+  );
+  const ceoPagesGroups = await ceoPagesGroupsRes.json();
 
   return {
     props: {
@@ -34,6 +38,7 @@ export async function getStaticProps() {
       posts,
       services,
       ceoPages,
+      ceoPagesGroups,
       title: "Блог",
     },
   };

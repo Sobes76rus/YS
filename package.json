@@ -46,6 +46,7 @@
     "react-spinners": "^0.11.0",
     "react-stack-grid": "^0.7.1",
     "react-yandex-maps": "^4.6.0",
+    "react-yandex-metrika": "^2.6.0",
     "reactstrap": "^8.9.0",
     "sass": "^1.32.8",
     "sass-migrator": "^1.5.1",

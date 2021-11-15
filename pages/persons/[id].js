@@ -29,6 +29,10 @@ export async function getServerSideProps(ctx) {
   const services = await servicesRes.json();
   const ceoPagesRes = await fetch(`${publicRuntimeConfig.API_URL}/ceo-pages`);
   const ceoPages = await ceoPagesRes.json();
+  const ceoPagesGroupsRes = await fetch(
+    `${publicRuntimeConfig.API_URL}/ceo-pages-groups`
+  );
+  const ceoPagesGroups = await ceoPagesGroupsRes.json();
   const allCardsFetch = await fetch(
     `${publicRuntimeConfig.API_URL}/card-lookbooks/`
   );
@@ -47,6 +51,7 @@ export async function getServerSideProps(ctx) {
       allCards,
       services,
       ceoPages,
+      ceoPagesGroups,
       personsData,
       navigation,
       title: personsData.name,

@@ -14,6 +14,10 @@ export async function getStaticProps() {
   const servicesRes = await fetch(
     `${publicRuntimeConfig.API_URL}/uslugi-groups`
   );
+  const ceoPagesGroupsRes = await fetch(
+    `${publicRuntimeConfig.API_URL}/ceo-pages-groups`
+  );
+  const ceoPagesGroups = await ceoPagesGroupsRes.json();
 
   const services = await servicesRes.json();
   return {
@@ -26,6 +30,7 @@ export async function getStaticProps() {
       },
       navigation,
       ceoPages,
+      ceoPagesGroups,
       services,
       headerAbsolute: true,
       title: "404",

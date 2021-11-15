@@ -12,7 +12,7 @@ import useWindowSize from "../hooks/useWindowSize";
 export default function DropDownRightServices(props) {
   const windowSize = useWindowSize();
   const isSlim = windowSize.width <= "992";
-  const { page, toggle } = props;
+  const { service, toggle } = props;
 
   const onToggle = function () {
     toggle();
@@ -24,21 +24,31 @@ export default function DropDownRightServices(props) {
 
   return (
     <Dropdown {...props} isOpen={btnDropright} toggle={dropdownRightToggle}>
-      <Link
-        as={`/fast-filters/${page.tag}/`}
-        href={"/fast-filters/[id]"}
-        key={page.id}
+      <DropdownToggle
+        caret
+        color="disabled"
+        className="w-100 btn-toggle-purple m-0 rounded-0 text-left top-50"
       >
-        <a className="text-decoration-none">
-          <DropdownItem
-            onClick={onToggle}
-            color="disabled"
-            className="w-100 btn-toggle-purple m-0 rounded-0 text-left top-50"
+        {service.name}
+      </DropdownToggle>
+      <DropdownMenu>
+        {service.ceo_pages.map((subGroup) => (
+          <Link
+            as={`/fast-filters/${subGroup.tag}/`}
+            href={"/fast-filters/[id]"}
+            key={subGroup.id}
           >
-            {page.Title}
-          </DropdownItem>
-        </a>
-      </Link>
+            <a className="text-decoration-none">
+              <DropdownItem
+                onClick={onToggle}
+                className="w-100 btn-toggle-purple m-0 rounded-0"
+              >
+                {subGroup.Title}
+              </DropdownItem>
+            </a>
+          </Link>
+        ))}
+      </DropdownMenu>
     </Dropdown>
   );
 }

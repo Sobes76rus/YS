@@ -15,6 +15,10 @@ export async function getServerSideProps({ query }) {
   const services = await servicesRes.json();
   const ceoPagesRes = await fetch(`${publicRuntimeConfig.API_URL}/ceo-pages`);
   const ceoPages = await ceoPagesRes.json();
+  const ceoPagesGroupsRes = await fetch(
+    `${publicRuntimeConfig.API_URL}/ceo-pages-groups`
+  );
+  const ceoPagesGroups = await ceoPagesGroupsRes.json();
 
   const postRes = await fetch(
     `${publicRuntimeConfig.API_URL}/posts/?slug=${postSlug}`
@@ -25,6 +29,7 @@ export async function getServerSideProps({ query }) {
     props: {
       navigation,
       ceoPages,
+      ceoPagesGroups,
       services,
       post,
       navbarHoverLight: true,

@@ -29,11 +29,13 @@ export async function getStaticProps() {
   const servicesRes = await fetch(
     `${publicRuntimeConfig.API_URL}/uslugi-groups`
   );
-
   const services = await servicesRes.json();
   const ceoPagesRes = await fetch(`${publicRuntimeConfig.API_URL}/ceo-pages`);
-
   const ceoPages = await ceoPagesRes.json();
+  const ceoPagesGroupsRes = await fetch(
+    `${publicRuntimeConfig.API_URL}/ceo-pages-groups`
+  );
+  const ceoPagesGroups = await ceoPagesGroupsRes.json();
 
   const randomThree = (a, n) =>
     a.sort(() => Math.random() - Math.random()).slice(0, n);
@@ -50,6 +52,7 @@ export async function getStaticProps() {
       cardPhotos,
       services,
       ceoPages,
+      ceoPagesGroups,
       albums,
       randomSix,
       navbarHoverLight: true,

@@ -17,7 +17,14 @@ import {
 } from "reactstrap";
 
 const Header = (props) => {
-  const { navigation, collapsed, onCollapse, services, ceoPages } = props;
+  const {
+    navigation,
+    collapsed,
+    onCollapse,
+    services,
+    ceoPages,
+    ceoPagesGroups,
+  } = props;
 
   const [dropdownOpenCategories, setDropdownOpenCategories] = useState(false);
   const [dropdownOpenFastFilters, setDropdownOpenFastFilters] = useState(false);
@@ -128,12 +135,12 @@ const Header = (props) => {
                         {navigation[4].Title}
                       </DropdownToggle>
                       <DropdownMenu>
-                        {ceoPages.map((page) => (
+                        {ceoPagesGroups.map((group) => (
                           <DropDownRightFastFilters
                             direction="right"
                             toggle={toggleFastFilters}
-                            page={page}
-                            key={page.id}
+                            service={group}
+                            key={group.id}
                           />
                         ))}
                       </DropdownMenu>

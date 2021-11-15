@@ -52,6 +52,10 @@ export const getStaticProps = async (ctx) => {
     `${publicRuntimeConfig.API_URL}/card-lookbooks?uslugis.tag=${ctx.params.categorie}`
   );
   const cards = await cardsRes.json();
+  const ceoPagesGroupsRes = await fetch(
+    `${publicRuntimeConfig.API_URL}/ceo-pages-groups`
+  );
+  const ceoPagesGroups = await ceoPagesGroupsRes.json();
 
   return {
     props: {
@@ -59,6 +63,7 @@ export const getStaticProps = async (ctx) => {
       services,
       cards,
       ceoPages,
+      ceoPagesGroups,
       categorie: categorie[0],
       fixedBottom: true,
       description: categorie[0].description,
@@ -85,7 +90,11 @@ const Categorie = ({ categorie, breadcrumbs, cards }) => (
   <Container>
     <Hero title={breadcrumbs.title} breadcrumbs={breadcrumbs.breadcrumbs} />
     <Container className="px-0">
-      {cards.length ? <h1>{categorie.h1 ? categorie.h1 : categorie.name}</h1> : <p>Анкет не найдено</p>}
+      {cards.length ? (
+        <h1>{categorie.h1 ? categorie.h1 : categorie.name}</h1>
+      ) : (
+        <p>Анкет не найдено</p>
+      )}
 
       <Row>
         <Col className="products-grid">

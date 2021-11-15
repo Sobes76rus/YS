@@ -33,6 +33,7 @@ export const getStaticProps = async (ctx) => {
   const navigation = await navRes.json();
   const ceoPagesRes = await fetch(`${publicRuntimeConfig.API_URL}/ceo-pages`);
   const ceoPages = await ceoPagesRes.json();
+
   const ceoPageRes = await fetch(
     `${publicRuntimeConfig.API_URL}/ceo-pages?tag=${ctx.params.id}`
   );
@@ -54,6 +55,10 @@ export const getStaticProps = async (ctx) => {
     `${publicRuntimeConfig.API_URL}/uslugi-groups`
   );
   const services = await servicesRes.json();
+  const ceoPagesGroupsRes = await fetch(
+    `${publicRuntimeConfig.API_URL}/ceo-pages-groups`
+  );
+  const ceoPagesGroups = await ceoPagesGroupsRes.json();
 
   return {
     props: {
@@ -62,6 +67,7 @@ export const getStaticProps = async (ctx) => {
       services,
       cards,
       ceoPages,
+      ceoPagesGroups,
       ceoPage: ceoPage[0],
       fixedBottom: true,
       title: ceoPage[0].Title,
