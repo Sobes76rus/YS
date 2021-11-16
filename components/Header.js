@@ -114,7 +114,7 @@ const Header = (props) => {
                           .sort((a, b) => a.Sort - b.Sort)
                           .map((service) => (
                             <DropDownRightServices
-                              direction="right"
+                              direction={isSlim ? "down" : "right"}
                               toggle={toggleCategoties}
                               service={service}
                               key={service.id}
@@ -139,7 +139,7 @@ const Header = (props) => {
                       <DropdownMenu>
                         {ceoPagesGroups.map((group) => (
                           <DropDownRightFastFilters
-                            direction="right"
+                            direction={isSlim ? "down" : "right"}
                             toggle={toggleFastFilters}
                             service={group}
                             key={group.id}

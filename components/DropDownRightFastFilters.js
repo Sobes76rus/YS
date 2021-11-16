@@ -42,7 +42,7 @@ export default function DropDownRightServices(props) {
             <a className="text-decoration-none">
               <DropdownItem
                 onClick={onToggle}
-                className="w-100 btn-toggle-purple m-0 rounded-0"
+                className="w-100 btn-toggle-purple dark m-0 rounded-0"
               >
                 {subGroup.h1 ? subGroup.h1 : subGroup.Title}
               </DropdownItem>
