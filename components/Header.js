@@ -28,7 +28,6 @@ const Header = (props) => {
   const navbarRef = useRef(null);
   const windowSize = useWindowSize();
   const isSlim = windowSize.width <= "992";
-  console.log(collapsed);
 
   return (
     <header

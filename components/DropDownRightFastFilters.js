@@ -44,7 +44,7 @@ export default function DropDownRightServices(props) {
                 onClick={onToggle}
                 className="w-100 btn-toggle-purple m-0 rounded-0"
               >
-                {subGroup.Title}
+                {subGroup.h1 ? subGroup.h1 : subGroup.Title}
               </DropdownItem>
             </a>
           </Link>
