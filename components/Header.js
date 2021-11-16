@@ -17,14 +17,7 @@ import {
 } from "reactstrap";
 
 const Header = (props) => {
-  const {
-    navigation,
-    collapsed,
-    onCollapse,
-    services,
-    ceoPages,
-    ceoPagesGroups,
-  } = props;
+  const { navigation, collapsed, onCollapse, services, ceoPagesGroups } = props;
 
   const [dropdownOpenCategories, setDropdownOpenCategories] = useState(false);
   const [dropdownOpenFastFilters, setDropdownOpenFastFilters] = useState(false);
@@ -35,6 +28,7 @@ const Header = (props) => {
   const navbarRef = useRef(null);
   const windowSize = useWindowSize();
   const isSlim = windowSize.width <= "992";
+  console.log(collapsed);
 
   return (
     <header
@@ -50,9 +44,17 @@ const Header = (props) => {
           <Container fluid>
             <NavbarToggler
               onClick={(e) => isSlim && onCollapse(e)}
-              className="navbar-toggler-right"
+              className="navbar-toggler-right flex "
             >
               <i className="fa fa-bars"></i>
+
+              <Link href="/" passHref>
+                <a className="pl-4 navbar-brand selfCenter">
+                  {isSlim && (
+                    <p className="m-0 mx-1 font-weight-bold">YOUR SEDUCTION</p>
+                  )}
+                </a>
+              </Link>
             </NavbarToggler>
             <Collapse
               className="justify-content-md-between"
@@ -117,6 +119,7 @@ const Header = (props) => {
                               toggle={toggleCategoties}
                               service={service}
                               key={service.id}
+                              onCollapse={onCollapse}
                             />
                           ))}
                       </DropdownMenu>
@@ -141,6 +144,7 @@ const Header = (props) => {
                             toggle={toggleFastFilters}
                             service={group}
                             key={group.id}
+                            onCollapse={onCollapse}
                           />
                         ))}
                       </DropdownMenu>
