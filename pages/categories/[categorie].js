@@ -9,7 +9,7 @@ import {
   Card,
   Jumbotron,
 } from "reactstrap";
-import dynamic from "next/dynamic";
+import { useRouter } from "next/router";
 import Hero from "../../components/Hero";
 import LayoutGrid from "../../components/LayoutGrid";
 
@@ -86,22 +86,28 @@ export const getStaticProps = async (ctx) => {
   };
 };
 
-const Categorie = ({ categorie, breadcrumbs, cards }) => (
-  <Container>
-    <Hero title={breadcrumbs.title} breadcrumbs={breadcrumbs.breadcrumbs} />
-    <Container className="px-0">
-      {cards.length ? (
-        <h1>{categorie.h1 ? categorie.h1 : categorie.name}</h1>
-      ) : (
-        <p>Анкет не найдено</p>
-      )}
+const Categorie = ({ categorie, breadcrumbs, cards }) => {
+  const router = useRouter();
+  if (router.isFallback) {
+    return <div>Loading...</div>;
+  }
+  return (
+    <Container>
+      <Hero title={breadcrumbs.title} breadcrumbs={breadcrumbs.breadcrumbs} />
+      <Container className="px-0">
+        {cards.length ? (
+          <h1>{categorie.h1 ? categorie.h1 : categorie.name}</h1>
+        ) : (
+          <p>Анкет не найдено</p>
+        )}
 
-      <Row>
-        <Col className="products-grid">
-          <LayoutGrid cards={cards} />
-        </Col>
-      </Row>
+        <Row>
+          <Col className="products-grid">
+            <LayoutGrid cards={cards} />
+          </Col>
+        </Row>
+      </Container>
     </Container>
-  </Container>
-);
+  );
+};
 export default Categorie;

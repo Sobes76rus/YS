@@ -1,6 +1,6 @@
 import getConfig from "next/config";
 import { Container, Row, Col } from "reactstrap";
-import dynamic from "next/dynamic";
+import { useRouter } from "next/router";
 import Hero from "../../components/Hero";
 import getCardsUrl from "../../side-effects/getCardsUrl";
 import LayoutGrid from "../../components/LayoutGrid";
@@ -89,21 +89,27 @@ export const getStaticProps = async (ctx) => {
   };
 };
 
-const FastFilters = ({ ceoPage, breadcrumbs, cards }) => (
-  <Container>
-    <Hero title={breadcrumbs.title} breadcrumbs={breadcrumbs.breadcrumbs} />
-    <Container className="px-0">
-      {cards.length ? (
-        <h1>{ceoPage.h1 ? ceoPage.h1 : ceoPage.Title}</h1>
-      ) : (
-        <p>Анкет не найдено</p>
-      )}
-      <Row>
-        <Col className="products-grid">
-          <LayoutGrid cards={cards} />
-        </Col>
-      </Row>
+const FastFilters = ({ ceoPage, breadcrumbs, cards }) => {
+  const router = useRouter();
+  if (router.isFallback) {
+    return <div>Loading...</div>;
+  }
+  return (
+    <Container>
+      <Hero title={breadcrumbs.title} breadcrumbs={breadcrumbs.breadcrumbs} />
+      <Container className="px-0">
+        {cards.length ? (
+          <h1>{ceoPage.h1 ? ceoPage.h1 : ceoPage.Title}</h1>
+        ) : (
+          <p>Анкет не найдено</p>
+        )}
+        <Row>
+          <Col className="products-grid">
+            <LayoutGrid cards={cards} />
+          </Col>
+        </Row>
+      </Container>
     </Container>
-  </Container>
-);
+  );
+};
 export default FastFilters;

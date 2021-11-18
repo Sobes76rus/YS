@@ -41,11 +41,11 @@ const Header = (props) => {
           } ${props.bgHoverPurple ? "bg-hover-purple" : "bg-purple"}`}
         >
           <Container fluid>
-            <NavbarToggler
-              onClick={(e) => isSlim && onCollapse(e)}
-              className="navbar-toggler-right flex "
-            >
-              <i className="fa fa-bars"></i>
+            <NavbarToggler className="navbar-toggler-right flex ">
+              <i
+                className="fa fa-bars"
+                onClick={(e) => isSlim && onCollapse(e)}
+              ></i>
 
               <Link href="/" passHref>
                 <a className="pl-4 navbar-brand selfCenter">

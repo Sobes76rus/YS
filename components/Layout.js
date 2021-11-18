@@ -65,6 +65,7 @@ const Layout = (pageProps) => {
         <Header
           onCollapse={onCollapse}
           collapsed={collapsed}
+          setCollapsed={setCollapsed}
           {...headerProps}
         />
       )}
