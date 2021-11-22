@@ -50,7 +50,8 @@ function MyApp({ Component, pageProps }) {
     ym(55422358, "init", {
          clickmap:true,
          trackLinks:true,
-         accurateTrackBounce:true
+         accurateTrackBounce:true,
+         trackHash: true,
     });
   `,
         }}
