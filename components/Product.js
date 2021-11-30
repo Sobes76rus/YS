@@ -54,7 +54,7 @@ const Product = ({ card, masonry, ...props }) => {
             <p className="text-muted text-sm mb-1">{card.category[0].title}</p>
           )}
           <h3 className="h6 text-uppercase mb-1">
-            <Link href="/filter-albums">
+            <Link href="/persons/[id]" as={`/persons/${card.id}/`}>
               <a className="text-dark">{card.name}</a>
             </Link>
           </h3>

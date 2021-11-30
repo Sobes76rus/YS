@@ -46,7 +46,6 @@ const DetailTabs = ({ product }) => {
     console.log("after render");
     setNewLocation();
   }, [product.city.name, product.metros[0].name]);
-  console.log(product);
 
   return (
     <section className="mt-0 h-25">
@@ -101,7 +100,7 @@ const DetailTabs = ({ product }) => {
             </NavLink>
           </NavItem>
         </Nav>
-        <TabContent activeTab={activeTab} className="py-4">
+        <TabContent activeTab={activeTab} className="pt-4">
           <TabPane tabId={1}>
             <Row xs="1" xl="2">
               <Col className="pb-4">

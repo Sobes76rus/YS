@@ -37,8 +37,8 @@ export default function ButtonsTab({ product, isPreOpen }) {
               <ButtonGroup className="flex-wrap">
                 {product.uslugis.map((service, index) => (
                   <Link
-                    as={`/${service.tag}/`}
-                    href={"/[categorie]"}
+                    as={`/categories/${service.tag}/`}
+                    href={"/categories/[categorie]"}
                     key={service.id}
                   >
                     <Button

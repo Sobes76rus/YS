@@ -47,7 +47,6 @@ const Layout = (pageProps) => {
           name="google-site-verification"
           content="9RbbCfEnk9qtmkCapnYX_scmcCuvotBHz9mfPfMGVYg"
         />
-
         <meta property="title" content={pageProps.title} key="title" />
 
         <link

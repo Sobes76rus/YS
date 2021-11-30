@@ -176,7 +176,7 @@ const SwiperGallery = ({ data, vertical }) => {
   if (vertical) {
     sliderColumns = { xs: 10, md: 10 };
     (sliderClass = "detail-carousel px-0 order-md-1"),
-      (thumbsColumns = { md: 4, xs: 4 });
+      (thumbsColumns = { md: 7, xs: 5 });
     thumbsClass = "d-flex flex-row px-0 order-md-2 ";
   }
 
@@ -206,7 +206,7 @@ const SwiperGallery = ({ data, vertical }) => {
           <Swiper {...sliderParams} ref={gallerySwiperRef}>
             {data.photo.map((item, index) => (
               <SwiperSlide
-                className="align-self-center"
+                className="align-self-center text-center"
                 key={index}
                 onClick={() => onClick(index)}
               >
