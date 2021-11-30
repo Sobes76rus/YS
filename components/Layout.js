@@ -1,6 +1,7 @@
 import Head from "next/head";
 import Header from "./Header";
 import Footer from "./Footer";
+import Script from "next/script";
 import { useEffect, useState } from "react";
 
 const Layout = (pageProps) => {
@@ -57,6 +58,25 @@ const Layout = (pageProps) => {
         <link
           href="https://use.fontawesome.com/releases/v5.8.1/css/all.css"
           rel="stylesheet"
+        />
+        <Script
+          type="text/javascript"
+          strategy="lazyOnload"
+          dangerouslySetInnerHTML={{
+            __html: `
+          (function(m,e,t,r,i,k,a){m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
+          m[i].l=1*new Date();k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)})
+          (window, document, "script", "https://mc.yandex.ru/metrika/tag.js", "ym");
+       
+          ym(55422358, "init", {
+               clickmap:true,
+               trackLinks:true,
+               accurateTrackBounce:true,
+               webvisor:true,
+               trackHash:true
+          });
+  `,
+          }}
         />
         <title>{pageProps.title} </title>
       </Head>
