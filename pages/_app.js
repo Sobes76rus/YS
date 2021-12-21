@@ -61,7 +61,8 @@ function MyApp({ Component, pageProps }) {
                clickmap:true,
                trackLinks:true,
                accurateTrackBounce:true,
-               webvisor:true,
+               // Отключить вебвизор по просьбе Витали, т.к. не нужно
+               // webvisor:true,
                trackHash:true
           });
 
