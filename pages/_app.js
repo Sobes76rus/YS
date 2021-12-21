@@ -61,13 +61,14 @@ function MyApp({ Component, pageProps }) {
                clickmap:true,
                trackLinks:true,
                accurateTrackBounce:true,
-               webvisor:true,
+               // Отключить вебвизор по просьбе Витали, т.к. не нужно
+               // webvisor:true,
                trackHash:true
           });
 
           // После инициализации тоже необходимо уведомить ЯМ
           // т.к. мы отключили автоматическое уведомление флагом defer
-          window["yaCounter55422358"].hit(window.location.pathname);
+          ym(55422358, "hit", window.location.pathname);
   `,
         }}
       />
