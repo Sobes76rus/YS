@@ -25,15 +25,24 @@ function MyApp({ Component, pageProps }) {
       setIsLoading(false);
       NProgress.done();
     };
+    const handleYM = () => {
+      const code = 55422358;
+      window[`yaCounter${code}`].hit(window.location.pathname);
+    };
 
     router.events.on("routeChangeStart", handleStart);
     router.events.on("routeChangeComplete", handleStop);
     router.events.on("routeChangeError", handleStop);
 
+    // Необходимо уведомить яндекс метрику о переходе по ссылке
+    router.events.on("routeChangeComplete", handleYM);
+
     return () => {
       router.events.off("routeChangeStart", handleStart);
       router.events.off("routeChangeComplete", handleStop);
       router.events.off("routeChangeError", handleStop);
+
+      router.events.off("routeChangeComplete", handleYM);
     };
   }, [router]);
   return (
@@ -48,6 +57,7 @@ function MyApp({ Component, pageProps }) {
           (window, document, "script", "https://mc.yandex.ru/metrika/tag.js", "ym");
        
           ym(55422358, "init", {
+               defer:true,
                clickmap:true,
                trackLinks:true,
                accurateTrackBounce:true,
