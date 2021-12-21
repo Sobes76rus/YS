@@ -68,7 +68,7 @@ function MyApp({ Component, pageProps }) {
 
           // После инициализации тоже необходимо уведомить ЯМ
           // т.к. мы отключили автоматическое уведомление флагом defer
-          window["yaCounter55422358"].hit(window.location.pathname);
+          ym(55422358, "hit", window.location.pathname);
   `,
         }}
       />
