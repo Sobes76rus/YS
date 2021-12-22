@@ -15,7 +15,15 @@ import Script from "next/script";
 function MyApp({ Component, pageProps }) {
   const router = useRouter();
   const [isLoading, setIsLoading] = useState(false);
+  const [isYMCalled, setIsYMCalled] = useState(false);
   NProgress.configure({ showSpinner: false });
+
+  const handleYM = () => {
+    const code = 55422358;
+    setIsYMCalled(true);
+    window[`yaCounter${code}`].hit(window.location.pathname);
+  };
+
   useEffect(() => {
     const handleStart = () => {
       setIsLoading(true);
@@ -24,10 +32,6 @@ function MyApp({ Component, pageProps }) {
     const handleStop = () => {
       setIsLoading(false);
       NProgress.done();
-    };
-    const handleYM = () => {
-      const code = 55422358;
-      window[`yaCounter${code}`].hit(window.location.pathname);
     };
 
     router.events.on("routeChangeStart", handleStart);
@@ -65,11 +69,12 @@ function MyApp({ Component, pageProps }) {
                // webvisor:true,
                trackHash:true
           });
-
+  `,
+        }}
+        onLoad={() => {
           // После инициализации тоже необходимо уведомить ЯМ
           // т.к. мы отключили автоматическое уведомление флагом defer
-          ym(55422358, "hit", window.location.pathname);
-  `,
+          if (!isYMCalled) handleYM();
         }}
       />
       <DefaultSeo {...SEO} />
