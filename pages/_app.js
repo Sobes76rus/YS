@@ -17,6 +17,7 @@ function MyApp({ Component, pageProps }) {
   const [isLoading, setIsLoading] = useState(false);
   NProgress.configure({ showSpinner: false });
 
+  const [isYMIinitialized, setIsYMIinitialized] = useState(false);
   const code = 55422358;
   const key = `yaCounter${code}`;
   const handleYM = () => {
@@ -24,8 +25,10 @@ function MyApp({ Component, pageProps }) {
       window[key].hit(window.location.pathname);
     }
   };
-  const initYM = () => {
-    if (!window[key]) {
+  const initYM = async () => {
+    if (!isYMIinitialized) {
+      setIsYMIinitialized(true);
+
       window.ym(code, "init", {
         defer: true,
         clickmap: true,
@@ -35,6 +38,11 @@ function MyApp({ Component, pageProps }) {
         // webvisor:true,
         trackHash: true,
       });
+
+      // Ожидаем когда загрузится скрипт
+      while (!window[key]) {
+        await new Promise((r) => setTimeout(() => r(), 100));
+      }
 
       // После инициализации тоже необходимо уведомить ЯМ
       // т.к. мы отключили автоматическое уведомление флагом defer
