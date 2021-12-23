@@ -161,42 +161,36 @@ const FilterAlbums = (props) => {
 export async function getServerSideProps(ctx) {
   const { publicRuntimeConfig } = getConfig();
 
-  const resArtists = await fetch(`${publicRuntimeConfig.API_URL}/artists`);
-  const artistsData = await resArtists.json();
+  const getData = async (url) => {
+    const response = await fetch(url);
+    return await response.json();
+  };
 
-  const resGenres = await fetch(`${publicRuntimeConfig.API_URL}/genres`);
-  const genresData = await resGenres.json();
+  const data = await Promise.all([
+    getData(`${publicRuntimeConfig.API_URL}/artists`),
+    getData(`${publicRuntimeConfig.API_URL}/genres`),
+    getData(`${publicRuntimeConfig.API_URL}/navigations`),
+    getData(getCardsUrl(ctx.query)),
+    getData(`${publicRuntimeConfig.API_URL}/card-lookbooks`),
+    getData(`${publicRuntimeConfig.API_URL}/uslugi-groups`),
+    getData(`${publicRuntimeConfig.API_URL}/cities`),
+    getData(`${publicRuntimeConfig.API_URL}/metros`),
+    getData(`${publicRuntimeConfig.API_URL}/ceo-pages`),
+    getData(`${publicRuntimeConfig.API_URL}/ceo-pages-groups`),
+  ]);
 
-  const navRes = await fetch(`${publicRuntimeConfig.API_URL}/navigations`);
-  const navigation = await navRes.json();
-
-  const cardRes = await fetch(getCardsUrl(ctx.query));
-
-  const cardPhotos = await cardRes.json();
-
-  const allCardsRes = await fetch(
-    `${publicRuntimeConfig.API_URL}/card-lookbooks`
-  );
-  const allCards = await allCardsRes.json();
-
-  const serviceRes = await fetch(
-    `${publicRuntimeConfig.API_URL}/uslugi-groups`
-  );
-  const services = await serviceRes.json();
-
-  const citiesRes = await fetch(`${publicRuntimeConfig.API_URL}/cities`);
-  const cities = await citiesRes.json();
-
-  const metroRes = await fetch(`${publicRuntimeConfig.API_URL}/metros`);
-  const metros = await metroRes.json();
-
-  const ceoPageRes = await fetch(`${publicRuntimeConfig.API_URL}/ceo-pages`);
-  const ceoPages = await ceoPageRes.json();
-
-  const ceoPagesGroupsRes = await fetch(
-    `${publicRuntimeConfig.API_URL}/ceo-pages-groups`
-  );
-  const ceoPagesGroups = await ceoPagesGroupsRes.json();
+  const [
+    artistsData,
+    genresData,
+    navigation,
+    cardPhotos,
+    allCards,
+    services,
+    cities,
+    metros,
+    ceoPages,
+    ceoPagesGroups,
+  ] = data;
 
   if (ctx.query["metro.name"] && !ctx.query["city.name"]) {
     const newQuery = { ...ctx.query };
