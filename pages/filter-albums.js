@@ -28,7 +28,10 @@ import LayoutGrid from "../components/LayoutGrid";
 
 const FilterAlbums = (props) => {
   const {
-    allCards,
+    allCardsPrice: price,
+    allCardsDickSizeProp: dickSizeProp,
+    allCardsBreastSizeProp: breastSizeProp,
+
     ceoPages,
     services,
     cardPhotos,
@@ -45,9 +48,6 @@ const FilterAlbums = (props) => {
   const citiesNameFilter = query["city.name"];
   const metrosNameFilter = query["metro.name"];
   const usluginTagsFilter = query["usligis.name"];
-  const price = [allCards.map((card) => Number(card.price))];
-  const dickSizeProp = [allCards.map((card) => Number(card.dick_size))];
-  const breastSizeProp = [allCards.map((card) => Number(card.breast_size))];
   const secondEffectRef = useRef(false);
 
   const updateDeps = [
@@ -161,6 +161,24 @@ const FilterAlbums = (props) => {
 export async function getServerSideProps(ctx) {
   const { publicRuntimeConfig } = getConfig();
 
+  if (ctx.query["metro.name"] && !ctx.query["city.name"]) {
+    const newQuery = { ...ctx.query };
+    delete newQuery["metro.name"];
+    let queryString = new URLSearchParams(newQuery);
+
+    queryString.sort();
+    queryString = queryString.toString();
+
+    return {
+      redirect: {
+        destination: `/filter-albums${
+          queryString.length > 0 ? `?${queryString}` : ""
+        }`,
+        permanent: false,
+      },
+    };
+  }
+
   const getData = async (url) => {
     const response = await fetch(url);
     return await response.json();
@@ -192,23 +210,9 @@ export async function getServerSideProps(ctx) {
     ceoPagesGroups,
   ] = data;
 
-  if (ctx.query["metro.name"] && !ctx.query["city.name"]) {
-    const newQuery = { ...ctx.query };
-    delete newQuery["metro.name"];
-    let queryString = new URLSearchParams(newQuery);
-
-    queryString.sort();
-    queryString = queryString.toString();
-
-    return {
-      redirect: {
-        destination: `/filter-albums${
-          queryString.length > 0 ? `?${queryString}` : ""
-        }`,
-        permanent: false,
-      },
-    };
-  }
+  const price = [allCards.map((card) => Number(card.price))];
+  const dickSizeProp = [allCards.map((card) => Number(card.dick_size))];
+  const breastSizeProp = [allCards.map((card) => Number(card.breast_size))];
 
   return {
     props: {
@@ -235,6 +239,7 @@ export async function getServerSideProps(ctx) {
           },
         ],
       },
+
       ceoPages,
       ceoPagesGroups,
       navigation,
@@ -243,7 +248,11 @@ export async function getServerSideProps(ctx) {
       cities,
       metros,
       cardPhotos,
-      allCards,
+
+      allCardsPrice: price,
+      allCardsDickSizeProp: dickSizeProp,
+      allCardsBreastSizeProp: breastSizeProp,
+
       services,
       fixedBottom: true,
     },
