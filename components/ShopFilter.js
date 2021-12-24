@@ -204,8 +204,9 @@ const ShopFilter = ({
                   <Input
                     type="number"
                     placeholder={priceMin}
-                    onChange={_.debounce((e) =>
-                      debounceSliderMin(e, "priceMin", minPrice)
+                    onChange={_.debounce(
+                      (e) => debounceSliderMin(e, "priceMin", minPrice),
+                      300
                     )}
                   />
                 </div>{" "}
@@ -215,8 +216,9 @@ const ShopFilter = ({
                 <Input
                   type="number"
                   placeholder={priceMax}
-                  onChange={_.debounce((e) =>
-                    debounceSliderMax(e, "priceMax", maxPrice)
+                  onChange={_.debounce(
+                    (e) => debounceSliderMax(e, "priceMax", maxPrice),
+                    300
                   )}
                 />
               </div>
@@ -240,8 +242,9 @@ const ShopFilter = ({
                   <Input
                     type="number"
                     placeholder={dickMin}
-                    onChange={_.debounce((e) =>
-                      debounceSliderMin(e, "dickMin", minDick)
+                    onChange={_.debounce(
+                      (e) => debounceSliderMin(e, "dickMin", minDick),
+                      300
                     )}
                   />
                 </div>{" "}
@@ -251,8 +254,9 @@ const ShopFilter = ({
                 <Input
                   type="number"
                   placeholder={dickMax}
-                  onChange={_.debounce((e) =>
-                    debounceSliderMax(e, "dickMax", maxDick)
+                  onChange={_.debounce(
+                    (e) => debounceSliderMax(e, "dickMax", maxDick),
+                    300
                   )}
                 />
               </div>
@@ -276,8 +280,9 @@ const ShopFilter = ({
                   <Input
                     type="number"
                     placeholder={breastMin}
-                    onChange={_.debounce((e) =>
-                      debounceSliderMin(e, "breastMin", minBreast)
+                    onChange={_.debounce(
+                      (e) => debounceSliderMin(e, "breastMin", minBreast),
+                      300
                     )}
                   />
                 </div>{" "}
@@ -287,8 +292,9 @@ const ShopFilter = ({
                 <Input
                   type="number"
                   placeholder={breastMax}
-                  onChange={_.debounce((e) =>
-                    debounceSliderMax(e, "breastMax", maxBreast)
+                  onChange={_.debounce(
+                    (e) => debounceSliderMax(e, "breastMax", maxBreast),
+                    300
                   )}
                 />
               </div>
