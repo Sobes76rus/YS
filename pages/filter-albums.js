@@ -7,6 +7,7 @@ import {
   CardBody,
   Card,
   Jumbotron,
+  Spinner,
 } from "reactstrap";
 
 import { useRouter } from "next/router";
@@ -145,7 +146,11 @@ const FilterAlbums = (props) => {
         <p>С учетом фильтров</p>
         <Row>
           <Col className="products-grid">
-            <LayoutGrid cards={cards} />
+            {isLoading ? (
+              <Spinner className="spinner" />
+            ) : (
+              <LayoutGrid cards={cards} />
+            )}
           </Col>
         </Row>
         {ceoPages &&
