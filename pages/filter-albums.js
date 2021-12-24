@@ -39,8 +39,7 @@ const FilterAlbums = (props) => {
     metros,
     breadcrumbs,
   } = props;
-  const { query, asPath } = useRouter();
-  console.log(query);
+  const { query, asPath, push: routerPush } = useRouter();
   const [isOpen, setIsOpen] = useState(false);
   const [isLoading, setLoading] = useState(false);
   const [cards, setCards] = useState(cardPhotos);
@@ -63,11 +62,21 @@ const FilterAlbums = (props) => {
   ];
 
   useEffect(() => {
-    if (!secondEffectRef.current) {
-      secondEffectRef.current = true;
+    const currentUrl = new URL(window.location);
+    const params = currentUrl.searchParams;
+    if (params.has("metro.name") && !params.has("city.name")) {
+      params.delete("metro.name");
+      params.sort();
+
+      routerPush(currentUrl);
       return;
     }
 
+    if (secondEffectRef.current) {
+      return;
+    }
+
+    secondEffectRef.current = true;
     const url = getCardsUrl(query);
 
     setLoading(true);
@@ -91,9 +100,7 @@ const FilterAlbums = (props) => {
   const randomCards = (a, n) =>
     a.sort(() => Math.random() - Math.random()).slice(0, n);
   randomCards(cards, 100);
-  return isLoading ? (
-    "loading..."
-  ) : (
+  return (
     <Container>
       <Hero title={breadcrumbs.title} breadcrumbs={breadcrumbs.breadcrumbs} />
       <Container className="d-flex flex-column align-items-center justify-content-center p-0 ">
@@ -158,26 +165,8 @@ const FilterAlbums = (props) => {
   );
 };
 
-export async function getServerSideProps(ctx) {
+export async function getStaticProps() {
   const { publicRuntimeConfig } = getConfig();
-
-  if (ctx.query["metro.name"] && !ctx.query["city.name"]) {
-    const newQuery = { ...ctx.query };
-    delete newQuery["metro.name"];
-    let queryString = new URLSearchParams(newQuery);
-
-    queryString.sort();
-    queryString = queryString.toString();
-
-    return {
-      redirect: {
-        destination: `/filter-albums${
-          queryString.length > 0 ? `?${queryString}` : ""
-        }`,
-        permanent: false,
-      },
-    };
-  }
 
   const getData = async (url) => {
     const response = await fetch(url);
@@ -188,7 +177,7 @@ export async function getServerSideProps(ctx) {
     getData(`${publicRuntimeConfig.API_URL}/artists`),
     getData(`${publicRuntimeConfig.API_URL}/genres`),
     getData(`${publicRuntimeConfig.API_URL}/navigations`),
-    getData(getCardsUrl(ctx.query)),
+    // getData(getCardsUrl(ctx.query)),
     getData(`${publicRuntimeConfig.API_URL}/card-lookbooks`),
     getData(`${publicRuntimeConfig.API_URL}/uslugi-groups`),
     getData(`${publicRuntimeConfig.API_URL}/cities`),
@@ -201,7 +190,7 @@ export async function getServerSideProps(ctx) {
     artistsData,
     genresData,
     navigation,
-    cardPhotos,
+    // cardPhotos,
     allCards,
     services,
     cities,
@@ -216,16 +205,6 @@ export async function getServerSideProps(ctx) {
 
   return {
     props: {
-      title: `${
-        ceoPages &&
-        ceoPages.map((page) =>
-          `/filter-albums?${page.url_filter}` ===
-          decodeURI(ctx.resolvedUrl).replace(/\s/g, "+")
-            ? `${page.Title}`
-            : "Все анкеты"
-        )
-      }`,
-
       breadcrumbs: {
         breadcrumbs: [
           {
@@ -247,7 +226,7 @@ export async function getServerSideProps(ctx) {
       genres: genresData,
       cities,
       metros,
-      cardPhotos,
+      cardPhotos: [],
 
       allCardsPrice: price,
       allCardsDickSizeProp: dickSizeProp,
@@ -256,6 +235,8 @@ export async function getServerSideProps(ctx) {
       services,
       fixedBottom: true,
     },
+
+    revalidate: 60,
   };
 }
 
