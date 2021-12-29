@@ -1,5 +1,6 @@
 import React, { useState } from "react";
-import { CardImg } from "reactstrap";
+// import { CardImg } from "reactstrap";
+import Image from "next/image";
 import Link from "next/link";
 import ModalQuickView from "../components/ModalQuickView";
 
@@ -17,10 +18,12 @@ const Product = ({ card, masonry, ...props }) => {
     <>
       <div className="product">
         <div className="product-image">
-          <CardImg
+          <Image
             src={card.photo[0].url}
             alt={card.album_name}
-            loading="lazy"
+            width={card.photo[0].width}
+            height={card.photo[0].height}
+            objectFit="cover"
           />
 
           <div className="product-hover-overlay">

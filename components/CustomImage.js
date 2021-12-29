@@ -1,5 +1,5 @@
-import React from "react"
-import Image from "next/image"
+import React from "react";
+import Image from "next/image";
 
 const CustomImage = (props) => {
   if (process.env.production_type === "static") {
@@ -11,9 +11,9 @@ const CustomImage = (props) => {
         height={props.height}
         className={props.className}
       />
-    )
+    );
   } else {
-    return <Image {...props} />
+    return <Image {...props} />;
   }
-}
-export default CustomImage
+};
+export default CustomImage;

@@ -24,17 +24,31 @@ export default function LayoutGrid({ cards }) {
     //     ))}
     //   </Masonry>
     // </ResponsiveMasonry>
-    <Container fluid style={{ marginTop: "50px" }}>
-      <Row xs="2" lg="3" xl="4">
+    // <Container fluid style={{ marginTop: "50px" }}>
+    //   <Row xs="2" lg="3" xl="4">
+    //     {cards.map((value) => (
+    //       <Col key={value.id} style={{ alignSelf: "flex-start" }}>
+    //         <div style={{ marginTop: "-15px" }}>
+    //           {isSlim ? (
+    //             <Product card={value} onlyViewButton />
+    //           ) : (
+    //             <Product card={value} />
+    //           )}
+    //         </div>
+    //       </Col>
+    //     ))}
+    //   </Row>
+    // </Container>
+
+    <Container fluid style={{ marginTop: "35px" }}>
+      <Row xs="2" lg="3" xl="4" className="layout-grid-display-grid">
         {cards.map((value) => (
           <Col key={value.id} style={{ alignSelf: "flex-start" }}>
-            <div style={{ marginTop: "-15px" }}>
-              {isSlim ? (
-                <Product card={value} onlyViewButton />
-              ) : (
-                <Product card={value} />
-              )}
-            </div>
+            {isSlim ? (
+              <Product card={value} onlyViewButton />
+            ) : (
+              <Product card={value} />
+            )}
           </Col>
         ))}
       </Row>
