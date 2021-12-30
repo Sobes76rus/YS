@@ -2,6 +2,10 @@
   "name": "nextjs_test",
   "version": "0.1.0",
   "private": true,
+  "engines": {
+    "node": "14.18.2",
+    "yarn": "1.22.17"
+  },
   "scripts": {
     "dev": "next dev",
     "build": "next build",
@@ -50,6 +54,7 @@
     "reactstrap": "^8.9.0",
     "sass": "^1.43.4",
     "sass-migrator": "^1.5.1",
+    "sharp": "^0.29.3",
     "standard": "^16.0.3",
     "swiper": "^6.5.0"
   },

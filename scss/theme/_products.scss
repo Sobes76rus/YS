@@ -4,6 +4,49 @@
 * ===================================================
 */
 
+.layout-grid-display-grid {
+  display: grid;
+  grid-gap: 15px 30px;
+  padding-left: 15px;
+  padding-right: 15px;
+
+  @each $breakpoint in map-keys($grid-breakpoints) {
+    $infix: breakpoint-infix($breakpoint, $grid-breakpoints);
+
+    @include media-breakpoint-up($breakpoint) {
+      @for $i from 1 through $grid-columns {
+        &.row-cols#{$infix}-#{$i} {
+          grid-template-columns: repeat($i, 1fr);
+        }
+      }
+    }
+  }
+
+  & > .col {
+    max-width: 100%;
+    margin: 0 !important;
+    padding: 0 !important;
+    height: 100%;
+    width: 100%;
+
+    & > .product {
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+      margin: 0 !important;
+
+      & > .product-image {
+        flex-grow: 1;
+
+        & > * {
+          height: 100% !important;
+          width: 100% !important;
+        }
+      }
+    }
+  }
+}
+
 .product-grid-header {
   display: flex;
   align-items: center;
