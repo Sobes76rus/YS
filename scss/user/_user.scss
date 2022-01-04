@@ -1,5 +1,31 @@
 // this is the place for your components / CSS
 
+.swiper-products-display-flex {
+  & .swiper-wrapper {
+    align-items: unset !important;
+  }
+
+  & .swiper-slide {
+    height: auto;
+  }
+
+  & .product {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    margin: 0 !important;
+
+    & > .product-image {
+      flex-grow: 1;
+
+      & > * {
+        height: 100% !important;
+        width: 100% !important;
+      }
+    }
+  }
+}
+
 html,
 body {
   height: 100%;
@@ -73,8 +99,7 @@ button {
     border-color: #dac9f9;
   }
 }
-.btn-toggle-purple   {
-  
+.btn-toggle-purple {
   background-color: #dac9f9;
   margin-bottom: 1rem;
   border-radius: 0.75rem;
@@ -85,10 +110,10 @@ button {
   }
   &:hover {
     background-color: $purple;
-  }  
+  }
   &.dark {
-    background-color: #BFB0DA;
-  }  
+    background-color: #bfb0da;
+  }
 }
 
 .link-purple {
@@ -226,23 +251,30 @@ img.bg-contain {
 }
 
 @media all and (min-width: 992px) {
-	.navbar .nav-item .dropdown-menu{ display: none; }
-	.navbar .nav-item:hover .nav-link{   }
-	.navbar .nav-item:hover .dropdown-menu{ display: block; }
-	.navbar .nav-item .dropdown-menu{ margin-top:0; }
-}	
+  .navbar .nav-item .dropdown-menu {
+    display: none;
+  }
+  .navbar .nav-item:hover .nav-link {
+  }
+  .navbar .nav-item:hover .dropdown-menu {
+    display: block;
+  }
+  .navbar .nav-item .dropdown-menu {
+    margin-top: 0;
+  }
+}
 
 .profile {
   padding: 1rem 1rem;
-    font-size: 0.7875rem;
-    line-height: 1.5;
+  font-size: 0.7875rem;
+  line-height: 1.5;
 }
 
-.spinner {  
+.spinner {
   margin-top: 10%;
   color: $purple;
   width: 5rem;
-  height: 5rem
+  height: 5rem;
 }
 
 .main-text-align {

@@ -33,12 +33,12 @@ const SwiperProducts = ({ products, ...props }) => {
     <>
       <Swiper
         {...sliderParams}
-        style={{ paddingLeft: "30px" }}
-        className="align-content-center"
+        style={{ paddingLeft: "30px", paddingBottom: "30px" }}
+        className="align-content-center swiper-products-display-flex"
       >
         {products.map((product, index) => (
           <SwiperSlide key={index}>
-            <div className="product-slider-item">
+            <div className="product-slider-item h-100">
               <Product
                 className="h-100"
                 key={index}
