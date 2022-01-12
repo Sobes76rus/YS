@@ -87,6 +87,7 @@ export const getStaticProps = async (ctx) => {
 };
 
 const Categorie = ({ categorie, breadcrumbs, cards }) => {
+  console.log(categorie);
   const router = useRouter();
   if (router.isFallback) {
     return <div>Loading...</div>;
@@ -100,7 +101,7 @@ const Categorie = ({ categorie, breadcrumbs, cards }) => {
         ) : (
           <p>Анкет не найдено</p>
         )}
-
+        <Jumbotron>{categorie.text_under_title}</Jumbotron>
         <Row>
           <Col className="products-grid">
             <LayoutGrid cards={cards} />

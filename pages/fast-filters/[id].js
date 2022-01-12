@@ -1,5 +1,5 @@
 import getConfig from "next/config";
-import { Container, Row, Col } from "reactstrap";
+import { Container, Row, Col, Jumbotron } from "reactstrap";
 import { useRouter } from "next/router";
 import Hero from "../../components/Hero";
 import getCardsUrl from "../../side-effects/getCardsUrl";
@@ -103,6 +103,7 @@ const FastFilters = ({ ceoPage, breadcrumbs, cards }) => {
         ) : (
           <p>Анкет не найдено</p>
         )}
+        <Jumbotron>{ceoPage.text_under_title}</Jumbotron>
         <Row>
           <Col className="products-grid">
             <LayoutGrid cards={cards} />
