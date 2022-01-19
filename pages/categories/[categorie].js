@@ -101,7 +101,9 @@ const Categorie = ({ categorie, breadcrumbs, cards }) => {
         ) : (
           <p>Анкет не найдено</p>
         )}
-        <Jumbotron>{categorie.text_under_title}</Jumbotron>
+        <Jumbotron style={{ padding: "1rem" }}>
+          {categorie.text_under_title}
+        </Jumbotron>
         <Row>
           <Col className="products-grid">
             <LayoutGrid cards={cards} />

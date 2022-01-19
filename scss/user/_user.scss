@@ -280,3 +280,10 @@ img.bg-contain {
 .main-text-align {
   text-align: center;
 }
+
+.ellipsis {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  -o-text-overflow: ellipsis;
+}

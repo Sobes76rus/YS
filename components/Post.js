@@ -6,7 +6,12 @@ const Post = ({ data }) => {
       <div className="mb-30px">
         <Link href="/articles/[slug]" as={`/articles/${data.slug}`}>
           <a>
-            <img className="img-fluid" src={data.img.url} alt={data.title} />
+            <img
+              style={{ height: "250px", width: "450px" }}
+              className="img-fluid"
+              src={data.img.url}
+              alt={data.title}
+            />
           </a>
         </Link>
         <div className="mt-3">
@@ -21,7 +26,7 @@ const Post = ({ data }) => {
             <i className="far fa-clock mr-2" />
             {data.date}
           </p>
-          <p className="my-2 text-muted">{data.content}</p>
+          <p className="my-2 text-muted ellipsis">{data.content}</p>
 
           <Link href="/blog/[slug]" as={`/blog/${data.slug}`}>
             <a className="btn btn-link text-gray-700 pl-0">

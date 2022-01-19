@@ -103,7 +103,9 @@ const FastFilters = ({ ceoPage, breadcrumbs, cards }) => {
         ) : (
           <p>Анкет не найдено</p>
         )}
-        <Jumbotron>{ceoPage.text_under_title}</Jumbotron>
+        <Jumbotron style={{ padding: "1rem" }}>
+          {ceoPage.text_under_title}
+        </Jumbotron>
         <Row>
           <Col className="products-grid">
             <LayoutGrid cards={cards} />
