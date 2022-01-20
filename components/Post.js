@@ -28,7 +28,7 @@ const Post = ({ data }) => {
           </p>
           <p className="my-2 text-muted ellipsis">{data.content}</p>
 
-          <Link href="/blog/[slug]" as={`/blog/${data.slug}`}>
+          <Link href="/articles/[slug]" as={`/articles/${data.slug}`}>
             <a className="btn btn-link text-gray-700 pl-0">
               Продолжить <i className="fa fa-long-arrow-alt-right ml-2" />
             </a>
