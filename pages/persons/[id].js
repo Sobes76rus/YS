@@ -42,7 +42,7 @@ export async function getServerSideProps(ctx) {
     `${publicRuntimeConfig.API_URL}/card-lookbooks/${id}`
   );
   const personsData = await resPersons.json();
-
+  console.log(personsData);
   return {
     props: {
       fixedBottom: true,
@@ -54,6 +54,7 @@ export async function getServerSideProps(ctx) {
       ceoPagesGroups,
       personsData,
       navigation,
+      description: personsData.opisanie,
       title: personsData.name,
       breadcrumbs: [
         {
@@ -82,7 +83,7 @@ export default function Detail(props) {
   return (
     <>
       <section className="product-details">
-        <Container>
+        <Container fluid>
           <Row>
             <Col
               xs={{ size: 12, order: 1 }}

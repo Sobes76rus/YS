@@ -14,7 +14,18 @@ export default function DetailMain({ product }) {
   return (
     <>
       <div className="d-flex flex-column flex-sm-row align-items-sm-center justify-content-sm-between">
-        <h1 className="mb-4">{product.name}</h1>
+        <h1 className="mb-4">
+          Транс {product.name} снять{" "}
+          {product.city.name === "Moscow" ? "в Москве" : ""}, метро{" "}
+          {product.metros[0].name} за {product.price}&#8381; в 1 час для
+          {product.uslugis.map((service, index) => {
+            if (index + 1 === product.uslugis.length) {
+              return ` ${service.name}`;
+            } else {
+              return ` ${service.name},`;
+            }
+          })}
+        </h1>
         {/* <span className="text-muted text-capitalize link-purple">
           1 просмотр
         </span> */}
