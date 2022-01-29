@@ -42,7 +42,7 @@ export async function getServerSideProps(ctx) {
     `${publicRuntimeConfig.API_URL}/card-lookbooks/${id}`
   );
   const personsData = await resPersons.json();
-  console.log(personsData.opisanie.toString().replace("<br/>", " "));
+
   return {
     props: {
       fixedBottom: true,
