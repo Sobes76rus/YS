@@ -68,7 +68,7 @@ const Index = (props) => {
                     {featuredPost.subtitle}
                   </strong>
                   <h2 className="mb-3">{featuredPost.title}</h2>
-                  <p className="text-muted">{featuredPost.content}</p>
+                  <p className="text-muted ellipsis">{featuredPost.content}</p>
                   <Link
                     href="/articles/[slug]"
                     as={`/articles/${featuredPost.slug}`}

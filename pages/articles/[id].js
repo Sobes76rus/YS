@@ -2,6 +2,11 @@ import { Container, Row, Col } from "reactstrap";
 import Hero from "../../components/Hero";
 import Image from "../../components/CustomImage";
 import getConfig from "next/config";
+import ReactHtmlParser, {
+  processNodes,
+  convertNodeToElement,
+  htmlparser2,
+} from "react-html-parser";
 
 export async function getServerSideProps({ query }) {
   const postSlug = query["id"];
@@ -91,10 +96,14 @@ export default function Blog(props) {
           </Row>
           <Row>
             <Col lg="10" xl="8" className="mx-auto">
-              <p
+              <div
                 className="lead mb-5 text-left"
-                dangerouslySetInnerHTML={{ __html: post[0].content }}
-              />
+                // dangerouslySetInnerHTML={{
+                //   __html: `<p>${post[0].content}</p>`,
+                // }}
+              >
+                {ReactHtmlParser(`${post[0].content}`)}
+              </div>
             </Col>
           </Row>
 

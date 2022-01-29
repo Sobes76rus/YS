@@ -42,7 +42,7 @@ export async function getServerSideProps(ctx) {
     `${publicRuntimeConfig.API_URL}/card-lookbooks/${id}`
   );
   const personsData = await resPersons.json();
-  console.log(personsData);
+  console.log(personsData.opisanie.toString().replace("<br/>", " "));
   return {
     props: {
       fixedBottom: true,
@@ -54,8 +54,11 @@ export async function getServerSideProps(ctx) {
       ceoPagesGroups,
       personsData,
       navigation,
-      description: personsData.opisanie,
-      title: personsData.name,
+      description: personsData.opisanie.replace(/<br\s*\/?>/gi, " "),
+      title: `Транс ${personsData.name} снять
+      ${personsData.city.name === "Moscow" ? "в Москве" : ""}, метро
+      ${personsData.metros[0].name} за ${personsData.price}Р в 1 час для
+      ${personsData.uslugis.map((service) => `${service.name}`)}`,
       breadcrumbs: [
         {
           name: "Домой",
@@ -83,7 +86,7 @@ export default function Detail(props) {
   return (
     <>
       <section className="product-details">
-        <Container fluid>
+        <Container>
           <Row>
             <Col
               xs={{ size: 12, order: 1 }}
