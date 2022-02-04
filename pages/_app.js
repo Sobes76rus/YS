@@ -18,7 +18,7 @@ function MyApp({ Component, pageProps }) {
   NProgress.configure({ showSpinner: false });
 
   const [isYMIinitialized, setIsYMIinitialized] = useState(false);
-  const code = 55422358;
+  const code = 87364815;
   const key = `yaCounter${code}`;
   const handleYM = () => {
     if (window[key]) {
