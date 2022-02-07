@@ -49,6 +49,11 @@ const Layout = (pageProps) => {
           content="9RbbCfEnk9qtmkCapnYX_scmcCuvotBHz9mfPfMGVYg"
         />
         <meta property="title" content={pageProps.title} key="title" />
+        <link
+          rel="shortcut icon"
+          type="image/png"
+          href="icons/favicon-16x16.png"
+        />
 
         <link
           rel="stylesheet"
