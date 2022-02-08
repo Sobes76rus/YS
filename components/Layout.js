@@ -40,15 +40,14 @@ const Layout = (pageProps) => {
         <meta
           name="description"
           content={`${
-            pageProps.description ? pageProps.description : "Description"
+            pageProps.description
+              ? pageProps.description
+              : "Объявления настоящих Трансов и транссексуалок Москвы, огромное количество объявлений для знакомств с большим выбором откровенных фотографий"
           }`}
           key="description"
         />
-        <meta
-          name="google-site-verification"
-          content="9RbbCfEnk9qtmkCapnYX_scmcCuvotBHz9mfPfMGVYg"
-        />
         <meta property="title" content={pageProps.title} key="title" />
+        <meta property="site_name" content={pageProps.title} key="sitename" />
         <link rel="icon" type="image/png" href="/icons/favicon-16x16.png" />
 
         <link
