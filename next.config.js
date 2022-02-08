@@ -19,4 +19,6 @@ module.exports = withImages({
     path: "/_next/image",
     loader: "default",
   },
+
+  staticPageGenerationTimeout: 600,
 });

@@ -28,6 +28,7 @@ export const getStaticPaths = async () => {
       params: { categorie: item.tag },
     };
   });
+
   return {
     paths,
     fallback: false,
@@ -81,17 +82,19 @@ export const getStaticProps = async (ctx) => {
           },
         ],
       },
-      revalidate: 1,
     },
+
+    revalidate: 60,
   };
 };
 
 const Categorie = ({ categorie, breadcrumbs, cards }) => {
-  console.log(categorie);
   const router = useRouter();
+
   if (router.isFallback) {
     return <div>Loading...</div>;
   }
+
   return (
     <Container>
       <Hero title={breadcrumbs.title} breadcrumbs={breadcrumbs.breadcrumbs} />
@@ -113,4 +116,5 @@ const Categorie = ({ categorie, breadcrumbs, cards }) => {
     </Container>
   );
 };
+
 export default Categorie;

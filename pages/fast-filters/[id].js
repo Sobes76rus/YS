@@ -84,8 +84,9 @@ export const getStaticProps = async (ctx) => {
           },
         ],
       },
-      revalidate: 60,
     },
+
+    revalidate: 60,
   };
 };
 
