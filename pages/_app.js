@@ -77,6 +77,7 @@ function MyApp({ Component, pageProps }) {
       router.events.off("routeChangeComplete", handleYM);
     };
   }, [router]);
+
   return (
     <>
       <Script
