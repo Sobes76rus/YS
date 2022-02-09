@@ -2,6 +2,7 @@ import getConfig from "next/config";
 import Image from "../../components/CustomImage";
 import Link from "next/link";
 import Post from "../../components/Post";
+import ReactMarkdown from "react-markdown";
 import {
   Container,
   Row,
@@ -68,7 +69,13 @@ const Index = (props) => {
                     {featuredPost.subtitle}
                   </strong>
                   <h2 className="mb-3">{featuredPost.title}</h2>
-                  <p className="text-muted ellipsis">{featuredPost.content}</p>
+                  <p className="text-muted ellipsis">
+                    <ReactMarkdown
+                      unwrapDisallowed
+                      allowedElements={[]}
+                      children={featuredPost.content}
+                    />
+                  </p>
                   <Link
                     href="/articles/[slug]"
                     as={`/articles/${featuredPost.slug}`}

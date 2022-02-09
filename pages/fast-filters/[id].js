@@ -5,10 +5,7 @@ import Hero from "../../components/Hero";
 import getCardsUrl from "../../side-effects/getCardsUrl";
 import LayoutGrid from "../../components/LayoutGrid";
 
-// const LayoutGrid = dynamic(() => import("../../components/LayoutGrid"), {
-//   ssr: false,
-//   loading: () => <>Loading...</>,
-// });
+import { fetchRetry as fetch } from "../../side-effects/fetch";
 
 export const getStaticPaths = async () => {
   const { publicRuntimeConfig } = getConfig();
@@ -92,9 +89,11 @@ export const getStaticProps = async (ctx) => {
 
 const FastFilters = ({ ceoPage, breadcrumbs, cards }) => {
   const router = useRouter();
+
   if (router.isFallback) {
     return <div>Loading...</div>;
   }
+
   return (
     <Container>
       <Hero title={breadcrumbs.title} breadcrumbs={breadcrumbs.breadcrumbs} />
