@@ -1,22 +1,10 @@
 import getConfig from "next/config";
-import {
-  Container,
-  Row,
-  Col,
-  Collapse,
-  Button,
-  CardBody,
-  Card,
-  Jumbotron,
-} from "reactstrap";
+import { Container, Row, Col, Jumbotron } from "reactstrap";
 import { useRouter } from "next/router";
 import Hero from "../../components/Hero";
 import LayoutGrid from "../../components/LayoutGrid";
 
-// const LayoutGrid = dynamic(() => import("../../components/LayoutGrid"), {
-//   ssr: true,
-//   loading: () => <>Loading...</>,
-// });
+import { fetchRetry as fetch } from "../../side-effects/fetch";
 
 export const getStaticPaths = async () => {
   const { publicRuntimeConfig } = getConfig();
