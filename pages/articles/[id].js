@@ -2,6 +2,7 @@ import { Container, Row, Col } from "reactstrap";
 import Hero from "../../components/Hero";
 import Image from "../../components/CustomImage";
 import getConfig from "next/config";
+import ReactMarkdown from "react-markdown";
 
 export async function getServerSideProps({ query }) {
   const postSlug = query["id"];
@@ -91,9 +92,13 @@ export default function Blog(props) {
           </Row>
           <Row>
             <Col lg="10" xl="8" className="mx-auto">
-              <p
+              {/* <p
                 className="lead mb-5 text-left"
                 dangerouslySetInnerHTML={{ __html: post[0].content }}
+              /> */}
+              <ReactMarkdown
+                className="lead mb-5 text-left"
+                children={post[0].content}
               />
             </Col>
           </Row>
