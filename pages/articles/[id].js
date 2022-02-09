@@ -37,6 +37,7 @@ export async function getServerSideProps({ query }) {
       headerAbsolute: true,
       bgHoverPurple: true,
       fixedBottom: true,
+      title: post[0].title,
 
       breadcrumbs: {
         title: "Блог",
