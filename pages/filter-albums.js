@@ -32,7 +32,6 @@ const FilterAlbums = (props) => {
     allCardsPrice: price,
     allCardsDickSizeProp: dickSizeProp,
     allCardsBreastSizeProp: breastSizeProp,
-
     ceoPages,
     services,
     cardPhotos,
@@ -223,8 +222,8 @@ export async function getStaticProps() {
           },
         ],
       },
-
       ceoPages,
+      title: "Транссексуалы города Москвы",
       ceoPagesGroups,
       navigation,
       artists: artistsData,
@@ -232,11 +231,9 @@ export async function getStaticProps() {
       cities,
       metros,
       cardPhotos: [],
-
       allCardsPrice: price,
       allCardsDickSizeProp: dickSizeProp,
       allCardsBreastSizeProp: breastSizeProp,
-
       services,
       fixedBottom: true,
     },
