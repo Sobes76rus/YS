@@ -18,13 +18,17 @@ const Product = ({ card, masonry, ...props }) => {
     <>
       <div className="product">
         <div className="product-image">
-          <Image
-            src={card.photo[0].url}
-            alt={card.album_name}
-            width={card.photo[0].width}
-            height={card.photo[0].height}
-            objectFit="cover"
-          />
+          {card.photo[0] ? (
+            <Image
+              src={card.photo[0].url}
+              alt={card.album_name}
+              width={card.photo[0].width}
+              height={card.photo[0].height}
+              objectFit="cover"
+            />
+          ) : (
+            <div>Photo</div>
+          )}
 
           <div className="product-hover-overlay">
             <Link href="/persons/[id]" as={`/persons/${card.id}/`}>
