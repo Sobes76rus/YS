@@ -77,7 +77,7 @@ const Index = (props) => {
                     />
                   </p>
                   <Link
-                    href="/articles/[slug]"
+                    href="/articles/[id]"
                     as={`/articles/${featuredPost.slug}`}
                   >
                     <a className="btn btn-link text-dark p-0">

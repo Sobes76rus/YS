@@ -4,7 +4,7 @@ const Post = ({ data }) => {
   return (
     <>
       <div className="mb-30px">
-        <Link href="/articles/[slug]" as={`/articles/${data.slug}`}>
+        <Link href="/articles/[id]" as={`/articles/${data.slug}`}>
           <a>
             <img
               style={{ height: "250px", width: "450px" }}
@@ -17,7 +17,7 @@ const Post = ({ data }) => {
         <div className="mt-3">
           <small className="text-uppercase text-muted">{data.category}</small>
           <h5 className="my-2">
-            <Link href="/articles/[slug]" as={`/articles/${data.slug}`}>
+            <Link href="/articles/[id]" as={`/articles/${data.slug}`}>
               <a className="text-dark">{data.title}</a>
             </Link>
           </h5>

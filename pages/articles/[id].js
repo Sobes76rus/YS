@@ -81,14 +81,18 @@ export default function Blog(props) {
                 breadcrumbs={props.breadcrumbs.breadcrumbs}
                 {...heroProps}
               />
-              <Image
-                src={post[0].img.url}
-                alt=""
-                className="img-fluid mb-5"
-                width={1000}
-                height={667}
-                sizes="100vw"
-              />
+              {post[0].image ? (
+                <Image
+                  src={post[0].img.url}
+                  alt=""
+                  className="img-fluid mb-5"
+                  width={1000}
+                  height={667}
+                  sizes="100vw"
+                />
+              ) : (
+                <p>Image will be here</p>
+              )}
             </Col>
           </Row>
           <Row>
