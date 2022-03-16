@@ -45,9 +45,7 @@ export async function getStaticProps() {
   };
 }
 
-const Index = (props) => {
-  const { posts } = props;
-
+const Index = ({ posts }) => {
   const featuredPost = posts[0];
   return (
     <>

@@ -66,6 +66,7 @@ export async function getServerSideProps({ query }) {
 
 export default function Blog(props) {
   const { post } = props;
+
   const heroProps = {
     textCenter: props.textCenter,
   };
@@ -81,7 +82,7 @@ export default function Blog(props) {
                 breadcrumbs={props.breadcrumbs.breadcrumbs}
                 {...heroProps}
               />
-              {post[0].image ? (
+              {post[0].img ? (
                 <Image
                   src={post[0].img.url}
                   alt=""
