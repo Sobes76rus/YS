@@ -42,6 +42,7 @@ export async function getStaticProps() {
       ceoPagesGroups,
       title: "Блог",
     },
+    revalidate: 60,
   };
 }
 
