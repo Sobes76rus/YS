@@ -35,6 +35,8 @@ export async function getStaticProps() {
       headerAbsolute: true,
       title: "404",
     },
+
+    revalidate: 60,
   };
 }
 
